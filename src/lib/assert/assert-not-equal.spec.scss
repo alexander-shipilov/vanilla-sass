@@ -1,0 +1,15 @@
+@import "@assert";
+@import "assert";
+@import "assert-is-true";
+@import "assert-not-equal";
+@import "assert-throws";
+
+@include assert("assert-not-equal: throws if the passed arguments are not equal", (
+    (assert-not-equal, foo, foo) throws 'AssertionError: Expected value to not equal { string } foo, instead received { string } foo',
+    (assert-not-equal, (1, 2), (1, 2)) throws "AssertionError: Expected value to not equal { list } [1, 2], instead received { list } [1, 2]",
+    (assert-not-equal, (1, 2), 1 2) throws "AssertionError: Expected value to not equal { list } [1, 2], instead received { list } [1, 2]",
+));
+
+@include assert("assert-not-equal: returns true if the assertion passed", (
+  assert-not-equal(1, 2) is-true,
+));

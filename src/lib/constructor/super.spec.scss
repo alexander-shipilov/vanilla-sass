@@ -1,0 +1,6 @@
+@import "../assert";
+@import "super";
+
+@include assert("super: should throw if called outside of constructor", (
+    (super) throws "SyntaxError: `super()` unexpected here",
+));

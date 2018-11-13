@@ -1,0 +1,28 @@
+@import "../core/throw";
+@import "../func/func-validate--";
+ @import "../types/optional/optional--";
+@import "list-reduce--";
+
+
+/// Applies a callback against an accumulator and each element in the list (from left to right) to reduce
+/// it to a single value
+/// @group list
+///
+/// @param { list } $list
+/// @param { callable } $callback
+/// @param { opt(any) } $initial
+/// @return { list }
+///
+/// @example
+///
+///    @debug list-reduce() // 
+///
+@function list-reduce($list, $callback, $initial: null, $other...) {
+    $valid-args: func-validate--(list-reduce, (list: list $list, callback: callable $callback, initial: any $initial));
+
+    @if ($initial == null and length($list) == 0) {
+        @return throw("list-reduce() of empty list with no initial value", TypeError);
+    }
+
+    @return if($valid-args, list-reduce--($list, $callback, $initial), null);
+}

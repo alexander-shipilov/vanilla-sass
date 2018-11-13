@@ -1,0 +1,23 @@
+@import "../func/func-const";
+@import "@assert";
+@import "assert-throws";
+@import "assert-is-true";
+
+@include assert("assert-throws: throws if the passed callable does not throw", (
+    (assert-throws, func-const) throws "AssertionError: Expected `func-const()` to throw an error. But it didn't throw anything.",
+));
+
+@include assert("assert-throws: throws if the passed callable throws an error that does not match the passed matcher", (
+    (assert-throws, (throw, "error"), "foo") throws "AssertionError: Expected `throw(error)` to throw an error matching `foo`. Instead, it threw: `Error: error`",
+));
+
+@include assert("assert-throws: returns `true` if the assertion passed", (
+  assert-throws((throw, "error")) is-true,
+  assert-throws((throw, "error"), "error") is-true,
+  assert-throws((throw, "error"), "Error: error") is-true,
+));
+
+@include assert("assert-throws: should throw ArgumentError if invalid arguments passed", (
+    (assert-throws, 1) throws "ArgumentError: Invalid argument `$callable` of `assert-throws($callable: callable, $match: ?string, $message: ?string)`. Expected value of callable, instead given { number } 1",
+    (assert-throws, (throw, "foo"), 1) throws "ArgumentError: Invalid argument `$match` of `assert-throws($callable: callable, $match: ?string, $message: ?string)`. Expected value of ?string, instead given { number } 1",
+));

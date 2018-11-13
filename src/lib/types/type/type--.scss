@@ -1,0 +1,29 @@
+@import "../../core/@void";
+@import "../../constructor/constructor--";
+@import "../../constructor/constructor-call-check";
+@import "../../constructor/new--";
+@import "../../core/$to-string";
+@import "../../global/global";
+@import "../../global/global-const--";
+@import "../../global/is-undefined";
+@import "--type-to-string";
+
+/// Type constructor
+/// @group types
+/// @access private
+@function --type-constructor($validator) {
+  @if (not constructor-call-check()) {
+    @return null;
+  }
+
+  @return (
+    validator: $validator,
+    $to-string: type-to-string--
+  );
+}
+
+@function type--($validator, $other...) {
+  @return new--(global(type), $validator);
+}
+
+@include void(if(is-undefined(type), global-const--(type, constructor--(--type-constructor, type)), null));

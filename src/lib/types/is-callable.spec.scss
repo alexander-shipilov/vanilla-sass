@@ -1,0 +1,19 @@
+@import "../assert";
+@import "is-callable";
+
+@include assert("is-callable: returns true if the passed value can be called with func-call", (
+    is-callable(call) is-true,
+    is-callable(is-callable) is-true,
+    is-callable((is-callable,)) is-true,
+    is-callable((is-callable, 1)) is-true,
+    is-callable(((is-callable, 1), 2)) is-true
+));
+
+@include assert("is-callable: returns false if the passed value can not be called with func-call", (
+    is-callable(null) is-false,
+    is-callable(1) is-false,
+    is-callable(true) is-false,
+    is-callable("string") is-false,
+    is-callable(string) is-false,
+    is-callable((foo: 1)) is-false
+));

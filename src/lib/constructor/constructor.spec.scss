@@ -1,0 +1,11 @@
+@import "../assert";
+@import "--spec--/--test-costructor";
+
+@include assert("constructor: returns an identifier of created constructor", (
+    type-of(constructor(--test-base)) equal "string",
+));
+
+@include assert("constructor: should throw ArgumentError if invalid arguments passed", (
+    (constructor, null) throws "ArgumentError: Invalid argument `$func` of `constructor($func: callable, $name: ?string)`. Expected value of callable, instead given null",
+    (constructor, --test-base, 1) throws "ArgumentError: Invalid argument `$name` of `constructor($func: callable, $name: ?string)`. Expected value of ?string, instead given { number } 1",
+))

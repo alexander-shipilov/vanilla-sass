@@ -1,0 +1,18 @@
+@import "func-call-unsafe";
+@import "func-bind--";
+
+/// Creates a new callable that, when called with func-call has a given sequence of arguments preceding any provided.
+/// @group func
+///
+/// @param { callable } $callable
+/// @param { list } $args...
+/// @return { callable }
+///
+/// @example
+///
+///   @debug func-bind(call, type-of, 1); // (call, type-of, 1)
+///   @debug func-call(func-bind(call, type-of, 1)); // number
+///
+@function func-bind($callable, $args...) {
+  @return func-call-unsafe--(func-bind, (callable: callable $callable, "args...": arglist $args));
+}

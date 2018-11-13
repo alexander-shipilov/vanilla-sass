@@ -1,0 +1,17 @@
+/// @group array
+/// @access private
+@function --array-iterate($array, $callback, $args...) {
+  $length: length($array);
+  $every: true;
+
+  @if ($length != 0) {
+    $index: 1;
+
+    @while ($every == true and $index <= $length) {
+      $every: to-bool(func-call--($callback, nth($array, $index), $index, $array, $args...));
+      $index: $index + 1;
+    }
+  }
+
+  @return $every;
+}

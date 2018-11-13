@@ -1,0 +1,41 @@
+@import "../../constructor/new--";
+@import "../../constructor/super";
+@import "../../core/@void";
+@import "../../global/global";
+@import "../../list/list-every--";
+@import "../type/--define-type";
+@import "../type/--type-to-string";
+
+/// @group types/list-of
+/// @access private
+@function --list-of-validate($value, $list-of, $other...) {
+  @return is-list($value) and list-every--($value, (is-type-of--, map-get($list-of, type)));
+}
+
+/// @group types/list-of
+/// @access private
+@function --list-of-to-string($list-of, $other...) {
+  @return --type-to-string($list-of, map-get($list-of, type));
+}
+
+/// @group types/list-of
+/// @access private
+@function --list-of-constructor($type) {
+  @if (not constructor-call-check()) {
+    @return null;
+  }
+
+  @return map-merge(super(--list-of-validate), (
+    type: $type,
+    $to-string: --list-of-to-string
+  ));
+}
+
+/// Unsafe list-of()
+/// @group types/list-of
+/// @see list-of
+@function list-of--($types, $other...) {
+  @return new--(global(list-of), $types);
+}
+
+@include void(--define-type(list-of, --list-of-constructor));

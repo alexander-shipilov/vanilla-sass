@@ -1,0 +1,17 @@
+@import "value-of";
+
+/// Not strict compare
+/// @group core
+///
+/// @param { any } $first
+/// @param { any } $second
+/// @return { bool }
+///
+/// @example
+///
+///   @debug 1 2 == (1, 2) // false
+///   @debug is-equal(1 2, (1, 2)) // true
+///
+@function is-equal($first, $second) {
+    @return value-of($first) == value-of($second);
+}

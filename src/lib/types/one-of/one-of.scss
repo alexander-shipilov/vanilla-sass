@@ -1,0 +1,17 @@
+@import "../../func/func-call-unsafe--";
+@import "../list-of/list-of--";
+@import "one-of--";
+
+/// Create new "one of" type
+/// @group types
+///
+/// @param { type } $type
+/// @return { map }
+///
+/// @example
+///
+///   @debug is-type-of(one-of((string, number)), "foo"); // true
+///
+@function one-of($types, $other...) {
+  @return func-call-unsafe--(one-of, (types: list-of--(type) $types));
+}

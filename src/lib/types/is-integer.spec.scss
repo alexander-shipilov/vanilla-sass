@@ -1,0 +1,12 @@
+@import "../assert";
+@import "is-integer";
+
+@include assert("is-integer: checks if the passed value is an integer", (
+  is-integer(1) is-true,
+  is-integer(1px) is-true,
+  is-integer(3px / 1px) is-true,
+  is-integer(3 / 2) is-false,
+  is-integer(3px / 2em) is-false,
+  is-integer(null) is-false,
+  is-integer("1") is-false,
+));

@@ -1,0 +1,9 @@
+/// Unsafe list-n()
+/// @group list
+/// @see list-n
+@function list-n--($list, $n) {
+    $length: length($list) + 1;
+    $n: floor(if($n < 0, $length + $n, $n));
+
+    @return if($n < 1, 0, if($n > $length, $length, $n));
+}

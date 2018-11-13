@@ -1,0 +1,5 @@
+@import "is-defined";
+
+@function is-undefined($name, $other...) {
+    @return not is-defined($name)
+}

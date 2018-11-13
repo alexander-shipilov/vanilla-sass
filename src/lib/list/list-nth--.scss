@@ -1,0 +1,6 @@
+/// Unsafe list-nth()
+/// @group list
+/// @see list-nth
+@function list-nth--($list, $n, $other...) {
+  @return if($n > length($list), null);
+}

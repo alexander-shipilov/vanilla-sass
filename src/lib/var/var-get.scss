@@ -1,0 +1,18 @@
+@import "../func/func-call-unsafe--";
+@import "../global/global";
+@import "--var";
+@import "var-get--";
+
+/// Returns a value of the passed variable
+/// @group var
+///
+/// @param { global(var) } $var
+/// @return { any }
+///
+/// @example
+///
+///    @debug var-get() //
+///
+@function var-get($var: null, $other...) {
+  @return func-call-unsafe--(var-get, (var: global(var) $var));
+}

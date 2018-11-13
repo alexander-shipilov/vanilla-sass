@@ -1,0 +1,6 @@
+@import "func-call-unsafe--";
+@import "func-call--";
+
+@function func-call($callable, $args...) {
+  @return func-call-unsafe--(func-call, (callable: callable $callable, "args...": arglist $args));
+}

@@ -1,0 +1,25 @@
+@import "../func/func-validate--";
+@import "@assert--";
+
+/// Assert
+/// @group assert
+///
+/// @param { string } $message
+/// @param { list } $assertions
+///
+/// @examples
+///
+///   @include assert("my check", (
+///     2 + 2 == 4,
+///     foo equal foo,
+///     (throw MyError) throws,
+///     (throw MyError) throws MyError,
+///   ));
+///
+@mixin assert($message, $assertions, $other...) {
+  $valid-args: func-validate--("@assert", (message: string $message, assertions: list $assertions));
+
+  @if ($valid-args) {
+    @include assert--($message, $assertions);
+  }
+}

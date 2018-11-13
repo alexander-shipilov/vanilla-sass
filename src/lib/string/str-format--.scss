@@ -1,0 +1,14 @@
+@import "str-replace--";
+
+/// Unsafe str-format()
+/// @group string
+/// @see str-format
+@function str-format--($message, $args...) {
+    $length: length($args);
+
+    @for $index from 1 through $length {
+        $message: str-replace--($message, "%#{ $index }", nth($args, $index));
+    }
+
+    @return $message;
+}

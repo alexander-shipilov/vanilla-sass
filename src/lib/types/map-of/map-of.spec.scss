@@ -1,0 +1,23 @@
+@import "../../assert";
+@import "../is-type";
+@import "../is-type-of";
+@import "map-of";
+
+$map-of-strings: map-of(string);
+
+@include assert("map-of: creates a new map-of type", (
+  is-type($map-of-strings) is-true,
+));
+
+@include assert("map-of: is-type-of", (
+  is-type-of($map-of-strings, ()) is-true,
+  is-type-of($map-of-strings, (foo: foo, bar: bar)) is-true,
+  is-type-of(map-of($map-of-strings), (foo: (foo: foo), bar: (bar: bar))) is-true,
+  is-type-of($map-of-strings, (foo: 1, bar: 2)) is-false,
+  is-type-of(map-of($map-of-strings), (foo: (foo: 1))) is-false,
+  is-type-of($map-of-strings, null) is-false,
+));
+
+@include assert("map-of: should throw ArgumentError if invalid params passed", (
+    (map-of, 1) throws "ArgumentError: Invalid argument `$type` of `map-of($type: type)`. Expected value of type, instead given { number } 1",
+));

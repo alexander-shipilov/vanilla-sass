@@ -1,0 +1,19 @@
+@import "../func/func-call-unsafe--";
+@import "../global/global";
+@import "--var";
+@import "var-set--";
+
+/// Assigns a value to the passed variable
+/// @group var
+///
+/// @param { global(var) } $var
+/// @param { any } $value
+/// @return { global(var) }
+///
+/// @example
+///
+///   @debug var-set() //
+///
+@function var-set($var: null, $value: null, $other...) {
+  @return func-call-unsafe--(var-set, (var: global(var) $var, value: any $value));
+}

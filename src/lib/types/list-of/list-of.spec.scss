@@ -1,0 +1,21 @@
+@import "../../assert";
+@import "../is-type";
+@import "../is-type-of";
+@import "list-of";
+
+$list-of-strings: list-of(string);
+
+@include assert("list-of: creates new list-of type", (
+  is-type($list-of-strings) is-true,
+));
+
+@include assert("list-of: should check", (
+  is-type-of($list-of-strings, ()) is-true,
+  is-type-of($list-of-strings, foo bar) is-true,
+  is-type-of($list-of-strings, 1 2) is-false,
+  is-type-of($list-of-strings, null) is-false,
+));
+
+@include assert("list-of: should throw ArgumentError if invalid params passed", (
+    (list-of, 1) throws "ArgumentError: Invalid argument `$type` of `list-of($type: type)`. Expected value of type, instead given { number } 1",
+));

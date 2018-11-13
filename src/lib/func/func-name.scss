@@ -1,0 +1,16 @@
+@import "func-call-unsafe";
+@import "func-name--";
+
+/// Return name of the specified callable
+/// @group func
+///
+/// @param { callable } $func
+/// @return { string }
+///
+/// @example
+///
+///   @debug func-name(((str-index, "foo bar"), "foo"))); // str-index
+///
+@function func-name($func, $other...) {
+  @return func-call-unsafe--(func-name, (callable: callable $func));
+}

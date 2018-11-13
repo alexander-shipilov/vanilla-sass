@@ -1,0 +1,14 @@
+/// Checks if the passed value is a number
+/// @group types
+///
+/// @param { any } $value
+/// @return { bool }
+///
+/// @example
+///
+///   @debug is-number(1px); // true
+///   @debug is-number(1%, px); // false
+///
+@function is-number($value, $other...) {
+  @return type-of($value) == number;
+}

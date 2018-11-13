@@ -1,0 +1,22 @@
+@import "../core/throw";
+@import "../debug/debug-func";
+@import "../debug/debug-type";
+@import "../debug/debug-value";
+@import "../types/is-type-of--";
+
+/// Unsafe func-validate()
+/// @group func
+/// @see func-validate
+@function func-validate--($name, $args, $other...) {
+  @each $arg, $type-value in $args {
+    @if (not is-type-of--($type-value...)) {
+      $type: nth($type-value, 1);
+      $value: nth($type-value, 2);
+
+      @return throw("Invalid argument `$#{ $arg }` of #{ debug-func($name, $args) }."
+        + " Expected value of #{ debug-type($type) }, instead given #{ debug-value($value) }", ArgumentError);
+    }
+  }
+
+  @return true;
+}

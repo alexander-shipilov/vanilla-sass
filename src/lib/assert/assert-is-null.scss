@@ -1,0 +1,16 @@
+@import "assert-equal";
+
+/// Asserts that the passed value is null.
+/// @group assert
+///
+/// @param { any } $value
+/// @param { string } $message
+/// @return null
+///
+/// @example
+///
+///   @debug assert-is-null(true); // throws an error
+///
+@function assert-is-null($value, $message: null) {
+  @return assert-equal($value, null, $message);
+}

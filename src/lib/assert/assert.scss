@@ -1,0 +1,23 @@
+@import "../func/func-call-unsafe--";
+@import "../types/optional/optional--";
+@import "assert--";
+
+/// Tests if assertion is truthy.
+/// It is equivalent to assert-equal(to-bool(value), true)
+/// @group assert
+/// @see to-bool
+///
+/// @param { any } $assertion
+/// @param { string } $message [null]
+/// @return { bool }
+///
+/// @throw AssertionError
+///
+/// @example
+///
+///   @debug assert(true); true
+///   @debug assert(false); // throws `AssertionError: Expected value to be truthy, instead received <bool> false`
+///
+@function assert($assertion, $message: null) {
+  @return func-call-unsafe--(assert, (assertion: any $assertion, message: opt--(string) $message));
+}

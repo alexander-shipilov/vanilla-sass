@@ -1,0 +1,7 @@
+@import "../assert";
+@import "func-validate";
+
+@include assert("func-validate: should throw ArgumentError if invalid params passed", (
+    (func-validate, null, null) throws "ArgumentError: Invalid argument `$func` of `func-validate($func: function, $args: map-of(list(type, ...)))`. Expected value of function, instead given null",
+    (func-validate, baz, null) throws "ArgumentError: Invalid argument `$func` of `func-validate($func: function, $args: map-of(list(type, ...)))`. Expected value of function, instead given { string } baz",
+));

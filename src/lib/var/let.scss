@@ -1,0 +1,17 @@
+@import "../func/func-call-unsafe--";
+@import "let--";
+
+/// Creates a variable
+/// @group var
+///
+/// @param { any } $value
+/// @param { type } $type
+/// @return { var }
+///
+/// @example
+///
+///   @debug let() //
+///
+@function let($value: null, $type: any, $other...) {
+  @return func-call-unsafe--(let, (value: any $value, type: type $type));
+}

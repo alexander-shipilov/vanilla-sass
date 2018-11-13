@@ -1,0 +1,9 @@
+@import "../list/list-slice--";
+@import "func-bind--";
+
+/// Unsafe func-args()
+/// @group func
+/// @see func-args
+@function func-args--($callable, $other...) {
+  @return list-slice--(func-bind--($callable), 2);
+}

@@ -1,0 +1,8 @@
+/// Function that returns the passed value
+/// @group func
+///
+/// @param { any } $value
+/// @return { any }
+@function func-const($value: null, $other...) {
+  @return $value;
+}

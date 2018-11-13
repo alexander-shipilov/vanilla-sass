@@ -1,0 +1,21 @@
+@import "../func/func-call-unsafe--";
+ @import "../types/optional/optional--";
+@import "instance-of--";
+
+/// Determines whether the passed value is created by the given constructor
+/// @group constructor
+///
+/// @param { any } $value
+/// @param { constructor } $constructor
+/// @return { bool }
+///
+/// @example
+///
+///   $my-proto: constructor();
+///   $my-instance = new($my-proto, foo);
+///
+///   @debug instance-of($my-instance, $my-proto); // true
+///
+@function instance-of($value: null, $constructor: null, $other...) {
+  @return func-call-unsafe--(instance-of, (value: any $value, constructor: constructor $constructor));
+}

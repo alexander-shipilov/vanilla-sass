@@ -1,0 +1,24 @@
+@import "../../func/func-call-unsafe--";
+@import "type--";
+
+/// Registers a custom type with specified validator
+/// @group types
+///
+/// @param { callable } $validator
+/// @return { type } type
+///
+/// @example
+///
+///   @function is-id($value) {
+///     @return type-of($value) == "string" and str-slice($value, 1, 3) == "id-";
+///   }
+///
+///   $id-type: type(is-id);
+///
+///   @debug is-type-of($id-type, "id-123"); // true
+///   @debug is-type-of($id-type, "invalid"); // false
+///   @debug is-type-of($id-type, 1); // false
+///
+@function type($validator, $other...) {
+  @return func-call-unsafe--(type, (validator: callable $validator));
+}

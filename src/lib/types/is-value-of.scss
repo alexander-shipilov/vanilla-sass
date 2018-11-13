@@ -1,0 +1,5 @@
+@import "is-type-of";
+
+@function is-value-of--($value: null, $type: null, $other...) {
+  @return is-type-of($type, $value);
+}

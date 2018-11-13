@@ -1,0 +1,12 @@
+@import "../list/list-map--";
+@import "../global/global";
+
+/// Creates new context
+@function with($func, $context...) {
+
+
+    $context: keywords($context);
+    $current-context: list-map--(map-keys($context));
+
+    $result: func-call($func)
+}

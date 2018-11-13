@@ -1,0 +1,5 @@
+@import "debug-type";
+
+@function debug-func-arg($arg, $type: null) {
+  @return "$#{ $arg }#{ if($type == null, "", ": #{ debug-type($type) }") }";
+}

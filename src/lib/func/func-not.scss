@@ -1,0 +1,10 @@
+@import "func-bind--";
+@import "func-call--";
+
+@function --func-not($func, $args...) {
+  @return not func-call--($func, $args...);
+}
+
+@function func-not($func, $args...) {
+  @return func-bind--(--func-not, $func, $args...);
+}

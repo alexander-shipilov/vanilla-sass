@@ -1,0 +1,16 @@
+/// Checks if the passed value is a function
+/// @group types
+///
+/// @param { any } $value
+/// @return { bool }
+///
+/// @example
+///
+///   @debug is-function(call); // true
+///   @debug is-function(1); // false
+///
+@function is-function($value, $other...) {
+  $type: type-of($value);
+
+  @return $type == function or ($type == string and function-exists($value));
+}

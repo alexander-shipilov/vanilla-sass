@@ -1,0 +1,79 @@
+@import "../assert";
+@import "../global/global";
+@import "../func/func-arglist";
+@import "is-string";
+@import "is-type-of";
+@import "type/type";
+
+$is-string: type(is-string);
+
+@include assert("is-type-of(type): returns true if the passed value is one of registered types", (
+  is-type-of(type, any) is-true,
+  is-type-of(type, arglist) is-true,
+  is-type-of(type, bool) is-true,
+  is-type-of(type, callable) is-true,
+  is-type-of(type, constructor) is-true,
+  is-type-of(type, integer) is-true,
+  is-type-of(type, list) is-true,
+  is-type-of(type, map) is-true,
+  is-type-of(type, number) is-true,
+  is-type-of(type, null) is-true,
+  is-type-of(type, string) is-true,
+  is-type-of(type, type) is-true,
+));
+
+@include assert("is-type-of(<constructor *>): returns true if the passed value is an instance created by the given constructor", (
+  is-type-of(global(type), $is-string) is-true,
+  is-type-of(global(type), 1) is-false,
+));
+
+@include assert("is-type-of(<type *>): returns true if the passed value is a value of the given type", (
+  is-type-of($is-string, "") is-true,
+  is-type-of($is-string, 1) is-false,
+));
+
+@include assert("is-type-of(function): returns true if the passed value is a function", (
+  is-type-of(function, call) is-true,
+  is-type-of(function, is-type-of) is-true,
+  is-type-of(function, 1) is-false,
+));
+
+@include assert("is-type-of(callable): returns true if the passed value can be called with func-call", (
+  is-type-of(callable, call) is-true,
+  is-type-of(callable, is-type-of) is-true,
+  is-type-of(callable, (is-type-of, 1)) is-true,
+  is-type-of(callable, ((is-type-of, 1), 1)) is-true,
+));
+
+@include assert("is-type-of(list): returns true if the passed value is a list / arglist", (
+  is-type-of(list, ()) is-true,
+  is-type-of(list, (1, 2, 3)) is-true,
+  is-type-of(list, func-arglist()) is-true,
+  is-type-of(list, func-arglist(1, 2, 3)) is-true,
+));
+
+@include assert("is-type-of(arglist): returns true if the passed value is an arglist", (
+  is-type-of(arglist, func-arglist()) is-true,
+  is-type-of(arglist, func-arglist(1, 2, 3)) is-true,
+  is-type-of(arglist, ()) is-false,
+  is-type-of(arglist, (1, 2, 3)) is-false,
+));
+
+@include assert("is-type-of(map): returns true if the passed value is a map or an empty list or arglist", (
+  is-type-of(map, ()) is-true,
+  is-type-of(map, func-arglist()) is-true,
+  is-type-of(map, (foo: 1)) is-true,
+  is-type-of(map, (1,)) is-false,
+));
+
+@include assert("is-type-of(): returns true if the passed arg is a value of the specified type", (
+  is-type-of(string, "") is-true,
+  is-type-of(number, 1) is-true,
+  is-type-of(bool, true) is-true,
+  is-type-of(bool, false) is-true,
+));
+
+@include assert("is-type-of(null): returns true if the passed value is null", (
+  is-type-of("null", null) is-true,
+  is-type-of(null, null) is-true,
+));

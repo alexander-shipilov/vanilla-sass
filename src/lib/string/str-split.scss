@@ -1,0 +1,6 @@
+@import "../func/func-call-unsafe--";
+@import "str-split--";
+
+@function str-split($string, $separator, $other...) {
+    @return func-call-unsafe--(str-split, (string: string $string, separator: string $separator));
+}

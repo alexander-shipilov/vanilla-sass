@@ -1,0 +1,9 @@
+@import "../assert";
+@import "../func/func-const";
+@import "try";
+@import "throw";
+
+@include assert("try: invokes the passed callable and returns (error, result)", (
+    try((func-const, arg)) equal (null, arg),
+    try((throw, "error")) equal ("Error: error", null),
+));

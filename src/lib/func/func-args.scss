@@ -1,0 +1,17 @@
+@import "func-call-unsafe--";
+@import "func-args--";
+
+/// Returns an arglist of parameters of the passed callable
+/// @group func
+///
+/// @param { callable } $callable
+/// @return { arglist }
+///
+/// @example
+///
+///   @debug func-args() //
+///
+@function func-args($callable, $other...) {
+  @return func-call-unsafe--(func-args, (callable: callable $callable));
+}
+

@@ -1,0 +1,6 @@
+/// Unsafe var-type()
+/// @group var
+/// @see var-type
+@function var-type--($var: null, $other...) {
+  @return map-get($var, type);
+}

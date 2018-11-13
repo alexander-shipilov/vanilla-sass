@@ -1,0 +1,15 @@
+@import "$--symbols";
+
+/// Checks whether the passed value is a symbol
+/// @group constructor
+///
+/// @param { any } $value
+/// @return { bool }
+///
+/// @example
+///
+///   @debug is-symbol(symbol-for(my-symbol)); // true
+///
+@function is-symbol($value, $other...) {
+  @return type-of($value) == "string" and map-has-key($--symbols, $value);
+}

@@ -1,0 +1,5 @@
+@import "../core/to-string";
+
+@function debug-type($type, $other...) {
+  @return to-string($type);
+}

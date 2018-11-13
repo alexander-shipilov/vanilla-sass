@@ -1,0 +1,5 @@
+@function str-starts-with($string, $substring) {
+    $substring-length: str-length($substring);
+
+    @return if($substring-length == 0, true, str-slice($string, 1, $substring-length) == $substring);
+}

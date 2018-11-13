@@ -1,0 +1,10 @@
+@import "global-define--";
+
+/// Unsafe const()
+/// @group core
+/// @see const
+@function global-const--($name, $value: null, $other...) {
+  $descriptor: define--($name, (value: $value, writable: false, configurable: false));
+
+  @return map-get($descriptor, value);
+}

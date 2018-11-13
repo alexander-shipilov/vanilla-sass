@@ -1,0 +1,12 @@
+@import "../core/is-equal";
+@import "../debug/debug-value";
+@import "--assert-expect-message";
+@import "assert--";
+
+@function assert-not-equal($value, $expected, $message: null) {
+  @if ($message == null) {
+    $message: --assert-expect-message($value, "to not equal #{ debug-value($expected) }");
+  }
+
+  @return assert--(not is-equal($value, $expected), $message);
+}

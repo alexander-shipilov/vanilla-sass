@@ -1,0 +1,64 @@
+@import "../constructor/constructor--";
+@import "../constructor/instance-of--";
+@import "../constructor/new--";
+@import "../core/value-of";
+@import "../func/func-validate--";
+@import "../func/func-const";
+@import "../types/map-of/map-of--";
+@import "../types/optional/optional--";
+
+$type-value: map-of--((type, any));
+
+@function --var-constructor($type: null, $value: any, $read-only: false) {
+  @return (
+    type: $type,
+    value: $value,
+    read-only: $read-only,
+    $value-of: var-get
+  );
+}
+
+$--var: constructor--(--var-constructor, var);
+
+@function --vars($vars, $read-only: false) {
+  @each $name, $var in $vars {
+    $vars: map-merge($vars: new--($--var, $var...));
+  }
+
+  @return $vars;
+}
+
+@function var-set($var, $value) {
+  $valid-args: func-validate--(var-set, (var: $--var $var));
+
+  @if ($valid-args) {
+    @if (map-get($var, read-only)) {
+      @return throw("Assignment to constant variable", TypeError);
+    }
+
+    $valid-args: if($valid-args, func-validate--(var-set, (value: map-get($var, type) $value)), $valid-args);
+
+    @if ($valid-args) {
+      @return map-merge($var, (value: $value));
+    }
+  }
+}
+
+@function let($vars...) {
+  $vars: keywords($vars...);
+  @return func-call-unsafe--(let, (vars: map-of--($type-value) $vars));
+}
+
+@function const($vars...) {
+  $vars: keywords($vars...);
+  @return func-call-unsafe--(let, (vars: map-of--($type-value) $vars));
+}
+
+@function with($args...) {
+  $context: ();
+  $vars: keywords($args);
+}
+
+$result: global(let($name: string foo, $name: number 1));
+
+$result: with((name: let 1,));

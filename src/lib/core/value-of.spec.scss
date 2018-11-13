@@ -1,0 +1,20 @@
+@import "../assert";
+@import "../func/func-const";
+@import "value-of";
+
+
+@include assert("value-of(<list>): returns a coma separated bracketed list", (
+    is-bracketed(value-of(foo bar)) is-true,
+    list-separator(value-of(foo bar)) equal "comma",
+    value-of(foo bar) equal (foo, bar),
+));
+
+@include assert("value-of(<list>): returns a coma separated bracketed list", (
+    is-bracketed(nth(value-of((foo bar) ted), 1)) is-true,
+    list-separator(nth(value-of((foo bar) ted), 1)) equal "comma",
+    value-of((foo bar) ted) equal ((foo, bar), ted),
+));
+
+@include assert("value-of(<map>)", (
+    value-of(($value-of: (func-const, 1))) equal 1,
+));

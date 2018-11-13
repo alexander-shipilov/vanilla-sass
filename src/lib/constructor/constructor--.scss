@@ -1,0 +1,20 @@
+@import "../core/$to-string";
+@import "../types/is-callable";
+@import "../types/is-string";
+@import "../core/nvl";
+@import "../func/func-name--";
+@import "../string/str-format--";
+@import "$--constructors";
+
+/// Unsafe constructor()
+/// @group constructor
+/// @see constructor
+@function constructor--($func, $name: null, $other...) {
+    $name: nvl($name, func-name--($func));
+
+    @return --set-constructor-def("constructor-#{ $name }-#{ unique-id() }", (
+        constructor: $func,
+        constructor-name: $name,
+        $to-string: (str-format--, "<constructor %1>", $name)
+    ));
+}

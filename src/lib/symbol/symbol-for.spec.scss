@@ -1,0 +1,15 @@
+@import "../assert";
+@import "symbol-for";
+
+@include assert("symbol-for: returns a string", (
+  type-of(symbol-for(symbol-for-spec-foo)) == "string" is-true,
+));
+
+@include assert("symbol-for: returns a registered symbol", (
+  symbol-for(symbol-for-spec-foo) == symbol-for(symbol-for-spec-foo) is-true,
+));
+
+@include assert("constructor: should throw ArgumentError if invalid arguments passed", (
+    (symbol-for, null) throws "ArgumentError: Invalid argument `$key` of `symbol-for($key: string)`. Expected value of string, instead given null",
+    (symbol-for, 1) throws "ArgumentError: Invalid argument `$key` of `symbol-for($key: string)`. Expected value of string, instead given { number } 1",
+))

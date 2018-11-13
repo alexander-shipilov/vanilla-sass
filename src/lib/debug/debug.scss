@@ -1,0 +1,5 @@
+$debug: () !default;
+
+@function debug($message) {
+    $debug: append($debug, $message) !global;
+}

@@ -1,0 +1,18 @@
+@import "../func/func-call-unsafe--";
+@import "symbol-for--";
+
+/// Searches for existing symbols in a runtime-wide symbol registry with the given key and returns it if found.
+/// Otherwise a new symbol gets created in the global symbol registry with this key.
+/// @group symbol
+///
+/// @param { string } $key
+/// @return { string }
+///
+/// @example
+///
+///    @debug symbol-for("foo") // symbol-ui12345
+///
+@function symbol-for($key, $other...) {
+  @return func-call-unsafe--(symbol-for, (key: string $key));
+}
+

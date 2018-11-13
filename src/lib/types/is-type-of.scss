@@ -1,0 +1,16 @@
+@import "../func/func-call-unsafe--";
+@import "is-type-of--";
+
+/// Checks whether the passed type matches the given value
+/// @group types
+///
+/// @param { type } $type
+/// @param { any } $value
+/// @return { bool }
+///
+///   @debug is-type-of(string, foo); // true
+///   @debug is-type-of(list-of(number), (1,)); // true
+///
+@function is-type-of($type: null, $value: null, $other...) {
+  @return func-call-unsafe--(is-type-of, (type: type $type, value: any $value));
+}

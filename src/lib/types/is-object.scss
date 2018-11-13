@@ -1,0 +1,18 @@
+@import "is-list";
+
+/// Checks if the passed value is a map.
+/// @group types
+///
+/// @param { any } $map
+/// @param { opt(map-of(type)) } $types
+/// @return { bool }
+///
+/// @example
+///
+///   @debug is-object() //
+///
+@function is-object($value: null, $other...) {
+  $type: type-of($value);
+
+  @return $type == map or (($type == list or $type == arglist) and length($value) == 0);
+}

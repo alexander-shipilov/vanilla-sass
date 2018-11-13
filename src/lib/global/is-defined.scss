@@ -1,0 +1,11 @@
+@import "$--global";
+
+/// Checks if the specified variable is defined in the current context.
+/// @group core
+///
+/// @param { string } $name
+/// @return { bool }
+///
+@function is-defined($name, $other...) {
+  @return map-has-key($--vanilla-global, $name);
+}

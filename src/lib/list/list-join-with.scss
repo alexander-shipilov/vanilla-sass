@@ -1,0 +1,6 @@
+@import "../func/func-call-unsafe--";
+@import "list-join-with--";
+
+@function list-join-with($list, $with: "", $other...) {
+    @return func-call-unsafe--(list-join-with, (list: list $list, with: string $with));
+}

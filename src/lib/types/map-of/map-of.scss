@@ -1,0 +1,17 @@
+@import "../../func/func-call-unsafe--";
+@import "map-of--";
+
+/// Creates new "map of" type
+/// @group types
+///
+/// @param { type } $type
+/// @return { map }
+///
+/// @example
+///
+///   @debug is-type-of(map-of(string), ("foo", "bar")); // true
+///   @debug is-type-of(map-of(string), (1,)); // false
+///
+@function map-of($type, $other...) {
+  @return func-call-unsafe--(map-of, (type: type $type));
+}

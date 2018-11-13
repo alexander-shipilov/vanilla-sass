@@ -1,0 +1,21 @@
+@import "../../assert";
+@import "../is-type";
+@import "../is-type-of";
+@import "one-of";
+
+$string-or-number: one-of((string, number));
+
+@include assert("one-of($type): creates a new one-of type", (
+  is-type($string-or-number) is-true,
+));
+
+@include assert("is-type-of(one-of($type), ...)", (
+  is-type-of($string-or-number, "foo") is-true,
+  is-type-of($string-or-number, 1) is-true,
+  is-type-of($string-or-number, true) is-false,
+));
+
+@include assert("one-of: should throw ArgumentError if invalid params passed", (
+    (one-of, 1) throws 'ArgumentError: Invalid argument `$types` of `one-of($types: list-of(type))`. Expected value of list-of(type), instead given { number } 1',
+    (one-of, (1,)) throws 'ArgumentError: Invalid argument `$types` of `one-of($types: list-of(type))`. Expected value of list-of(type), instead given { list } [1,]',
+));

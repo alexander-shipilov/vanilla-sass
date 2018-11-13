@@ -1,0 +1,14 @@
+@import "../types/is-list";
+
+/// Unsafe func-bind()
+/// @group func
+/// @see func-bind
+@function func-bind--($callable, $args...) {
+  @while (is-list($callable)) {
+    $args: join($callable, $args);
+
+    @return func-bind--($args...);
+  }
+
+  @return join(($callable,), $args);
+}

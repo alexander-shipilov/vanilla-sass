@@ -1,0 +1,6 @@
+@import "../func/func-call-unsafe--";
+@import "list-every--";
+
+@function list-every($list, $callable, $args...) {
+    @return func-call-unsafe--(list-every, (list: list $list, func: callable $callable, "args...": arglist $args));
+}

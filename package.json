@@ -1,0 +1,42 @@
+{
+  "name": "vanilla-sass",
+  "version": "0.1.0",
+  "description": "Sass helpers",
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^4.0.1",
+    "node-sass": "^4.9.3",
+    "rimraf": "^2.6.2",
+    "yargs": "^12.0.2"
+  },
+  "scripts": {
+    "test": "gulp sass-test",
+    "test:assert": "gulp sass-test --src src/lib/assert",
+    "test:constructor": "gulp sass-test --src src/lib/constructor",
+    "test:core": "gulp sass-test --src src/lib/core",
+    "test:debug": "gulp sass-test --src src/lib/debug",
+    "test:func": "gulp sass-test --src src/lib/func",
+    "test:list": "gulp sass-test --src src/lib/list",
+    "test:map": "gulp sass-test --src src/lib/map",
+    "test:string": "gulp sass-test --src src/lib/string",
+    "test:symbol": "gulp sass-test --src src/lib/symbol",
+    "test:types": "gulp sass-test --src src/lib/types",
+    "test:var": "gulp sass-test --src src/lib/var"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexander-shipilov/vanilla-sass.git"
+  },
+  "keywords": [
+    "sass",
+    "vanilla sass"
+  ],
+  "author": "Alexander Shipilov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexander-shipilov/vanilla-sass/issues"
+  },
+  "homepage": "https://github.com/alexander-shipilov/vanilla-sass#readme",
+  "false": { }
+}

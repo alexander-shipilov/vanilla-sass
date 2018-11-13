@@ -1,0 +1,8 @@
+@import "../assert";
+@import "str-split";
+
+@include assert("str-split: splits a string into a list of strings by separating the string into substrings", (
+    str-split("a b c", " ") equal (a, b, c),
+    str-split("abc", "") equal (a, b, c),
+    str-split("abc", "z") equal ("abc",),
+));

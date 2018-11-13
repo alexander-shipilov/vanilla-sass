@@ -1,0 +1,8 @@
+@import "--var";
+
+/// Unsafe const()
+/// @group var
+/// @see const
+@function const--($value: null, $type: null, $other...) {
+  @return --var($value, $type, true);
+}

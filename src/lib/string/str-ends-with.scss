@@ -1,0 +1,5 @@
+@function str-ends-with($string, $substring) {
+  $substring-length: str-length($substring);
+
+  @return if($substring-length == 0, true, str-slice($string, max(str-length($string) - $substring-length + 1, 1)) == $substring);
+}

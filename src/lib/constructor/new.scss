@@ -1,0 +1,20 @@
+@import "../func/func-call-unsafe--";
+@import "new--";
+
+/// Creates new instance of the specified constructor
+/// @group constructor
+///
+/// @param { constructor } $constructor
+/// @param { list } $args...
+/// @return { map }
+///
+/// @example
+///
+///   $my-constructor: constructor(map);
+///   $my-instance = new($my-proto);
+///
+///   @debug instance-of($my-instance, $my-proto); // true
+///
+@function new($constructor, $args...) {
+    @return func-call-unsafe--(new, (constructor: constructor $constructor));
+}

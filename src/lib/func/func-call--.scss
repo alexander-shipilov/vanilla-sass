@@ -1,0 +1,15 @@
+@import "../types/is-list";
+
+@function func-call--($callable, $args...) {
+  @if (is-list($callable)) {
+    $args: join($callable, $args);
+
+    @return func-call--($args...);
+  }
+
+  @if (type-of($callable) != function and function-exists(get-function)) {
+    $callable: get-function($callable);
+  }
+
+  @return call($callable, $args...);
+}

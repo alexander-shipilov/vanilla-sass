@@ -1,0 +1,28 @@
+@import "../list/list-slice--";
+@import "str-reverse";
+@import "str-indexes";
+@import "str-split--";
+
+@function str-replace--($string, $substring, $replacement, $count: null) {
+    $length: length($string);
+    $next-string: "";
+
+    @if ($length == 0 or $substring == $replacement) {
+        $next-string: $string;
+    } @else {
+        $parts: str-split--($string, $substring);
+
+        $last-index: 1;
+        $substring-length: max(str-length($substring), 1);
+        $indexes: str-indexes($string, $substring, $count);
+
+        @each $index in $indexes {
+            $next-string: $next-string + str-slice($string, $last-index, $index - 1) + $replacement;
+            $last-index: $index + $substring-length;
+        }
+
+        $next-string: $next-string + str-slice($string, $last-index);
+    }
+
+    @return $next-string;
+}

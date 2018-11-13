@@ -1,0 +1,7 @@
+@import "../assert";
+@import "./func-arglist";
+
+@include assert("func-arglist: returns an arglist of passed arguments", (
+  func-arglist(1, 2, 3) equal (1, 2, 3),
+  func-arglist() equal ()
+))

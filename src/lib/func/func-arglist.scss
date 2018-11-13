@@ -1,0 +1,12 @@
+/// Returns list of passed arguments
+/// @group func
+///
+/// @return { arglist }
+///
+/// @example
+///
+///    @debug debug-value(func-arglist(1, 2, 3)) // {arglist} (1, 2, 3)
+///
+@function func-arglist($args...) {
+  @return $args;
+}

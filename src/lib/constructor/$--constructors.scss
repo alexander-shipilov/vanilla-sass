@@ -1,0 +1,18 @@
+/// Map of registered constructors' definitions
+/// @group constructor
+/// @access private
+$--constructors: () !default;
+
+/// @group constructor
+/// @access private
+@function --get-constructor-def($constructor) {
+    @return if(type-of($constructor) == "string", map-get($--constructors, $constructor), null);
+}
+
+/// @group constructor
+/// @access private
+@function --set-constructor-def($constructor, $constructor-def) {
+    $--constructors: map-merge($--constructors, ($constructor: $constructor-def)) !global;
+
+    @return $constructor;
+}

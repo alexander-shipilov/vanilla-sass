@@ -1,0 +1,15 @@
+@import "@assert";
+@import "assert-equal";
+@import "assert-is-false";
+@import "assert-is-true";
+@import "assert-throws";
+
+@include assert("assert-is-false: throws if the passed arguments is not false", (
+    (assert-is-false, true) throws "AssertionError: Expected value to equal { bool } false, instead received { bool } true",
+    (assert-is-false, "") throws 'AssertionError: Expected value to equal { bool } false, instead received { string } ""',
+    (assert-is-false, 0) throws "AssertionError: Expected value to equal { bool } false, instead received { number } 0",
+));
+
+@include assert("assert-is-false: returns true if the assertion passed", (
+  assert-is-false(false) is-true,
+));

@@ -1,0 +1,17 @@
+@import "../../func/func-call-unsafe--";
+@import "value--";
+
+/// Create new "one of" type
+/// @group types
+///
+/// @param { any } $value
+/// @return { map }
+///
+/// @example
+///
+///   @debug is-type-of(value("foo"), "foo"); // true
+///   @debug is-type-of(value("foo"), "bar"); // false
+///
+@function value($value: null, $other...) {
+  @return func-call-unsafe--(value, (value: any $value));
+}

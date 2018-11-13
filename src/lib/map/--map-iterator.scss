@@ -1,0 +1,7 @@
+@import "../func/func-call--";
+
+// @group map
+// @access private
+@function --map-iterator($callable, $key-value, $index, $args...) {
+  @return func-call--($callable, nth($key-value, 2), nth($key-value, 1), $args...);
+}

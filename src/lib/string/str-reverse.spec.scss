@@ -1,0 +1,7 @@
+@import "../assert";
+@import "str-reverse";
+
+@include assert("str-reverse: returns a new reversed string", (
+    str-reverse("abc") equal "cba",
+    str-reverse("") equal "",
+));

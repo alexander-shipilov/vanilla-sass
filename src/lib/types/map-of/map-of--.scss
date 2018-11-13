@@ -1,0 +1,42 @@
+@import "../../constructor/new--";
+@import "../../constructor/super";
+@import "../../core/@void";
+@import "../../global/global";
+@import "../../map/map-every--";
+@import "../type/--define-type";
+@import "../type/--type-to-string";
+@import "../is-type-of--";
+
+/// @group types/map-of
+/// @access private
+@function --map-of-validate($value, $map-of, $other...) {
+  @return is-map($value) and map-every--($value, (is-type-of--, map-get($map-of, type)));
+}
+
+/// @group types/map-of
+/// @access private
+@function --map-of-to-string($map-of, $other...) {
+  @return --type-to-string($map-of, map-get($map-of, type));
+}
+
+/// @group types/map-of
+/// @access private
+@function --map-of-constructor($type) {
+  @if (not constructor-call-check()) {
+    @return null;
+  }
+
+  @return map-merge(super(--map-of-validate), (
+    type: $type,
+    $to-string: --map-of-to-string
+  ));
+}
+
+/// Unsafe map-of()
+/// @group types/map-of
+/// @see map-of
+@function map-of--($types, $other...) {
+  @return new--(global(map-of), $types);
+}
+
+@include void(--define-type(map-of, --map-of-constructor));

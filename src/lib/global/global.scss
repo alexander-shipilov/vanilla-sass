@@ -1,0 +1,10 @@
+@import "../core/nvl";
+@import "$--global";
+
+/// Returns globally defined variable
+/// @group core
+/// @see const
+/// @see let
+@function global($name, $default: null) {
+    @return if(map-has-key($--vanilla-global, $name), map-get(map-get($--vanilla-global, $name), value), $default);
+}

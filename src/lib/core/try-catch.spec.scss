@@ -1,0 +1,12 @@
+@import "../assert";
+@import "../func/func-const";
+@import "throw";
+@import "try-catch";
+
+@include assert("try-catch: invokes the given callable and returns a thrown error", (
+    try-catch((throw, "error")) equal "Error: error",
+));
+
+@include assert("try-catch: should return null if exception was not thrown during passed function invocation", (
+    try-catch((func-const, arg)) is-null,
+));

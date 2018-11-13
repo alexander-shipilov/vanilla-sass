@@ -1,0 +1,14 @@
+@import "../core/throw";
+@import "../core/to-bool";
+@import "--assert-expect-message";
+
+/// Unsafe assert()
+/// @group assert
+/// @see assert
+@function assert--($assertion, $message: null) {
+  @if (to-bool($assertion) == false) {
+    @return throw(--assert-expect-message($assertion, "to be truthy", $message), "AssertionError");
+  }
+
+  @return $assertion;
+}

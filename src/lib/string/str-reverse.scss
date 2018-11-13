@@ -1,0 +1,12 @@
+@function str-reverse($string) {
+    $length: str-length($string);
+    $next-string: "";
+
+    @if (str-length($string) != 0) {
+        @for $i from $length through 1 {
+            $next-string: $next-string + str-slice($string, $i, $i);
+        }
+    }
+
+    @return $next-string;
+}

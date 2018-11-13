@@ -1,0 +1,33 @@
+@import "../core/value-of";
+@import "../core/to-string";
+@import "../core/try-catch--";
+@import "../func/func-to-string--";
+@import "../string/str-format--";
+@import "assert--";
+
+/// @group assert
+/// @access private
+@function assert-throws--($callable, $match: null, $message: null) {
+  $error: try-catch--($callable);
+  $assertion: $error != null;
+
+  @if ($assertion and $match != null) {
+    $assertion: str-index($error, $match) != null;
+  }
+
+  @if ($message == null) {
+    $message: "Expected `#{ func-to-string--($callable) }` to throw an error";
+
+    @if ($match != null) {
+      $message: "#{ $message } matching `#{ $match }`";
+    }
+
+    @if ($error == null) {
+      $message: "#{ $message }. But it didn't throw anything.";
+    } @else if (not $assertion) {
+      $message: "#{ $message }. Instead, it threw: `#{ $error }`";
+    }
+  }
+
+  @return assert--($assertion, $message);
+}

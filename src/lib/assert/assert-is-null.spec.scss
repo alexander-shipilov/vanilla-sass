@@ -1,0 +1,14 @@
+@import "@assert";
+@import "assert-is-null";
+@import "assert-is-true";
+@import "assert-throws";
+
+@include assert("assert-is-null: throws AssertionError if the passed arguments is not true", (
+    (assert-is-null, false) throws "AssertionError: Expected value to equal null, instead received { bool } false",
+    (assert-is-null, 1) throws "AssertionError: Expected value to equal null, instead received { number } 1",
+    (assert-is-null, "") throws 'AssertionError: Expected value to equal null, instead received { string } ""',
+));
+
+@include assert("assert-is-null: returns true if the assertion passed", (
+  assert-is-null(null) is-true,
+));

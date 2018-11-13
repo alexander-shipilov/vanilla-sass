@@ -1,0 +1,22 @@
+@import "../assert";
+@import "map-every";
+
+@function --map-every--true($args...) {
+  @return true;
+}
+
+@function --map-every--false($args...) {
+  @return false;
+}
+
+@include assert("map-every: checks whether all elements in the map pass the test implemented by the provided callable", (
+  map-every((), --map-every--true) is-true,
+  map-every((), --map-every--false) is-true,
+  map-every((foo: 1, bar: 2, ted: 3), --map-every--true) is-true,
+));
+
+@include assert("map-every: should throw ArgumentError if invalid params passed", (
+    (map-every, 1, --map-every--false) throws "ArgumentError: Invalid argument `$map` of `map-every($map: map, $func: callable, $args...: arglist)`. Expected value of map, instead given { number } 1",
+    (map-every, (1,), --map-every--false) throws "ArgumentError: Invalid argument `$map` of `map-every($map: map, $func: callable, $args...: arglist)`. Expected value of map, instead given { list } [1,]",
+    (map-every, (foo: 1), null) throws "ArgumentError: Invalid argument `$func` of `map-every($map: map, $func: callable, $args...: arglist)`. Expected value of callable, instead given null",
+));

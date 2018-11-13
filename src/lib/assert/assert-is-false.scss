@@ -1,0 +1,18 @@
+@import "assert-equal";
+
+/// Asserts that the passed value is false.
+/// It is equivalent to assert-equal($value, false);
+/// @group assert
+/// @see assert-equal
+///
+/// @param { any } $value
+/// @param { string } $message
+/// @return null
+///
+/// @example
+///
+///   @debug assert-is-false(true); // throws `AssertionError: Expected value to equal <bool> false, instead received <bool> true`
+///
+@function assert-is-false($value, $message: null) {
+  @return assert-equal($value, false, $message);
+}

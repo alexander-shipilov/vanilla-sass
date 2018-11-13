@@ -1,0 +1,20 @@
+@import "../map/map-assign--";
+@import "$--global";
+@import "../core/nvl";
+
+/// Unsafe define()
+/// @group core
+/// @see define
+@function define--($name, $descriptor) {
+  $current-descriptor: map-get($--vanilla-global, $name);
+
+  @if ($current-descriptor == null or map-get($current-descriptor, configurable)) {
+    $descriptor: map-assign--((writable: false, configurable: false), $current-descriptor, $descriptor);
+
+    $--vanilla-global: map-merge($--vanilla-global, ($name: $descriptor)) !global;
+  } @else {
+    $descriptor: $current-descriptor;
+  }
+
+  @return $descriptor;
+}

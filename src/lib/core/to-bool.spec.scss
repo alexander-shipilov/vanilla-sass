@@ -1,0 +1,20 @@
+@import "../assert";
+@import "to-bool";
+
+@include assert("to-bool: returns false if the given value is false, null, an empty string or zero", (
+    to-bool(false) is-false,
+    to-bool(null) is-false,
+    to-bool("") is-false,
+    to-bool(0) is-false,
+));
+
+@include assert("to-bool: returns true if the given value is true, not empty string, not zero or a list or map", (
+    to-bool(true) is-true,
+    to-bool(foo) is-true,
+    to-bool(" ") is-true,
+    to-bool(-1) is-true,
+    to-bool(1) is-true,
+    to-bool(()) is-true,
+    to-bool((1, 2, 3)) is-true,
+    to-bool((foo: 1)) is-true,
+));

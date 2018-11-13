@@ -1,0 +1,16 @@
+@import "../core/nvl";
+@import "$--symbols";
+
+/// Unsafe symbol-for()
+/// @group symbol
+/// @see symbol-for
+@function symbol-for--($key, $other...) {
+  $symbol: map-get($--global-symbols, $key);
+
+  @if ($symbol == null) {
+    $symbol: --set-symbol($key);
+    $--global-symbols: map-merge($--global-symbols, ($key: $symbol)) !global;
+  }
+
+  @return $symbol;
+}

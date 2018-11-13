@@ -1,0 +1,9 @@
+@import "../assert";
+@import "str-ends-with";
+
+@include assert("str-ends-with: determines whether a string ends with the characters of a specified string", (
+    str-ends-with("abc", "c") is-true,
+    str-ends-with("abc", "") is-true,
+    str-ends-with("abc", "b") is-false,
+    str-ends-with("abc", "z") is-false,
+));

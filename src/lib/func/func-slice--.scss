@@ -1,0 +1,16 @@
+@import "../types/is-list";
+@import "../list/list-slice--";
+@import "func-apply";
+
+@function --func-slice($func, $from, $to, $args...) {
+  @while (is-list($func)) {
+    $func: nth($func, 1);
+    $args: join(list-slice--($func, 2), $args);
+  }
+
+  @return func-apply($func, list-slice--($args, $from, $to));
+}
+
+@function func-slice--($func, $from: null, $to: null) {
+  @return (--func-slice, $func, $from, $to);
+}

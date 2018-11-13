@@ -1,0 +1,38 @@
+@import "../core/throw";
+@import "$--constructor-context";
+@import "$--constructors";
+@import "constructor-of";
+@import "new--";
+
+/// Calls super constructor
+/// @group constructor
+///
+/// @param { constructor } $constructor
+/// @param { list } $args...
+/// @return { map }
+///
+/// @example
+///
+///   @function foo($foo) {
+///     @return (foo: $foo);
+///   }
+///
+///   $foo: constructor(foo);
+///
+///   @function foo-bar($foo, $bar) {
+///     $this: super($foo);
+///
+///     @return map-merge($this, (bar: $bar));
+///   }
+///
+///   $foo-bar: extend(constructor(foo-bar), $foo);
+///
+@function super($args...) {
+    $super: constructor-of(--get-constructor-def($--constructor-context));
+
+    @if ($super == null) {
+        @return throw("`super()` unexpected here", "SyntaxError");
+    }
+
+    @return new--($super, $args...);
+}

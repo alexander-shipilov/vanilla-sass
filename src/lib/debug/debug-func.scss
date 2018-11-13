@@ -1,0 +1,12 @@
+@import "../list/list-join-with--";
+@import "debug-func-arg";
+
+@function debug-func($name, $args) {
+  $params: ();
+
+  @each $arg, $type-value in $args {
+    $params: append($params, debug-func-arg($arg, nth($type-value, 1)));
+  }
+
+  @return "`#{ $name }(#{ list-join-with--($params, ", ") })`";
+}

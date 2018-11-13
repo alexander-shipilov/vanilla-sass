@@ -1,0 +1,37 @@
+@import "../../assert";
+@import "../../core/to-string";
+@import "../is-type";
+@import "../is-type-of";
+@import "number";
+
+$number-type: number();
+
+@include assert("number(?unit) creates a new number type", (
+  is-type(number()) is-true,
+  map-get(number(), unit) equal null,
+  map-get(number("px"), unit) equal "px",
+));
+
+@include assert("to-string(number($unit?))", (
+  to-string(number()) equal "number",
+  to-string(number(px)) equal "number(px)",
+  to-string(number("")) equal "number(unitless)",
+));
+
+@include assert("is-type-of(number($unit?), ?any)", (
+  is-type-of(number(), 1) is-true,
+  is-type-of(number(), 1px) is-true,
+  is-type-of(number(), 1em) is-true,
+  is-type-of(number(), 3px / 1em) is-true,
+  is-type-of(number(""), 1) is-true,
+  is-type-of(number("px"), 1px) is-true,
+  is-type-of(number("px/em"), 3px / 1em) is-true,
+  is-type-of(number(""), 1px) is-false,
+  is-type-of(number("em"), 1px) is-false,
+  is-type-of(number(), null) is-false,
+  is-type-of(number(), "1") is-false,
+));
+
+@include assert("number(): should throw ArgumentError if invalid params passed", (
+    (number, 1) throws "ArgumentError: Invalid argument `$unit` of `number($unit: ?string)`. Expected value of ?string, instead given { number } 1",
+));

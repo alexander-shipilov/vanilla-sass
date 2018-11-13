@@ -1,0 +1,10 @@
+@import "../core/nvl";
+@import "../core/to-string";
+@import "../debug/debug-value";
+@import "../string/str-format--";
+
+/// @group assert
+/// @access private
+@function --assert-expect-message($actual, $expected, $message: null) {
+  @return str-format--(nvl($message, "Expected value %2, instead received %1"), debug-value($actual), $expected);
+}

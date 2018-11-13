@@ -1,0 +1,8 @@
+@import "../assert";
+@import "is-function";
+
+@include assert("is-function: checks if the passed value is a function", (
+    is-function(call) is-true,
+    is-function(is-function) is-true,
+    is-function(null) is-false,
+));

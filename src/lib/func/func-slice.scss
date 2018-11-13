@@ -1,0 +1,20 @@
+@import "func-call-unsafe--";
+@import "func-slice--";
+@import "../types/optional/optional--";
+
+/// Returns callable which invokes the given callable with sliced arguments
+/// @group func
+///
+/// @param { callable } $func
+/// @param { optional(number) } $from
+/// @param { optional(number) } $to
+/// @return { callable }
+///
+/// @example
+///
+///    @debug func-call(func-slice((func-args, 1, 2, 3), 1, 2)); // (1,)
+///    @debug func-call(func-slice((func-args, 1, 2, 3), -2), 3, 4); // (3, 4)
+///
+@function func-slice($func, $from, $to, $other...) {
+  @return func-call-unsafe--(func-slice, (func: callable $func, from: optional--(number) $from, to: optional--(number) $to));
+}

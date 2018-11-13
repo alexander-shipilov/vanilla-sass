@@ -1,0 +1,77 @@
+{
+    "extends": [
+        "google",
+        "plugin:flowtype/recommended",
+        "plugin:react/recommended"
+    ],
+    "plugins": [
+        "babel",
+        "flowtype",
+        "react"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "settings": {
+        "flowtype": {
+            "onlyFilesWithFlowAnnotation": true
+        }
+    },
+    "rules": {
+        "comma-dangle": "off",
+        "complexity": [
+            "error",
+            {
+                "max": 5
+            }
+        ],
+        "eqeqeq": [
+            "error",
+            "always",
+            {
+                "null": "ignore"
+            }
+        ],
+        "max-len": [
+            "error",
+            {
+                "code": 120
+            }
+        ],
+        "no-invalid-this": "off",
+        "object-curly-spacing": [
+            "error",
+            "always"
+        ],
+        "quotes": [
+            "error",
+            "double"
+        ],
+        "require-jsdoc": "off",
+        "babel/new-cap": 1,
+        "babel/object-curly-spacing": [
+            "error",
+            "always"
+        ],
+        "babel/no-invalid-this": "off",
+        "react/jsx-curly-spacing": [
+            "error",
+            {
+                "when": "always",
+                "spacing": {
+                    "objectLiterals": "always"
+                }
+            }
+        ],
+        "react/prop-types": "off"
+    }
+}

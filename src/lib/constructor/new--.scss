@@ -1,0 +1,36 @@
+@import "../core/throw";
+@import "../core/to-string";
+@import "../func/func-call--";
+@import "../string/str-format--";
+@import "../types/is-map";
+@import "$--constructor-context";
+@import "$--constructor-prop";
+@import "$--constructors";
+@import "constructor-of";
+@import "instance-of--";
+
+/// Unsafe new()
+/// @group constructor
+/// @see new
+@function new--($constructor, $args...) {
+    $constructor-def: --get-constructor-def($constructor);
+    $--constructor-context: $constructor !global;
+
+    $instance: func-call--(map-get($constructor-def, constructor), $args...);
+    $--constructor-context: null;
+
+    @if (not is-map($instance)) {
+        @return throw(str-format--("Expected %1 to return a map, instead returned %2",
+            to-string($constructor), to-string($instance)));
+    }
+
+    $super: constructor-of($constructor);
+
+    @if ($super != null and not instance-of--($instance, $super)) {
+        @return throw(str-format--("%1 is derived constructor. Call `super()` in %1", to-string($constructor)))
+    }
+
+    // @debug new-- to-string($constructor-def) value-of($instance);
+
+    @return map-merge($instance, ($--constructor-prop: $constructor));
+}

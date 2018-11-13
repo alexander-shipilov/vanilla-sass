@@ -1,0 +1,8 @@
+@import "../func/func-call-unsafe--";
+@import "array-every--";
+
+/// Tests whether all elements in the array pass the test implemented by the provided function.
+///
+@function array-every($array, $callback, $args...) {
+  @return func-call-unsafe--(list-every, (list: list $array, calback: callable $callback, "args...": arglist $args));
+}

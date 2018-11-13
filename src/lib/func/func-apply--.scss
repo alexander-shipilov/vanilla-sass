@@ -1,0 +1,10 @@
+@import "func-call--";
+
+/// Unsafe func-call
+@function func-apply--($callable, $args: null, $other...) {
+  @if ($args == null) {
+    $args: ();
+  }
+
+  @return func-call--($callable, $args...);
+}

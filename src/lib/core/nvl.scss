@@ -1,0 +1,3 @@
+@function nvl($value, $default) {
+    @return if($value == null, $default, $value);
+}

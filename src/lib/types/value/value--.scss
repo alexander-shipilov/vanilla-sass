@@ -1,0 +1,42 @@
+@import "../../constructor/new--";
+@import "../../constructor/super";
+@import "../../core/@void";
+@import "../../core/is-equal";
+@import "../../debug/debug-value";
+@import "../../global/global";
+@import "../type/--define-type";
+@import "../type/--type-to-string";
+
+/// @group types/value
+/// @access private
+@function --value-validate($value, $value-type, $other...) {
+  @return is-equal($value, map-get($value-type, value))
+}
+
+/// @group types/value
+/// @access private
+@function --value-to-string($value, $other...) {
+  @return debug-value(map-get($value, value));
+}
+
+/// @group types/value
+/// @access private
+@function --value-constructor($value: null) {
+  @if (not constructor-call-check()) {
+    @return null;
+  }
+
+  @return map-merge(super(--value-validate), (
+    value: $value,
+    $to-string: --value-to-string
+  ));
+}
+
+/// Unsafe value()
+/// @group types/value
+/// @see value
+@function value--($value: null, $other...) {
+  @return new--(global(value), $value);
+}
+
+@include void(--define-type(value, --value-constructor));

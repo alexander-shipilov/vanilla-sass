@@ -1,0 +1,10 @@
+@import "../core/throw";
+@import "$--constructor-context";
+
+@function constructor-call-check() {
+    @if ($--constructor-context == null) {
+        @return throw("Constructor cannot be invoked without `new()`");
+    }
+
+    @return true;
+}

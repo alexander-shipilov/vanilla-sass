@@ -1,0 +1,18 @@
+@import "../assert";
+@import "../func/func-arglist";
+@import "is-map";
+
+@include assert("is-map: should return true if the passed value is a map or empty list", (
+  is-map((foo: 1)) is-true,
+  is-map(()) is-true,
+  is-map(func-arglist()) is-true,
+));
+
+@include assert("is-map: should return false if the passed value is not a map or empty list", (
+  is-map(null) is-false,
+  is-map(1) is-false,
+  is-map(true) is-false,
+  is-map("string") is-false,
+  is-map(string) is-false,
+  is-map((1)) is-false,
+));

@@ -1,0 +1,16 @@
+@import "../assert";
+@import "str-replace";
+
+@include assert("str-replace: returns a new string with some or all matches of a substring replaced by a replacement", (
+    str-replace("abc", "a", "z") equal "zbc",
+    str-replace("acac", "a", "b") equal "bcbc",
+    str-replace("aaaa", "z", "d") equal "aaaa",
+    str-replace("", "a", "b") equal "",
+));
+
+@include assert("str-replace: should replace only specified numbers of matches", (
+    str-replace("aaa", "a", "z", 1) equal "zaa",
+    str-replace("aaa", "a", "z", 2) equal "zza",
+    str-replace("aaa", "a", "z", -1) equal "aaz",
+    str-replace("aaa", "a", "z", -2) equal "azz",
+));

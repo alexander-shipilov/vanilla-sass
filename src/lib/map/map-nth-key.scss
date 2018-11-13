@@ -1,0 +1,18 @@
+@import "../func/func-call-unsafe--";
+@import "map-nth-key--";
+
+/// Returns a specific key in a map.
+/// @group map
+///
+/// @param { map } $map
+/// @param { number } $n
+/// @return { string }
+///
+/// @example
+///
+///   @debug map-nth-key((foo: 1, bar: 2)) // 1
+///
+@function map-nth-key($map, $n, $other...) {
+  @return func-call-unsafe--(map-nth-key, (map: map $map, n: number $n));
+}
+

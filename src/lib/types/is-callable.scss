@@ -1,0 +1,18 @@
+@import "is-list";
+@import "is-function";
+
+/// Checks whether the given value can be called as function with func-call
+/// @group core
+///
+/// @param { any } $value
+/// @return { bool }
+///
+@function is-callable($value, $other...) {
+  $is-callable: is-function($value);
+
+  @if (not $is-callable and is-list($value) and length($value) != 0) {
+    $is-callable: is-callable(nth($value, 1));
+  }
+
+  @return $is-callable;
+}

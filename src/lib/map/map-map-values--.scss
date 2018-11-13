@@ -1,0 +1,14 @@
+@import "../func/func-call--";
+
+// @group map
+// @access private
+@function map-map-values--($map, $func, $args...) {
+  $next-map: ();
+
+  @each $key, $value in $map {
+    $next-value: func-call--($func, $value, $key, $map, $args...);
+    $next-map: map-merge($next-map, ($key: $next-value));
+  }
+
+  @return $next-map;
+}

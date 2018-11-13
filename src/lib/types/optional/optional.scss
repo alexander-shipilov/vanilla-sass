@@ -1,0 +1,23 @@
+@import "../../func/func-call-unsafe--";
+@import "optional--";
+
+/// Create new optional type
+/// @group types
+///
+/// @param { type } $type
+/// @return { map }
+///
+/// @example
+///
+///   @debug is-type-of(optional(string), "foo"); // true
+///   @debug is-type-of(optional(string), null); // true
+///   @debug is-type-of(optional(string), 1); // false
+///
+@function optional($type, $other...) {
+  @return func-call-unsafe--(optional, (type: type $type));
+}
+
+/// @alias optional
+@function opt($args...) {
+  @return optional($args...);
+}

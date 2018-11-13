@@ -1,0 +1,23 @@
+@import "../assert";
+@import "../constructor/instance-of";
+@import "../func/func-arglist";
+@import "const";
+@import "var-get";
+@import "var-set";
+
+@include assert("const($value, $type?) creates a constant", (
+  instance-of(const(foo), global(var)) is-true,
+  var-get(const(foo)) equal foo,
+));
+
+@include assert("const($value, $type?) should throw a TypeError if type of $value missmatched", (
+    (const, foo, number) throws "TypeError: Invalid variable value. Expected value of number, instead given { string } foo",
+));
+
+@include assert("var-set(const($value, $type?), ...) should throw an error", (
+    (var-set, const(foo), bar) throws "TypeError: Assignment to constant variable",
+));
+
+@include assert("const(): should throw ArgumentError if invalid params passed", (
+    (const, null, 1) throws "ArgumentError: Invalid argument `$type` of `const($value: any, $type: ?type)`. Expected value of ?type, instead given { number } 1",
+));

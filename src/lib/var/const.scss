@@ -1,0 +1,18 @@
+@import "../func/func-call-unsafe--";
+@import "../types/optional/optional--";
+@import "const--";
+
+/// Creates constant
+/// @group var
+///
+/// @param { any } $value
+/// @param { type } $type
+/// @return { var }
+///
+/// @example
+///
+///   @debug const() // 
+///
+@function const($value: null, $type: any, $other...) {
+  @return func-call-unsafe--(const, (value: any $value, type: opt--(type) $type));
+}

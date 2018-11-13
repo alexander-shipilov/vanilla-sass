@@ -1,0 +1,21 @@
+@import "func-call-unsafe--";
+@import "func-pipe--";
+
+/// Pipes functions
+/// @group func
+///
+/// @param { callable } $funcs...
+/// @return { callable }
+///
+/// @example
+///   $abbr: func-pipe(
+///     (str-split, " "),
+///     array-map(func-pipe((string-chart-at, 1), string-to-upper-case),
+//      array-join("")
+///   );
+///
+///   @debug func-call($abbr, "new world order"); // NWO
+///
+@function func-pipe($funcs...) {
+  @return func-call-unsafe--(func-pipe, ("funcs...": callable $funcs));
+}

@@ -1,0 +1,18 @@
+@import "../assert";
+@import "func-call";
+
+@function --func-call--test($args...) {
+  @return $args;
+}
+
+@include assert("func-call: calls the given callable with specified params", (
+  func-call(--func-call--test) equal (),
+  func-call(--func-call--test, 1) equal (1,),
+  func-call((--func-call--test, 1), 2) equal (1, 2),
+  func-call(((--func-call--test, 1), 2), 3) equal (1, 2, 3),
+  func-call(((--func-call--test, 1), 2), 3, 4) equal (1, 2, 3, 4),
+));
+
+@include assert("func-call: should throw ArgumentError if invalid params passed", (
+    (func-call, 1) throws "ArgumentError: Invalid argument `$callable` of `func-call($callable: callable, $args...: arglist)`. Expected value of callable, instead given { number } 1",
+));

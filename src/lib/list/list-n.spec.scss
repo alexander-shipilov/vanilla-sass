@@ -1,0 +1,33 @@
+@import "../assert";
+@import "list-n";
+
+$list: (foo, bar, ted);
+
+@include assert("list-n: return nth index of the passed list", (
+    list-n($list, 1) equal 1,
+    list-n($list, 3) equal 3,
+    list-n($list, -1) equal 3,
+    list-n($list, -3) equal 1,
+));
+
+@include assert("list-n: should floor calculated index", (
+    list-n($list, 1.1) equal 1,
+    list-n($list, 3.8) equal 3,
+    list-n($list, -1.1) equal 2,
+    list-n($list, -2.8) equal 1,
+));
+
+@include assert("list-n: should return 0 if calculated index is less than 1", (
+    list-n($list, 0) equal 0,
+    list-n($list, -100) equal 0,
+));
+
+@include assert("list-n: should return `length($list) + 1` if calculated index is greater than `length($list)`", (
+    list-n($list, 4) equal 4,
+    list-n($list, 100) equal 4,
+));
+
+@include assert("list-n: should return `length($list) + 1` if calculated index is greater than `length($list)`", (
+  list-n($list, 4) equal 4,
+  list-n($list, 100) equal 4,
+));

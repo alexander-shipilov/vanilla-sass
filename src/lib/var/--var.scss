@@ -1,0 +1,44 @@
+@import "../core/@void";
+@import "../constructor/constructor--";
+@import "../constructor/constructor-call-check";
+@import "../constructor/new--";
+@import "../core/$to-string";
+@import "../core/to-string";
+@import "../debug/debug-value";
+@import "../global/global";
+@import "../global/global-const--";
+@import "../global/is-undefined";
+@import "../types/is-type-of--";
+
+@function --var-to-string($var) {
+  $type: map-get($var, type);
+  $read-only: map-get($var, read-only);
+
+  @return "<#{ if($read-only, const, var) } { #{ to-string($type) } } #{ to-string(map-get($var, "value")) }>";
+}
+
+/// Type constructor
+/// @group vars
+/// @access private
+@function --var-constructor($value: null, $type: any, $read-only: false) {
+  @if (not constructor-call-check()) {
+    @return null;
+  }
+
+  @return (
+    value: $value,
+    type: $type,
+    read-only: $read-only,
+    $to-string: --var-to-string
+  );
+}
+
+@function --var($value: null, $type: any, $read-only: null, $other...) {
+  @if (not is-type-of--($type, $value)) {
+    @return throw("Invalid variable value. Expected value of #{ debug-type($type) }, instead given #{ debug-value($value) }", "TypeError");
+  }
+
+  @return new--(global(var), $value, $type, $read-only);
+}
+
+@include void(if(is-undefined(var), global-const--(var, constructor--(--var-constructor, var)), null));

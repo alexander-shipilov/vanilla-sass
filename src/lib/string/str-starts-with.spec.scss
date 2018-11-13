@@ -1,0 +1,9 @@
+@import "../assert";
+@import "str-starts-with";
+
+@include assert("str-starts-with: determines whether a string begins with the characters of a specified string", (
+    str-starts-with("abc", "a") is-true,
+    str-starts-with("abc", "") is-true,
+    str-starts-with("abc", "b") is-false,
+    str-starts-with("abc", "z") is-false,
+));

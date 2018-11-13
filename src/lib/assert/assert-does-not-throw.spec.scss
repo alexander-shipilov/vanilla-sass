@@ -1,0 +1,23 @@
+@import "../func/func-const";
+@import "@assert";
+@import "assert";
+@import "assert-does-not-throw";
+@import "assert-is-true";
+@import "assert-throws";
+
+@include assert("assert-does-not-throw: throws if the passed callable throws", (
+    (assert-does-not-throw, (throw, "foo")) throws "AssertionError: Expected `throw(foo)` not to throw an error. Instead, it threw: `Error: foo`",
+));
+
+@include assert("assert-does-not-throw: throws if the passed callable throws an error that matches the passed matcher", (
+    (assert-does-not-throw, (throw, "error"), "error") throws "AssertionError: Expected `throw(error)` not to throw an error matching `error`. Instead, it threw: `Error: error`",
+));
+
+@include assert("assert-does-not-throw: returns true if the assertion passed", (
+  assert-does-not-throw(func-const) is-true,
+));
+
+@include assert("assert-does-not-throw: should throw ArgumentError if invalid arguments passed", (
+    (assert-does-not-throw, 1) throws "ArgumentError: Invalid argument `$callable` of `assert-does-not-throw($callable: callable, $match: ?string)`. Expected value of callable, instead given { number } 1",
+    (assert-does-not-throw, (throw, "foo"), 1) throws "ArgumentError: Invalid argument `$match` of `assert-does-not-throw($callable: callable, $match: ?string)`. Expected value of ?string, instead given { number } 1",
+));

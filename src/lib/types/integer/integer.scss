@@ -1,0 +1,19 @@
+@import "../../func/func-call-unsafe--";
+@import "../optional/optional--";
+@import "integer--";
+
+/// Creates new integer type
+/// @group types
+///
+/// @param { type } $type
+/// @return { map }
+///
+/// @example
+///
+///   @debug is-type-of(integer(), 1); // true
+///   @debug is-type-of(integer(), 1.1); // false
+///   @debug is-type-of(integer(px), 1); // false
+///
+@function integer($unit: null, $other...) {
+  @return func-call-unsafe--(integer, (unit: opt--(string) $unit));
+}

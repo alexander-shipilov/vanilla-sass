@@ -1,0 +1,28 @@
+@import "../types/is-error";
+@import "func-call--";
+@import "func-modify--";
+
+/// @group func/func-pipe
+/// @access private
+@function --func-pipe($funcs, $args...) {
+  $result: null;
+
+  @each $func in $funcs {
+    $result: func-call--(func-modify--($func, array-unshift--, $args...));
+
+    @if (is-error($result)) {
+      @return $result;
+    }
+
+    $args: ($result,);
+  }
+
+  @return $result;
+}
+
+/// Unsafe func-pipe()
+/// @group func
+/// @see func-pipe
+@function func-pipe--($funcs...) {
+  @return (--func-pipe, $funcs);
+}

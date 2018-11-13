@@ -1,0 +1,7 @@
+@import "../types/optional/optional--";
+@import "func-call-unsafe--";
+@import "func-apply--";
+
+@function func-apply($callable, $args: null, $other...) {
+  @return func-call-unsafe--(func-apply, (callable: callable $callable, args: opt--(list) $args));
+}

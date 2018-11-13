@@ -1,0 +1,19 @@
+@import "../assert";
+@import "str-indexes";
+
+@include assert("str-indexes: returns a list with all or some indexes of the passed substring", (
+    str-indexes("abc", "a") equal (1,),
+    str-indexes("acac", "a") equal (1, 3),
+    str-indexes("aaa", "a") equal (1, 2, 3),
+));
+
+@include assert("str-indexes: should limit indexes by passed count", (
+    str-indexes("aaa", "a", 1) equal (1,),
+    str-indexes("aaa", "a", 2) equal (1, 2),
+    str-indexes("aaa", "a", -1) equal (3,),
+    str-indexes("aaa", "a", -2) equal (2, 3),
+));
+
+@include assert("str-indexes: should accept an empty string", (
+    str-indexes("aaa", "") equal (1, 2, 3),
+));

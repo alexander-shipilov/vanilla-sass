@@ -1,0 +1,8 @@
+@import "../types/is-list";
+
+/// Unsafe func-name()
+/// @group func
+/// @see func-name
+@function func-name--($func, $other...) {
+  @return if(is-list($func), func-name--(nth($func, 1)), $func);
+}
