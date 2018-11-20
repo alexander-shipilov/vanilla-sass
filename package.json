@@ -19,6 +19,7 @@
     "test:func": "gulp sass-test --src src/lib/func",
     "test:list": "gulp sass-test --src src/lib/list",
     "test:map": "gulp sass-test --src src/lib/map",
+    "test:object": "gulp sass-test --src src/lib/object",
     "test:string": "gulp sass-test --src src/lib/string",
     "test:symbol": "gulp sass-test --src src/lib/symbol",
     "test:types": "gulp sass-test --src src/lib/types",

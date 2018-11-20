@@ -1,0 +1,10 @@
+@import "../constructor/instance-of--";
+@import "../global/global";
+@import "--var";
+
+/// Unsafe is-var()
+/// @group var
+/// @see is-var
+@function is-var--($value, $other...) {
+  @return instance-of--($value, global(var));
+}

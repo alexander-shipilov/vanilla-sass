@@ -1,0 +1,16 @@
+@import "../assert";
+@import "../constructor/instance-of";
+@import "../func/func-arglist";
+@import "const";
+@import "let";
+@import "is-var";
+
+@include assert("is-var($value) checks if the passed value is variable", (
+  is-var(let(foo)) is-true,
+  is-var(const(foo)) is-true,
+  is-var(1) is-false,
+));
+
+@include assert("is-var(): should not throw if no params passed", (
+    (is-var) does-not-throw,
+));

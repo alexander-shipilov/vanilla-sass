@@ -1,0 +1,21 @@
+@import "../assert";
+@import "../constructor/instance-of";
+@import "../global/global";
+@import "const";
+@import "let";
+@import "var-get";
+@import "var-set";
+
+@include assert("var-set($var) changes value of variable and returns new instance of var", (
+  instance-of(var-set(let(foo), bar), global(var)) is-true,
+  var-get(var-set(let(foo), bar)) equal bar,
+));
+
+@include assert("var-set($var) should throw a TypeError if passed value is missmatched variable type", (
+  (var-set, let(foo, string), 1) throws "TypeError: Invalid variable value. Expected value of string, instead given { number } 1",
+));
+
+
+@include assert("var-set() should throw ArgumentError if invalid params passed", (
+    (var-set, null) throws "ArgumentError: Invalid argument `$var` of `var-set($var: <constructor var>, $value: any)`. Expected value of <constructor var>, instead given null",
+));

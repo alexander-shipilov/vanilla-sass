@@ -1,0 +1,15 @@
+@import "../assert";
+@import "../var/let";
+@import "object-get";
+
+@include assert("object-get($object: object, $prop: string): Returns a value of the passed object property", (
+  object-get((), foo) is-null,
+  object-get((foo: 1), foo) equal 1,
+  object-get((foo: let(foo-value)), foo) equal foo-value,
+));
+
+@include assert("object-get($object: object, $prop: string): should validate passed params", (
+    (object-get, null) throws "ArgumentError: Invalid argument `$object` of `object-get($object: object, $prop: string)`. Expected value of object, instead given null",
+    (object-get, (), null) throws "ArgumentError: Invalid argument `$prop` of `object-get($object: object, $prop: string)`. Expected value of string, instead given null",
+));
+

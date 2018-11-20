@@ -1,11 +1,13 @@
 @import "../constructor/is-constructor";
 @import "../constructor/instance-of--";
 @import "../func/func-call--";
+@import "is-array";
 @import "is-integer";
 @import "is-list";
 @import "is-map";
 @import "is-callable";
 @import "is-function";
+@import "is-object";
 @import "is-type";
 @import "type/type--";
 
