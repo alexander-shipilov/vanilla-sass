@@ -1,0 +1,21 @@
+@import "../func/func-call-unsafe--";
+@import "array-nth--";
+
+/// Returns the nth item in an array (negative index supported).
+/// Does not throw an error if the passed index is out of array bounds.
+/// @group array
+///
+/// @param { array } $array
+/// @param { integer } $index
+/// @return { any }
+///
+/// @example
+///
+///   @debug array-nth((1, 2, 3), 1) // 1
+///   @debug array-nth((1, 2, 3), -1) // 3
+///   @debug array-nth((1, 2, 3), 0) // null
+///   @debug array-nth((1, 2, 3), 4) // null
+///
+@function array-nth($array: null, $index: null, $other...) {
+  @return func-call-unsafe--(array-nth, (array: array $array, index: integer $index));
+}

@@ -1,6 +1,6 @@
 @import "../core/throw";
-@import "$--constructor-context";
-@import "$--constructors";
+@import "$constructor-context--";
+@import "$constructors--";
 @import "constructor-of";
 @import "new--";
 
@@ -28,7 +28,7 @@
 ///   $foo-bar: extend(constructor(foo-bar), $foo);
 ///
 @function super($args...) {
-    $super: constructor-of(--get-constructor-def($--constructor-context));
+    $super: constructor-of(constructor-get--($constructors-context--));
 
     @if ($super == null) {
         @return throw("`super()` unexpected here", "SyntaxError");

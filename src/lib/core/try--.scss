@@ -8,11 +8,11 @@
     $--throw--catch: true !global;
     $--throw--last-error: null !global;
 
-    $result: func-call--($callable);
+    $return: func-call--($callable);
     $error: $--throw--last-error;
 
     $--throw--last-error: $last-error !global;
     $--throw--catch: $catch !global;
 
-    @return ($error, if($error, null, $result));
+    @return (error: $error, return: if($error, null, $return));
 }

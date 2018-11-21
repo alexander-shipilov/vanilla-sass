@@ -1,6 +1,7 @@
 @import "../constructor/is-constructor";
 @import "../constructor/instance-of--";
 @import "../func/func-call--";
+@import "../spy/is-spy--";
 @import "is-array";
 @import "is-integer";
 @import "is-list";
@@ -24,6 +25,7 @@
     list: is-list,
     map: is-map,
     object: is-object,
+    spy: is-spy--,
     type: is-type
   );
 

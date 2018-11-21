@@ -1,0 +1,9 @@
+@import "$spies--";
+
+/// Unsafe spy-length()
+/// @group spy
+/// @access private
+/// @see spy-length
+@function spy-length--($spy, $other...) {
+  @return length(map-get(spy-get--($spy), calls));
+}

@@ -1,0 +1,11 @@
+@import "array-length--";
+
+/// Unsafe array-n()
+/// @group array
+/// @see array-n
+@function array-n--($array, $index, $other...) {
+  $length: array-length--($array);
+  $n: if($index < 0, $length + $index + 1, $index);
+
+  @return if($n < 1, 0, if($n > $length, $length + 1, $n));
+}

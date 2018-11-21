@@ -60,16 +60,18 @@
 
   $debug: join($debug, ("", "Assertion `#{ $message}` (#{ $length }):", ""));
 
-  @for $index from 1 through $length {
-    $assertion: nth($assertions, $index);
-    $assert: --assert-func($assertion);
+  @if ($length != 0) {
+    @for $index from 1 through $length {
+      $assertion: nth($assertions, $index);
+      $assert: --assert-func($assertion);
 
-    $error: if($assert == null, "TypeError: Invalid assertion", try-catch--($assert));
+      $error: if($assert == null, "TypeError: Invalid assertion", try-catch--($assert));
 
-    $debug: append($debug, "    #{ if($error == null, "✔", "✖") } #{ $index }: #{ --assert-format($assertion) }");
+      $debug: append($debug, "    #{ if($error == null, "✔", "✖") } #{ $index }: #{ --assert-format($assertion) }");
 
-    @if ($error != null) {
-      $errors: append($errors, $error);
+      @if ($error != null) {
+        $errors: append($errors, $error);
+      }
     }
   }
 

@@ -1,5 +1,5 @@
-@import "$--constructor-prop";
-@import "$--constructors";
+@import "$constructor-prop--";
+@import "$constructors--";
 @import "is-constructor";
 @import "constructor-of";
 
@@ -21,7 +21,7 @@
             }
         }
     } @else if(is-constructor($value)) {
-        $instance-of: instance-of--(--get-constructor-def($value), $constructor);
+        $instance-of: instance-of--(constructor-get--($value), $constructor);
     }
 
     @return $instance-of;

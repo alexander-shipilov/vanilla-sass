@@ -1,23 +1,23 @@
 @import "../core/throw";
 @import "../core/to-string";
 @import "../string/str-format--";
-@import "$--constructor-prop";
-@import "$--constructors";
+@import "$constructor-prop--";
+@import "$constructors--";
 
 /// Unsafe extend()
 /// @group constructor
 /// @see extend
 @function extend--($constructor, $super, $other...) {
-    $constructor-def: --get-constructor-def($constructor);
+    $constructor-def: constructor-get--($constructor);
 
     @if ($constructor == $super) {
         @return throw(str-format--("%1 cannot extend itself", to-string($constructor)));
     }
 
-    @if (map-has-key($constructor-def, $--constructor-prop)) {
+    @if (map-has-key($constructor-def, $constructor-prop--)) {
         @return throw(str-format--("%1 cannot extend %2. It already extends %3",
-            to-string($constructor), to-string($super), to-string(map-get($constructor-def, $--constructor-prop))));
+            to-string($constructor), to-string($super), to-string(map-get($constructor-def, $constructor-prop--))));
     }
 
-    @return --set-constructor-def($constructor, map-merge($constructor-def, ($--constructor-prop: $super)));
+    @return constructor-set--($constructor, map-merge($constructor-def, ($constructor-prop--: $super)));
 }

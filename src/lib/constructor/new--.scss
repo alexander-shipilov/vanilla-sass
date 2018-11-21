@@ -3,9 +3,9 @@
 @import "../func/func-call--";
 @import "../string/str-format--";
 @import "../types/is-map";
-@import "$--constructor-context";
-@import "$--constructor-prop";
-@import "$--constructors";
+@import "$constructor-context--";
+@import "$constructor-prop--";
+@import "$constructors--";
 @import "constructor-of";
 @import "constructor-name";
 @import "instance-of--";
@@ -14,11 +14,11 @@
 /// @group constructor
 /// @see new
 @function new--($constructor, $args...) {
-  $constructor-def: --get-constructor-def($constructor);
-  $--constructor-context: $constructor !global;
+  $constructor-def: constructor-get--($constructor);
+  $constructors-context--: $constructor !global;
 
   $instance: func-call--(map-get($constructor-def, constructor), $args...);
-  $--constructor-context: null;
+  $constructors-context--: null;
 
   @if (not is-map($instance)) {
     @return throw(str-format--("Expected %1 to return a map, instead returned %2",
@@ -34,6 +34,6 @@
   // @debug new-- to-string($constructor-def) value-of($instance);
 
   @return map-merge($instance, (
-    $--constructor-prop: $constructor
+    $constructor-prop--: $constructor
   ));
 }

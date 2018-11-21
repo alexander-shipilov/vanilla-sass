@@ -1,0 +1,23 @@
+@import "../assert";
+@import "../core/@void";
+@import "spy";
+@import "spy-call";
+@import "spy-length";
+@import "spy-reset";
+
+@include void() {
+  $spy: spy();
+
+  @include void(spy-call($spy, 1));
+
+  @include assert("spy-reset($spy: spy): resets the given spy calls", (
+    spy-length($spy) equal 1,
+    spy-length(spy-reset($spy)) equal 0,
+  ));
+}
+
+
+
+@include assert("spy-reset($spy: spy): should validate passed params", (
+    (spy-reset, null) throws "ArgumentError: Invalid argument `$spy` of `spy-reset($spy: spy)`. Expected value of spy, instead given null",
+));

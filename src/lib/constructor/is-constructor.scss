@@ -1,4 +1,4 @@
-@import "$--constructors";
+@import "$constructors--";
 
 /// Checks whether the passed value is a constructor
 /// @group constructor
@@ -11,5 +11,5 @@
 ///   @debug is-constructor(constructor(map)); // true
 ///
 @function is-constructor($value, $other...) {
-    @return type-of($value) == "string" and map-has-key($--constructors, $value);
+    @return type-of($value) == "string" and map-has-key($constructors--, $value);
 }

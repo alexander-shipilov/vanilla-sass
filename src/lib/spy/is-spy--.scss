@@ -1,0 +1,9 @@
+@import "$spies--";
+
+/// Unsafe `is-spy()`
+/// @group list
+/// @access private
+/// @see is-spy
+@function is-spy--($value) {
+  @return type-of($value) == "string" and map-has-key($spies--, $value);
+}

@@ -1,0 +1,17 @@
+@import "../func/func-call-unsafe--";
+@import "spy-nth--";
+
+/// Returns n-th call of the given spy
+/// @group spy
+///
+/// @param { spy } $spy
+/// @param { integer } $index
+/// @return { map(args: arglist, return: any, error: ?error) }
+///
+/// @example
+///
+///   @debug spy-nth() //
+///
+@function spy-nth($spy: null, $index: null, $other...) {
+  @return func-call-unsafe--(spy-nth, (spy: spy $spy, index: integer $index));
+}

@@ -1,0 +1,16 @@
+@import "../assert";
+@import "../core/to-string";
+@import "spy";
+
+@include assert("spy($func: ?callable): Creates a spy object that records arguments, exceptions and return values for all calls.", (
+  type-of(spy()) equal string,
+));
+
+@include assert("to-string(spy($func: ?callable))", (
+  to-string(spy()) equal "<spy>",
+  to-string(spy((call, foo))) equal "<spy call(foo)>",
+));
+
+@include assert("spy($func: ?callable): should validate passed params", (
+    (spy, 1) throws "ArgumentError: Invalid argument `$func` of `spy($func: ?callable)`. Expected value of ?callable, instead given { number } 1",
+));

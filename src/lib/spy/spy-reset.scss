@@ -1,0 +1,22 @@
+@import "../func/func-call-unsafe--";
+@import "spy-reset--";
+
+/// Resets the given spy calls
+/// @group spy
+///
+/// @param { spy } $spy
+/// @return { spy }
+///
+/// @example
+///
+///   $spy: spy();
+///
+///   @include void(spy-call($spy, 1, 2));
+///
+///   @debug spy-length($spy) // 1
+///   @debug spy-length(spy-reset($spy)) // 0
+///
+@function spy-reset($spy: null, $other...) {
+  @return func-call-unsafe--(spy-reset, (spy: spy $spy));
+}
+

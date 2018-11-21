@@ -1,0 +1,23 @@
+@import "../func/func-call-unsafe--";
+@import "spy--";
+@import "spy-call--";
+
+/// Calls specified spy and returns result
+/// @group spy
+///
+/// @param { spy } $spy
+/// @param { arglist } $args
+/// @return { any } Result of the spy invocation
+///
+/// @example
+///
+///   $spy: spy();
+///
+///   @debug spy-is-called($spy) // false
+///
+///   @include void(spy-call($spy));
+///   @debug spy-is-called($spy) // true
+///
+@function spy-call($spy: null, $args...) {
+  @return func-call-unsafe--(spy-call, (spy: spy $spy, "args...": arglist $args));
+}

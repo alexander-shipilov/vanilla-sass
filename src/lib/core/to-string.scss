@@ -1,35 +1,39 @@
+@import "../constructor/$constructors--";
 @import "../constructor/is-constructor";
-@import "../constructor/$--constructors";
 @import "../func/func-call--";
 @import "../list/list-map--";
 @import "../map/map-map-values--";
 @import "../types/is-callable";
 @import "../types/is-list";
 @import "../types/is-map";
+@import "../spy/$spies--";
+@import "../spy/is-spy--";
 @import "$to-string";
 
 @function --has-to-string($map) {
-    @return map-has-key($map, $to-string) and is-callable(map-get($map, $to-string));
+  @return map-has-key($map, $to-string) and is-callable(map-get($map, $to-string));
 }
 
 @function --call-to-string($value) {
-    @return func-call--(map-get($value, $to-string), $value);
+  @return func-call--(map-get($value, $to-string), $value);
 }
 
 @function to-string($value, $other...) {
-    @if (is-constructor($value)) {
-        $value: --get-constructor-def($value);
-    }
+  @if (is-constructor($value)) {
+    $value: constructor-get--($value);
+  } @else if (is-spy--($value)) {
+    $value: spy-get--($value);
+  }
 
-    $type: type-of($value);
+  $type: type-of($value);
 
-    @if ($type == "string") {
-        $value: if($value == "", '""', $value);
-    } @else if ($type == "map") {
-        $value: if(--has-to-string($value), --call-to-string($value), map-map-values--($value, to-string));
-    } @else if (is-list($value)) {
-        $value: join((), list-map--($value, to-string), comma, true);
-    }
+  @if ($type == "string") {
+    $value: if($value == "", '""', $value);
+  } @else if ($type == "map") {
+    $value: if(--has-to-string($value), --call-to-string($value), map-map-values--($value, to-string));
+  } @else if (is-list($value)) {
+    $value: join((), list-map--($value, to-string), comma, true);
+  }
 
-    @return inspect($value);
+  @return inspect($value);
 }

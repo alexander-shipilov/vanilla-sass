@@ -1,0 +1,6 @@
+/// Unsafe object-assign()
+/// @group object
+/// @see object-assign
+@function object-assign--($object, $sources...) {
+  @return list-reduce--(func-pipe--(object-map-values--, func-pipe--(object-set--)), $object);
+}

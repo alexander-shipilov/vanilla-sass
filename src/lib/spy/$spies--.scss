@@ -1,0 +1,15 @@
+$spies--: () !default;
+
+/// @group spy
+/// @access private
+@function spy-get--($spy-id) {
+  @return if(type-of($spy-id) == "string", map-get($spies--, $spy-id), null);
+}
+
+/// @group spy
+/// @access private
+@function spy-set--($spy-id, $spy) {
+  $spies--: map-merge($spies--, ($spy-id: $spy)) !global;
+
+  @return $spy-id;
+}

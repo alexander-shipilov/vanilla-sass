@@ -1,5 +1,5 @@
 @import "../core/nvl";
-@import "$--constructors";
+@import "$constructors--";
 @import "constructor-of";
 
 /// Returns name of the passed value constructor
@@ -8,7 +8,7 @@
 /// @param { any } $value
 /// @return { string | null }
 @function constructor-name($value) {
-    $constructor-def: --get-constructor-def(constructor-of($value));
+    $constructor-def: constructor-get--(constructor-of($value));
 
     @return if($constructor-def == null, null, map-get($constructor-def, constructor-name));
 }

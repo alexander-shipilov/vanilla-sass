@@ -1,0 +1,18 @@
+@import "../assert";
+@import "array-nth";
+
+@include assert("array-nth($array: array, $index: integer): returns the nth item in an array (negative index supported).", (
+  array-nth((), 1) is-null,
+  array-nth((1, 2), 0) is-null,
+  array-nth((1, 2), 3) is-null,
+  array-nth((1, 2), -3) is-null,
+  array-nth((1, 2), 1) equal 1,
+  array-nth((1, 2), -1) equal 2,
+  array-nth((1, 2), -2) equal 1,
+));
+
+@include assert("array-nth($array: array, $index: integer): should validate passed params", (
+    (array-nth, null) throws "ArgumentError: Invalid argument `$array` of `array-nth($array: array, $index: integer)`. Expected value of array, instead given null",
+    (array-nth, (), null) throws "ArgumentError: Invalid argument `$index` of `array-nth($array: array, $index: integer)`. Expected value of integer, instead given null",
+    (array-nth, (), 1.1) throws "ArgumentError: Invalid argument `$index` of `array-nth($array: array, $index: integer)`. Expected value of integer, instead given { number } 1.1",
+));

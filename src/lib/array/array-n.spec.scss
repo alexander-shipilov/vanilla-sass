@@ -1,0 +1,30 @@
+@import "../assert";
+@import "array-n";
+
+$array: (foo, bar, ted);
+
+@include assert("array-n($array: array, $index: integer): calculates an index", (
+  array-n($array, 1) equal 1,
+  array-n($array, 3) equal 3,
+  array-n($array, -1) equal 3,
+  array-n($array, -3) equal 1,
+));
+
+@include assert("array-n($array: array, $index: integer): should return 0 if calculated index is less than 1", (
+  array-n((), 0) equal 0,
+  array-n((), -1) equal 0,
+  array-n($array, 0) equal 0,
+  array-n($array, -100) equal 0,
+));
+
+@include assert("array-n($array: array, $index: integer): should return `length($array) + 1` if calculated index is greater than `length($array)`", (
+  array-n((), 1) equal 1,
+  array-n($array, 4) equal 4,
+  array-n($array, 100) equal 4,
+));
+
+@include assert("array-n($array: array, $index: integer): should validate passed params", (
+    (array-n, null) throws "ArgumentError: Invalid argument `$array` of `array-n($array: array, $index: integer)`. Expected value of array, instead given null",
+    (array-n, (), null) throws "ArgumentError: Invalid argument `$index` of `array-n($array: array, $index: integer)`. Expected value of integer, instead given null",
+    (array-n, (), 1.1) throws "ArgumentError: Invalid argument `$index` of `array-n($array: array, $index: integer)`. Expected value of integer, instead given { number } 1.1",
+));

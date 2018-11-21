@@ -1,0 +1,19 @@
+@import "../func/func-call-unsafe--";
+@import "../types/list-of/list-of--";
+@import "../types/optional/optional--";
+@import "object-assign--";
+
+/// Copies the values of all enumerable properties from one or more source maps to a target object
+/// @group object
+///
+/// @param { object } $object
+/// @param { list-of(opt(object)) } $sources...
+/// @return { map }
+///
+/// @example
+///
+///   @debug object-assign() // 
+///
+@function object-assign($object: null, $sources...) {
+  @return func-call-unsafe--(object-assign, (object: object $object, "sources...":list-of--( opt--(object)) $sources));
+}

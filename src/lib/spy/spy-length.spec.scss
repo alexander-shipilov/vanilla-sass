@@ -1,0 +1,23 @@
+@import "../assert";
+@import "spy";
+@import "spy-call";
+@import "spy-length";
+
+@include void() {
+  $spy: spy();
+
+  @include assert("spy-length($spy: spy): return 0 if the passed spy was not called", (
+    spy-length($spy) equal 0,
+  ));
+
+  @include void(spy-call($spy, 1));
+  @include void(spy-call($spy, 2));
+
+  @include assert("spy-length($spy: spy): returns a count of the passed spy calls", (
+    spy-length($spy) equal 2,
+  ));
+}
+
+@include assert("spy-length($spy: spy): should validate passed params", (
+    (spy-length, null) throws "ArgumentError: Invalid argument `$spy` of `spy-length($spy: spy)`. Expected value of spy, instead given null",
+));

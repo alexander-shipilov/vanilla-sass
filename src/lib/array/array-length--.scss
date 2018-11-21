@@ -1,0 +1,6 @@
+/// Unsafe array-length()
+/// @group array
+/// @see array-length
+@function array-length--($array, $other...) {
+  @return length($array);
+}

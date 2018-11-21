@@ -1,8 +1,8 @@
 @import "../core/throw";
-@import "$--constructor-context";
+@import "$constructor-context--";
 
 @function constructor-call-check() {
-    @if ($--constructor-context == null) {
+    @if ($constructors-context-- == null) {
         @return throw("Constructor cannot be invoked without `new()`");
     }
 

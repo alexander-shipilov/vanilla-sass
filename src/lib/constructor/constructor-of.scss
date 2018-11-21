@@ -1,5 +1,5 @@
-@import "$--constructor-prop";
-@import "$--constructors";
+@import "$constructor-prop--";
+@import "$constructors--";
 @import "is-constructor";
 
 /// Returns constructor of the passed value
@@ -16,6 +16,6 @@
 ///   @debug constructor-of(1); // null
 ///
 @function constructor-of($value: null, $other...) {
-    @return if(type-of($value) == map, map-get($value, $--constructor-prop),
-        if(is-constructor($value), constructor-of(--get-constructor-def($value)), null));
+    @return if(type-of($value) == map, map-get($value, $constructor-prop--),
+        if(is-constructor($value), constructor-of(constructor-get--($value)), null));
 }

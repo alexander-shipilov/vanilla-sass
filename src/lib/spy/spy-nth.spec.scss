@@ -1,0 +1,30 @@
+@import "../assert";
+@import "../core/@void";
+@import "spy";
+@import "spy-call";
+@import "spy-nth";
+
+@include void() {
+  $spy: spy();
+
+  @include assert("spy-nth($spy: spy, $index: integer): returns null if spy was not called", (
+    spy-nth($spy, 1) equal null,
+  ));
+
+  @include void(spy-call($spy, 1));
+  @include void(spy-call($spy, 2));
+
+  @include assert("spy-nth($spy: spy, $index: integer): returns n-th call of the given spy", (
+    spy-nth($spy, 1) equal (args: (1,), return: null, error: null),
+    spy-nth($spy, 2) equal (args: (2,), return: null, error: null),
+    spy-nth($spy, -1) equal (args: (2,), return: null, error: null),
+    spy-nth($spy, -2) equal (args: (1,), return: null, error: null),
+    spy-nth($spy, 3) equal null,
+    spy-nth($spy, -3) equal null,
+  ));
+}
+
+@include assert("spy-nth($spy: spy, $index: integer): should validate passed params", (
+    (spy-nth, null) throws "ArgumentError: Invalid argument `$spy` of `spy-nth($spy: spy, $index: integer)`. Expected value of spy, instead given null",
+    (spy-nth, spy(), null) throws "ArgumentError: Invalid argument `$index` of `spy-nth($spy: spy, $index: integer)`. Expected value of integer, instead given null",
+));

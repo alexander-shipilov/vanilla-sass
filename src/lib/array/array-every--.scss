@@ -1,20 +1,18 @@
 @import "../core/to-bool";
 @import "../func/func-call--";
+@import "array-length--";
 
 /// Unsafe array-every()
 /// @group array
 /// @see array-every
-@function list-every--($array, $callback, $args...) {
-  $length: length($array);
+@function array-every--($array, $callback) {
+  $length: array-length--($array);
+  $index: 1;
   $every: true;
 
-  @if ($length != 0) {
-    $index: 1;
-
-    @while ($every == true and $index <= $length) {
-      $every: to-bool(func-call--($callback, nth($array, $index), $index, $array, $args...));
-      $index: $index + 1;
-    }
+  @while ($index <= $length and $every == true) {
+    $every: to-bool(func-call--($callback, nth($array, $index), $index, $array));
+    $index: $index + 1;
   }
 
   @return $every;

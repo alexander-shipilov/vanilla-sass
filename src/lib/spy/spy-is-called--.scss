@@ -1,0 +1,9 @@
+@import "spy-length--";
+
+/// Unsafe spy-is-called()
+/// @group spy
+/// @access private
+/// @see spy-is-called
+@function spy-is-called--($spy, $times: 1, $other...) {
+  @return spy-length--($spy) >= $times;
+}

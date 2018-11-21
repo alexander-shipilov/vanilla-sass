@@ -1,0 +1,26 @@
+@import "../assert";
+@import "../core/@void";
+@import "spy";
+@import "spy-is-called";
+@import "spy-call";
+
+@include void() {
+  $spy: spy();
+
+  @include assert("spy-is-called($spy: spy, $times: integer): returns false if spy was not called", (
+    spy-is-called($spy) is-false,
+  ));
+
+  @include void(spy-call($spy));
+
+  @include assert("spy-is-called($spy: spy, $times: integer): returns true if spy was called more than expected times", (
+    spy-is-called($spy) is-true,
+    spy-is-called($spy, 1) is-true,
+    spy-is-called($spy, 2) is-false,
+  ));
+}
+
+@include assert("spy-is-called($spy: spy, $times: integer): should validate passed params", (
+    (spy-is-called, null) throws "ArgumentError: Invalid argument `$spy` of `spy-is-called($spy: spy, $times: integer)`. Expected value of spy, instead given null",
+    (spy-is-called, spy(), a) throws "ArgumentError: Invalid argument `$times` of `spy-is-called($spy: spy, $times: integer)`. Expected value of integer, instead given { string } a",
+));

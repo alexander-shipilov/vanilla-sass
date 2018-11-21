@@ -4,5 +4,5 @@
 /// @group core
 /// @see try-catch
 @function try-catch--($callable, $other...) {
-    @return nth(try--($callable), 1);
+    @return map-get(try--($callable), error);
 }

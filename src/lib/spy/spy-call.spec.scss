@@ -1,0 +1,15 @@
+@import "../assert";
+@import "../func/func-const";
+@import "is-spy";
+@import "spy";
+@import "spy-call";
+
+
+@include assert("spy-call($spy: spy, $args...: arglist): calls specified spy and returns result", (
+  spy-call(spy()) is-null,
+  spy-call(spy((func-const, 1))) equal 1,
+));
+
+@include assert("spy-call($spy: spy, $args...: arglist): should validate passed params", (
+    (spy-call, null) throws "ArgumentError: Invalid argument `$spy` of `spy-call($spy: spy, $args...: arglist)`. Expected value of spy, instead given null",
+));
