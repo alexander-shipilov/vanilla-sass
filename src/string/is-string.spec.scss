@@ -1,0 +1,22 @@
+@import "../assert";
+@import "index";
+
+@include assert("is-string should be a function", (
+  is-function(is-string) is-true,
+));
+
+@include assert("is-string() Checks if the passed value is string", (
+  is-string("") is-true,
+  is-string('') is-true,
+  is-string(foo) is-true,
+  is-string(1) is-false,
+  is-string(null) is-false,
+));
+
+@include void() {
+  $is-string: --usage(--is-string());
+
+  @include assert("is-string() should throw if invalid params passed", (
+      (is-string) throws "ArgumentError: Missed argument `$value` of `#{ $is-string }`.",
+  ));
+}

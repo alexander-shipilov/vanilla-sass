@@ -1,0 +1,13 @@
+@import "../array/array-nth--";
+@import "../array/array-nth-set--";
+@import "../array/array-shift--";
+@import "../array/array-unshift--";
+
+/// Contexts registry
+/// @group context
+/// @access private
+$context--: () !default;
+
+@function context--() {
+  @return array-nth--($context--, -1);
+}

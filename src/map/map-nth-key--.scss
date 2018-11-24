@@ -1,0 +1,9 @@
+@import "../array/array-nth--";
+
+/// @group map
+/// @see map-nth-key
+@function map-nth-key--($map, $n, $other...) {
+  $key-value: array-nth--($map, $n);
+
+  @return nth(nth($map, $n), 1);
+}

@@ -1,0 +1,6 @@
+/// @group error
+/// @access private
+/// @see error-message
+@function error-message--($error, $other...) {
+  @return map-get($error, message);
+}

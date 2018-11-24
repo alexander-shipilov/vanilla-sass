@@ -1,0 +1,25 @@
+@import "../func/func-call-private--";
+@import "array-of--";
+
+@import "../--";
+@import "array-of--";
+
+/// Creates array-of type
+/// @group type
+///
+/// @param { type } $type [--required()]
+/// @return { type }
+///
+/// @example
+///
+///   @debug is-type-of(array-of(string), ("foo", "bar")); // true
+///   @debug is-type-of(array-of(string), (1,)); // false
+///
+@function array-of($type: --required(), $other...) {
+  @return --private(array-of, $type);
+}
+
+/// @ignore
+@function --array-of($other...) {
+  @return type array-of ("type": type --required());
+}

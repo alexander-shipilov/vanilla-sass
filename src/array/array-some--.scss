@@ -1,0 +1,9 @@
+@import "array-length--";
+@import "array-find-index--";
+
+/// @group array
+/// @access private
+/// @see array-some
+@function array-some--($array, $callback, $other...) {
+  @return array-length--($array) != 0 and array-find-index--($array, $callback) != null;
+}

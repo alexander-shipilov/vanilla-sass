@@ -1,0 +1,8 @@
+@import "../array/array-every--";
+@import "--map-iterator";
+
+// @group map
+// @access private
+@function map-every--($map, $func, $args...) {
+  @return array-every--($map, (--map-iterator, $func), $args...);
+}

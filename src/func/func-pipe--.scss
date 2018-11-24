@@ -1,0 +1,26 @@
+@import "func-call--";
+@import "func-modify--";
+
+/// @group func
+/// @access private
+@function --func-pipe($funcs, $args...) {
+  $result: null;
+
+  @each $func in $funcs {
+    $result: func-call--($func, $args...);
+
+    @if ($result == null) {
+      @return $result;
+    }
+
+    $args: ($result,);
+  }
+
+  @return $result;
+}
+
+/// @group func
+/// @see func-pipe
+@function func-pipe--($funcs...) {
+  @return (--func-pipe, $funcs);
+}

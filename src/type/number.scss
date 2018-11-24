@@ -1,0 +1,17 @@
+@import "../func/func-call-private--";
+@import "number--";
+
+/// Creates new "number" type
+/// @group types
+///
+/// @param { type } $type
+/// @return { map }
+///
+/// @example
+///
+///   @debug is-type-of(number(string), ("foo", "bar")); // true
+///   @debug is-type-of(number(string), (1,)); // false
+///
+@function number($unit: null, $other...) {
+  @return func-call-private--(number, (unit: "?string" $unit));
+}

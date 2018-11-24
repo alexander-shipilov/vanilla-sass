@@ -1,0 +1,21 @@
+@import "../func/func-call-private--";
+@import "../type/optional--";
+@import "$array-separator-type--";
+@import "to-list--";
+
+/// Converts the passed array to a list
+/// @group array
+///
+/// @param { array } $array
+/// @param { $array-separator-type-- } $separator
+/// @param { bool } $is-bracketed
+/// @return { list }
+///
+/// @example
+///
+///   @debug to-list(); //
+///
+@function to-list($array: null, $separator: null, $is-bracketed: null, $other...) {
+  @return func-call-private--(to-list, (array: array $array, separator: opt--($array-separator-type--) $separator, is-bracketed: "?bool" $is-bracketed));
+}
+

@@ -1,0 +1,6 @@
+@import "func-call-private--";
+@import "func-call--";
+
+@function func-call($callable, $args...) {
+  @return func-call-private--(func-call, (callable: callable $callable, "args...": arglist $args));
+}

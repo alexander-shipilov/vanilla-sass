@@ -1,0 +1,26 @@
+@import "../--";
+@import "var-writable--";
+
+/// Checks if the passed variable is writable
+/// @group var
+///
+/// @param { var } $var [--required()]
+/// @return { bool }
+///
+/// @example
+///
+///   @debug var-writable(); //
+///
+@function var-writable($var: --required(), $other...) {
+  @return --private(var-writable, $var);
+}
+
+/// @ignore
+@function --var-writable($other...) {
+  @return bool var-writable ("var": var --required());
+}
+
+
+
+
+

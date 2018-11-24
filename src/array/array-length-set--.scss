@@ -1,0 +1,26 @@
+@import "../core/throw";
+@import "to-list--";
+@import "array-length--";
+@import "array-push--";
+@import "array-slice--";
+
+/// @group array
+/// @access private
+/// @see array-length-set
+@function array-length-set--($array, $length, $other...) {
+  @if ($length < 0) {
+    @return throw("Invalid array length", RangeError);
+  }
+
+  $next-array: to-list--($array);
+
+  @if ($length < array-length--($array)) {
+    $next-array: array-slice--($array, 1, $length + 1);
+  }
+
+  @while (array-length--($next-array) < $length) {
+    $next-array: array-push--($next-array, null);
+  }
+
+  @return $next-array;
+}

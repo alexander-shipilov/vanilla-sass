@@ -1,0 +1,16 @@
+@import "../array/array-shift--";
+@import "$context--";
+
+/// @group context
+/// @access private
+@function context-create--($vars) {
+  @if (length($context--) != 0) {
+    @warn "Unable to pop global context";
+
+    @return null;
+  }
+
+  $context--: array-shift--($context--, $vars) !global;
+
+  @return null;
+}

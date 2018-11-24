@@ -1,0 +1,17 @@
+@import "../func/func-call-private--";
+@import "array-shift--";
+
+/// Returns a new list without first n elements of the passed array
+/// @group array
+///
+/// @param { array } $array
+/// @param { integer } $count
+/// @return { list }
+///
+/// @example
+///
+///   @debug array-shift(); // 
+///
+@function array-shift($array: null, $count: 1, $other...) {
+  @return func-call-private--(array-shift, (array: array $array, count: integer $count));
+}

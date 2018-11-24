@@ -1,0 +1,19 @@
+@import "../func/func-call-private--";
+@import "array-splice--";
+
+/// Changes the contents of an array by removing existing elements and/or adding new elements
+/// @group array
+///
+/// @param { array } $array
+/// @param { integer } $start
+/// @param { integer } $count
+/// @param { arglist } $values...
+/// @return { list }
+///
+/// @example
+///
+///   @debug array-splice(); // 
+///
+@function array-splice($array: null, $start: 1, $count: 0, $values...) {
+  @return func-call-private--(array-splice, (array: array $array, start: integer $start, count: integer $count, "values...": arglist $values));
+}

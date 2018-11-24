@@ -1,0 +1,28 @@
+@import "../core/throw";
+@import "../func/func-call--";
+@import "array-length--";
+
+/// @group array
+/// @see array-reduce
+@function array-reduce--($array, $callback, $initial: null, $other...) {
+  $length: array-length--($array);
+  $value: $initial;
+  $start-index: 1;
+
+  @if ($value == null) {
+    @if ($length == 0) {
+      @return throw("Reduce of empty array with no initial value", TypeError);
+    }
+
+    $value: nth($array, 1);
+    $start-index: 2;
+  }
+
+  @if ($length > 1) {
+    @for $index from $start-index through $length {
+      $value: func-call--(($callback, $value), nth($array, $index), $index, $array);
+    }
+  }
+
+  @return $value;
+}

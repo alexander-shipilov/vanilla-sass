@@ -1,0 +1,15 @@
+@import "../assert";
+@import "../type/one-of";
+@import "index";
+
+@include assert("array-join($array: array, $separator: ?any): Returns a new string by concatenating all of the elements in an array, separated by commas or a specified separator string", (
+  array-join((1, 2, 3)) equal "1,2,3",
+  array-join((1, 2, 3), ", ") equal "1, 2, 3",
+  array-join((1, 2, 3), "") equal "123",
+  array-join((1, 2, 3), null) equal "1null2null3",
+  array-join((1, 2, 3), one-of((string, map))) equal "1one-of(string, map)2one-of(string, map)3",
+));
+
+@include assert("array-join($array: array, $separator: ?any): should validate passed params", (
+    (array-join, null) throws "ArgumentError: Invalid argument `$array` of `array-join($array: array, $separator: ?any)`. Expected value of array, instead given null",
+));

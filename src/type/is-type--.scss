@@ -1,0 +1,15 @@
+@import "../proto/is-prototype--";
+@import "../proto/instance-of--";
+@import "../global/global";
+@import "is-type-tag--";
+@import "$type--";
+
+/// @group types
+/// @access private
+/// @see is-type
+@function is-type--($value, $other...) {
+  @return $value == null
+    or is-type-tag--($value)
+    or is-prototype--($value)
+    or instance-of--($value, $type--);
+}

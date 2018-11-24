@@ -1,0 +1,26 @@
+@import "../assert";
+@import "index";
+
+@function test() {
+}
+
+@include assert("prototype should be a function", (
+  is-function(prototype) is-true,
+));
+
+@include assert("prototype() creates a new prototype from the passed constructor", (
+  is-prototype(prototype()) is-true,
+));
+
+@include assert("to-string(prototype)", (
+  to-string(prototype(test)) equal "<prototype test>",
+  to-string(prototype(test, foo)) equal "<prototype foo>",
+));
+
+@include void() {
+  $prototype: --usage(--prototype());
+
+  @include assert("prototype() should throw if invalid params passed", (
+      (prototype, null) throws "ArgumentError: Invalid argument `$constructor` of `#{ $prototype }`. Expected value of callable, instead given null",
+  ));
+}

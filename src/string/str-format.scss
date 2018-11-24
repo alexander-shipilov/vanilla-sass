@@ -1,0 +1,17 @@
+@import "../func/func-call-private--";
+@import "str-format--";
+
+/// Returns a formatted string
+/// @group string
+///
+/// @param { string } $message
+/// @param { list } $args...
+/// @return { string }
+///
+/// @example
+///
+///   @debug str-format("Hello %1!", "World"); // Hello World!
+///
+@function str-format($message, $args...) {
+    @return func-call-private--(str-format, (message: string $message));
+}

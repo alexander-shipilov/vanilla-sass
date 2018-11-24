@@ -1,0 +1,6 @@
+@import "../func/func-call-private--";
+@import "map-every--";
+
+@function map-every($map, $callable, $args...) {
+  @return func-call-private--(map-every, (map: map $map, func: callable $callable, "args...": arglist $args));
+}

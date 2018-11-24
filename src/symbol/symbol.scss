@@ -1,0 +1,17 @@
+@import "../func/func-call-private--";
+@import "symbol--";
+
+/// Creates a new symbol
+/// @group symbol
+///
+/// @param { string } $description [""]
+/// @return { symbol }
+///
+/// @example
+///
+///   @debug symbol(foo); // symbol-uaf77b50c
+///   @debug is-symbol(symbol(foo)); // true
+///
+@function symbol($description: "", $other...) {
+  @return func-call-private--(symbol, (description: "string" $description));
+}

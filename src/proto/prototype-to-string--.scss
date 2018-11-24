@@ -1,0 +1,28 @@
+@import "../array/array-map--";
+@import "../array/array-join--";
+@import "../core/to-string";
+@import "../symbol/symbol-for--";
+@import "$prototypes--";
+@import "prototype-of--";
+
+@function prototype-to-string-tag--($proto) {
+  @return map-get($proto, symbol-for--(to-string-tag));
+}
+
+/// @ignore
+@function prototype-to-string--($object, $args...) {
+  $is-proto: map-has-key($object, symbol-for--(constructor));
+
+  @if ($is-proto) {
+    @return "<prototype #{ prototype-to-string-tag--($object) }>";
+  }
+
+  $tag: prototype-to-string-tag--(prototypes-get--(prototype-of--($object)));
+  $params: "";
+
+  @if (length($args) != 0) {
+    $params: array-join--(array-map--($args, to-string), ", ");
+  }
+
+  @return "#{ $tag }#{ if($params == "", "", "(#{ $params })") }";
+}

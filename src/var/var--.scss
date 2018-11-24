@@ -1,0 +1,22 @@
+@import "../core/to-string";
+@import "../symbol/symbol--";
+@import "../symbol/symbol-for--";
+@import "$var-writable--";
+@import "$var-type--";
+@import "$var-value--";
+@import "$vars--";
+
+/// @ignore
+@function var-to-string--($var) {
+  @return "#{ if(map-get($var, $var-writable--), "const ", "") }"
+    + "#{ to-string(map-get($var, $var-type--)) } #{ to-string(map-get($var, $var-value--)) }";
+}
+
+/// @ignore
+@function var--($type, $value, $writable: true, $other...) {
+  @return vars-set--("var-#{ unique-id() }", (
+    #{ $type }: $type,
+    #{ $var-writable-- }: $writable,
+    #{ symbol-for--(to-string) }: var-to-string--,
+  ));
+}

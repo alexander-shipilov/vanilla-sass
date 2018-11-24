@@ -1,0 +1,17 @@
+@import "prototype-of--";
+@import "is-prototype--";
+
+/// Returns name of the passed value constructor
+/// @group constructor
+///
+/// @param { any } $value
+/// @return { string | null }
+@function constructor-name($value) {
+  @if (not is-prototype--($value)) {
+    $value: prototype-of--($value);
+  }
+
+  $proto: prototype-of--($value);
+
+  @return if($proto == null, null, map-get(prototypes-get--($proto), constructor-name));
+}

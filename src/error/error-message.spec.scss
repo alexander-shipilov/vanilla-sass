@@ -1,0 +1,10 @@
+@import "../assert";
+@import "index";
+
+@include assert("error-message($error: error): Returns an error message", (
+  error-message(error("foo")) equal foo,
+));
+
+@include assert("error-message($error: error): should validate passed params", (
+    (error-message, null) throws "ArgumentError: Invalid argument `$error` of `error-message($error: error)`. Expected value of error, instead given null",
+));

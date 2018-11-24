@@ -1,0 +1,17 @@
+@import "../func/func-call-private--";
+@import "array-some--";
+
+/// Tests whether at least one element in the array passes the test implemented by the provided callable.
+/// @group array
+///
+/// @param { array } $array
+/// @param { callable } $callback
+/// @return { bool }
+///
+/// @example
+///
+///   @debug array-some(); // 
+///
+@function array-some($array: null, $callback: null, $other...) {
+  @return func-call-private--(array-some, (array: array $array, callback: callable $callback));
+}

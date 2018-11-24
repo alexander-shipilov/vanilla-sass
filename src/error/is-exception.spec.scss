@@ -1,0 +1,11 @@
+@import "../assert";
+@import "index";
+
+@include assert("is-exception($value: ?any): Checks if the passed value is a thrown exception.", (
+  is-exception(exception()) is-true,
+));
+
+@include assert("is-exception($value: ?any): should validate passed params", (
+    (is-exception) does-not-throw,
+));
+

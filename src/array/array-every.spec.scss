@@ -1,0 +1,30 @@
+@import "../assert";
+@import "../spy";
+@import "index";
+
+@function ge($number, $value, $other...) {
+  @return $number >= $value;
+}
+
+@include assert("array-every($array: array, $callback: callable): tests whether all elements in the array pass the test implemented by the provided callable", (
+  array-every((1, 11, 2, 12), (ge, 10)) is-false,
+  array-every((1, 2, 3, 4), (ge, 10)) is-true,
+  array-every((), (ge, 10)) is-true,
+));
+
+@include void() {
+  $array: (11, 12, 13);
+  $spy: spy((ge, 11));
+  $result: array-every($array, (spy-call, $spy));
+
+  @include assert("array-every($array: array, $callback: callable): should call passed callable with ($value: ?any, $index: number, $array: array)", (
+    spy-length($spy) equal 2,
+    spy-nth($spy, 1) equal (args: (11, 1, $array), return: true, error: null),
+    spy-nth($spy, 2) equal (args: (12, 2, $array), return: false, error: null),
+  ));
+}
+
+@include assert("array-every($array: array, $callback: callable): should validate passed params", (
+    (array-every, null) throws "ArgumentError: Invalid argument `$array` of `array-every($array: array, $callback: callable)`. Expected value of array, instead given null",
+    (array-every, (), null) throws "ArgumentError: Invalid argument `$callback` of `array-every($array: array, $callback: callable)`. Expected value of callable, instead given null",
+));

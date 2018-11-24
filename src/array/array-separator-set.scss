@@ -1,0 +1,21 @@
+@import "../func/func-call-private--";
+@import "$array-separator-type--";
+@import "array-separator-set--";
+
+
+
+/// Sets array separator
+/// @group array
+///
+/// @param { array } $array
+/// @param { one-of((value(comma), value(space))) } $separator
+/// @return { list }
+///
+/// @example
+///
+///   @debug array-separator-set(); //
+///
+@function array-separator-set($array: null, $separator: null, $other...) {
+  @return func-call-private--(array-separator-set, (array: array $array, separator: $array-separator-type-- $separator));
+}
+

@@ -1,0 +1,9 @@
+@import "$symbol-all--";
+
+/// @group symbol
+/// @access private
+/// @see symbol
+@function symbol--($description, $other...) {
+  @return symbol-set--("symbol-#{ unique-id() }", $description);
+}
+

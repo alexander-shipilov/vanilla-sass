@@ -1,0 +1,10 @@
+@import "../assert";
+@import "index";
+
+
+@include assert("array-reverse($array: array): Reverses an array", (
+));
+
+@include assert("array-reverse($array: array): should validate passed params", (
+    (array-reverse, null) throws "ArgumentError: Invalid argument `$array` of `array-reverse($array: array)`. Expected value of array, instead given null",
+));

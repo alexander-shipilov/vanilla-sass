@@ -1,0 +1,15 @@
+@import "array-length-set--";
+@import "array-unshift--";
+
+/// @group array
+/// @access private
+/// @see array-reverse
+@function array-reverse--($array, $other...) {
+  $next-array: array-length-set--($array, 0);
+
+  @each $value in $array {
+    $next-array: array-unshift--($next-array, $value);
+  }
+
+  @return $next-array;
+}

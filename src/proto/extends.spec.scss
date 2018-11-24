@@ -1,0 +1,35 @@
+@import "../assert/index";
+@import "index";
+
+@include assert("extends should be a function", (
+  is-function(extends) is-true,
+));
+
+@include void() {
+  $test1: prototype(void, test1);
+  $test2: extends(prototype(super, test2), $test1);
+
+  @include assert("extends() derrives a prototype", (
+    is-prototype($test2) is-true,
+    instance-of($test2, $test1) is-true,
+  ));
+
+  @include assert("extends() should throw if $super == $proto", (
+      (extend, $test1, $test1) throws "Error: <prototype test1> cannot extend itself",
+  ));
+
+  @include assert("extends() should throw if the passed prototype already extends another one", (
+      (extend, $test2, $test1) throws "Error: <prototype test2> already extends <prototype test1>",
+  ));
+}
+
+@include void() {
+  $extend: --usage(--extend());
+
+  @include assert("extend() should throw if invalid params passed", (
+      (extend) throws "ArgumentError: Missed argument `$prototype` of `#{ $extend }`.",
+      (extend, null) throws "ArgumentError: Invalid argument `$prototype` of `#{ $extend }`. Expected value of prototype, instead given null",
+      (extend) throws "ArgumentError: Missed argument `$super` of `#{ $extend }`.",
+      (extend, null) throws "ArgumentError: Invalid argument `$super` of `#{ $extend }`. Expected value of prototype, instead given null",
+  ));
+}

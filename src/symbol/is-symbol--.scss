@@ -1,0 +1,8 @@
+@import "$symbol-all--";
+
+/// @group symbol
+/// @access private
+/// @see is-symbol
+@function is-symbol--($value, $other...) {
+  @return type-of($value) == "string" and map-has-key($symbol-all--, $value);
+}

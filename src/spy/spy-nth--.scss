@@ -1,0 +1,10 @@
+@import "$spies--";
+@import "../array/array-nth--";
+
+/// @group spy
+/// @access private
+/// @see spy-nth
+@function spy-nth--($spy, $index, $other...) {
+  @return array-nth--(map-get(spy-get--($spy), calls), $index);
+}
+

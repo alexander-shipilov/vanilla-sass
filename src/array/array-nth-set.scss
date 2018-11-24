@@ -1,0 +1,19 @@
+@import "../func/func-call-private--";
+@import "array-nth-set--";
+
+/// Sets n-th value of the passed list
+/// @group array
+///
+/// @param { array } $array
+/// @param { integer } $index
+/// @param { ?any } $value
+/// @return { list }
+///
+/// @example
+///
+///   @debug array-nth-set(); //
+///
+@function array-nth-set($array: null, $index: null, $value: null, $other...) {
+  @return func-call-private--(array-nth-set, (array: array $array, index: integer $index, value: "?any" $value));
+}
+

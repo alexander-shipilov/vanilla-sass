@@ -1,0 +1,6 @@
+/// @group bool
+/// @access private
+/// @see is-bool
+@function is-bool--($value, $other...) {
+  @return type-of($value) == "bool";
+}

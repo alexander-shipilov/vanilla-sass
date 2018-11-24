@@ -1,0 +1,48 @@
+@import "../--";
+@import "this-set--";
+
+/// Sets properties to the current instance.
+/// @group proto
+///
+/// @param { object } $props [--required()]
+/// @return { object }
+///
+/// @example
+///
+///   @debug this-set(); //
+///
+@function this-set($props: --required(), $other...) {
+  @return --private(this-set, $props);
+}
+
+@import "../--/--required";
+
+/// @ignore
+@function --this-set($other...) {
+  @return "object" this-set ("props": ("object") --required());
+}
+
+/// @ignore
+@function this-set--($props: --required(), $other...) {
+  @return null;
+}
+
+@import "../assert";
+@import "index";
+
+@include assert("this-set should be a function", (
+  is-function(this-set) is-true,
+));
+
+@include assert("this-set() Sets properties to the current instance.", (
+
+));
+
+@include void() {
+  $this-set: --usage(--this-set());
+
+  @include assert("this-set() should throw if invalid params passed", (
+      (this-set) throws "ArgumentError: Missed argument `$props` of `#{ $this-set }`.",
+      (this-set, null) throws "ArgumentError: Invalid argument `$props` of `#{ $this-set }`. Expected value of object, instead given null",
+  ));
+}

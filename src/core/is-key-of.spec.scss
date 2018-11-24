@@ -1,0 +1,13 @@
+@import "../assert";
+@import "index";
+
+@include assert("is-key-of($key: string, $map: map): Checks if the given key is presented in the provided map", (
+  is-key-of(foo, (foo: 1)) is-true,
+  is-key-of(bar, (foo: 1)) is-false,
+));
+
+@include assert("is-key-of($key: string, $map: map): should validate passed params", (
+    (is-key-of, null) throws "ArgumentError: Invalid argument `$key` of `is-key-of($key: string, $map: map)`. Expected value of string, instead given null",
+    (is-key-of, foo, null) throws "ArgumentError: Invalid argument `$map` of `is-key-of($key: string, $map: map)`. Expected value of map, instead given null",
+));
+

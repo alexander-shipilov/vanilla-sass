@@ -1,0 +1,30 @@
+@import "../assert/index";
+@import "../core/index";
+@import "index";
+
+@include assert("one-of should be a function", (
+  is-function(one-of) is-true,
+));
+
+@include void() {
+  $string-or-number: one-of((string, number));
+
+  @include assert("one-of() creates one-of type", (
+    is-type($string-or-number) is-true,
+  ));
+
+  @include assert("is-type-of(one-of(), ...)", (
+    is-type-of($string-or-number, "foo") is-true,
+    is-type-of($string-or-number, 1) is-true,
+    is-type-of($string-or-number, true) is-false,
+  ));
+}
+
+@include void() {
+  $one-of: --usage(--one-of());
+
+  @include assert("one-of() should throw if invalid params passed", (
+      (one-of) throws "ArgumentError: Missed argument `$types` of `#{ $one-of }`.",
+      (one-of, null) throws "ArgumentError: Invalid argument `$types` of `#{ $one-of }`. Expected value of array-of(type), instead given null",
+  ));
+}

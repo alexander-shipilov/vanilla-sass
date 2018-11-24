@@ -1,0 +1,25 @@
+@import "../--";
+@import "instance-of--";
+
+/// Checks if the passed value is an instance of the provided prototype.
+/// @group proto
+///
+/// @param { ?any } $value [--required()]
+/// @param { prototype } $proto [--required()]
+/// @return { bool }
+///
+/// @example
+///
+///   $my-proto: prototype();
+///   $my-proto-instance: new($my-proto);
+///
+///   @debug instance-of($my-proto-instance, $my-proto); // true
+///
+@function instance-of($value: --required(), $proto: --required(), $other...) {
+  @return --private(instance-of, $value, $proto);
+}
+
+/// @ignore
+@function --instance-of($other...) {
+  @return bool instance-of ("value": "?any" --required(), "proto": prototype --required());
+}

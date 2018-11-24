@@ -1,0 +1,18 @@
+@import "../func/func-call-private--";
+@import "is-spy--";
+
+/// Checks if the passed value is a spy
+/// @group spy
+///
+/// @param { any } $value
+/// @return { bool }
+///
+/// @example
+///
+///   @debug is-spy(spy()) // true
+///   @debug is-spy(1) // false
+///
+@function is-spy($value: null, $other...) {
+  @return func-call-private--(is-spy, (value: "?any" $value));
+}
+

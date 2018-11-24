@@ -1,0 +1,10 @@
+@import "../array/array-unshift--";
+@import "$context--";
+
+/// @group context
+/// @access private
+@function context-destroy--() {
+  $context--: array-unshift--($context--, ()) !global;
+
+  @return null;
+}

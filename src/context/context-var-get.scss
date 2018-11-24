@@ -1,0 +1,17 @@
+@import "../func/func-call-private--";
+@import "context-var-get--";
+
+/// Returns context variable value
+/// @group context
+///
+/// @param { string } $var
+/// @return { ?any }
+///
+/// @example
+///
+///   @debug context-var-get(); //
+///
+@function context-var-get($var: null, $other...) {
+  @return func-call-private--(context-var-get, (var: string $var));
+}
+

@@ -1,0 +1,36 @@
+@import "../assert";
+@import "../func";
+@import "index";
+
+@include assert("array-pop($array: array, $count: integer): Removes the last n elements from an array and returns new array", (
+  array-pop((1, 2, 3)) equal (1, 2),
+  array-pop((1, 2, 3), 1) equal (1, 2),
+  array-pop((1, 2, 3), 2) equal (1,),
+  array-pop((1, 2, 3), 3) equal (),
+  array-pop((1, 2, 3), 4) equal (),
+  array-pop((1, 2, 3), 0) equal (1, 2, 3),
+  array-pop((1, 2, 3), -1) equal (1, 2, 3),
+));
+
+@include assert("array-pop($array: array, $count: integer): should return a list", (
+  type-of(array-pop((1, 2))) equal list,
+  type-of(array-pop((1, 2), 0)) equal list,
+  type-of(array-pop((foo: 1, bar: 2))) equal list,
+  type-of(array-pop((foo: 1, bar: 2), 0)) equal list,
+  type-of(array-pop(func-arglist(1, 2))) equal list,
+  type-of(array-pop(func-arglist(1, 2), 0)) equal list,
+));
+
+@include assert("array-pop($array: array, $count: integer): should preserve separator and brackets", (
+  array-is-bracketed(array-pop(1 2)) equal false,
+  array-is-bracketed(array-pop(to-list(1 2, $is-bracketed: true))) equal true,
+  array-is-bracketed(array-pop(to-list(1 2, $is-bracketed: true), 3)) equal true,
+  array-separator(array-pop((1, 2))) equal comma,
+  array-separator(array-pop((1, 2), 3)) equal comma,
+  array-separator(array-pop(1 2)) equal space,
+));
+
+@include assert("array-pop($array: array, $count: integer): should validate passed params", (
+    (array-pop, null) throws "ArgumentError: Invalid argument `$array` of `array-pop($array: array, $count: integer)`. Expected value of array, instead given null",
+    (array-pop, (), null) throws "ArgumentError: Invalid argument `$count` of `array-pop($array: array, $count: integer)`. Expected value of integer, instead given null",
+));

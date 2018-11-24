@@ -1,0 +1,7 @@
+@import "../assert";
+@import "index";
+
+@include assert("func-validate($func: function, $args: object-of(array(type, ...))): should validate passed params", (
+    (func-validate, null, null) throws "ArgumentError: Invalid argument `$func` of `func-validate($func: function, $args: object-of(array(type, ...)))`. Expected value of function, instead given null",
+    (func-validate, baz, null) throws "ArgumentError: Invalid argument `$func` of `func-validate($func: function, $args: object-of(array(type, ...)))`. Expected value of function, instead given { string } baz",
+));

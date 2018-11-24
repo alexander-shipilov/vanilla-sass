@@ -1,9 +1,0 @@
-@import "$spies--";
-
-/// Unsafe spy-reset()
-/// @group spy
-/// @access private
-/// @see spy-reset
-@function spy-reset--($spy, $other...) {
-  @return spy-set--($spy, (calls: ()));
-}

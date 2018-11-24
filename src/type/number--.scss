@@ -1,0 +1,46 @@
+@import "../proto/new--";
+@import "../proto/super";
+@import "../proto/prototype-to-string--";
+@import "../core/nvl";
+@import "../func/func-apply--";
+@import "../global/global";
+@import "../symbol/symbol-for--";
+@import "type--";
+
+/// @group type
+/// @access private
+@function number-validate--($number, $value, $other...) {
+  $unit: map-get($number, unit);
+
+  @return type-of($value) == number and ($unit == null or unit($value) == $unit);
+}
+
+/// @group type
+/// @access private
+@function number-to-string--($number, $other...) {
+  $unit: map-get($number, unit);
+  $args: ();
+
+  @if ($unit != null) {
+    $args: append($args, if($unit == "", "unitless", $unit));
+  }
+
+  @return prototype-to-string--($number, $args...);
+}
+
+/// @group type
+/// @access private
+@function number-constructor--($unit: null) {
+  @return map-merge(super(number-validate--), (
+    unit: $unit,
+    #{ symbol-for--(to-string) }: number-to-string--
+  ));
+}
+
+$type-number--: type--(number-constructor--, number) !default;
+
+/// @group type
+/// @see number
+@function number--($unit: null, $other...) {
+  @return new--($type-number--, $unit);
+}

@@ -1,0 +1,24 @@
+
+@import "../assert";
+@import "index";
+
+@include assert("value should be a function", (
+  is-function(value) is-true,
+));
+
+@include assert("value() creates a value type", (
+  is-type(value(1)) is-true,
+));
+
+@include assert("is-type-of(value(), )", (
+  is-type-of(value(foo), foo) is-true,
+  is-type-of(value(foo), bar) is-false,
+));
+
+@include void() {
+  $value: --usage(--value());
+
+  @include assert("value() should throw if invalid params passed", (
+      (value) throws "ArgumentError: Missed argument `$value` of `#{ $value }`.",
+  ));
+}

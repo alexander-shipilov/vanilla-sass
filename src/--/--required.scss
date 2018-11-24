@@ -1,0 +1,7 @@
+// @ignore
+$--required: unique-id() !default;
+
+// @ignore
+@function --required() {
+  @return $--required;
+}

@@ -1,0 +1,22 @@
+@import "to-list--";
+@import "array-length--";
+@import "array-n--";
+@import "array-push--";
+@import "array-slice--";
+
+/// @group array
+/// @access private
+/// @see array-splice
+@function array-splice--($array, $start, $count, $values...) {
+  $next-array: to-list--($array);
+  $start-n: max(array-n--($array, $start), 1);
+
+  @if (($count > 0 and $start-n <= array-length--($array)) or array-length--($values) != 0) {
+    $next-array: join(
+        array-push--(array-slice--($next-array, 1, $start-n), $values...),
+        array-slice--($next-array, $start-n + max($count, 0))
+    );
+  }
+
+  @return $next-array;
+}

@@ -1,0 +1,13 @@
+@import "../assert";
+@import "index";
+
+@include assert("func-bind: returns a list which can be passed to func-call", (
+  type-of(func-bind(func-arglist, 1)) equal "list",
+  func-bind(func-arglist, 1) equal (func-arglist, 1),
+  func-bind(func-bind(func-arglist, 1), 2) equal ((func-arglist, 1), 2),
+  func-call(func-bind(call, type-of, 1)) equal number,
+));
+
+@include assert("func-bind: should throw if the passed arg is not a callable", (
+    (func-bind, 1) throws "ArgumentError: Invalid argument `$callable` of `func-bind($callable: callable, $args...: arglist)`. Expected value of callable, instead given { number } 1",
+));

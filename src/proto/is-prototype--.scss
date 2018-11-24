@@ -1,0 +1,12 @@
+@import "../--/--required";
+@import "$prototypes--";
+
+/// @ignore
+@function --is-prototype($other...) {
+  @return "bool" is-prototype ("value": ("?any") --required());
+}
+
+/// @ignore
+@function is-prototype--($value, $other...) {
+  @return type-of($value) == "string" and map-has-key($prototypes--, $value);
+}

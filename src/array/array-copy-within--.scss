@@ -1,0 +1,13 @@
+@import "array-length--";
+@import "array-length-set--";
+@import "array-slice--";
+@import "array-splice--";
+
+/// @group array
+/// @access private
+/// @see array-copy-within
+@function array-copy-within--($array, $target, $start: 1, $end: null, $other...) {
+  $values: array-slice--($array, $start, $end);
+
+  @return array-length-set--(array-splice--($array, $target, array-length--($values), $values...), array-length--($array));
+}

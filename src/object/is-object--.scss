@@ -1,0 +1,7 @@
+/// @group object
+/// @access private
+@function is-object--($value: null, $other...) {
+  $type: type-of($value);
+
+  @return $type == map or (($type == list or $type == arglist) and length($value) == 0);
+}

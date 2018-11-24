@@ -1,0 +1,23 @@
+@import "../--";
+@import "../type/custom--";
+@import "let--";
+
+/// Creates a variable
+/// @group var
+///
+/// @param { type } $type
+/// @param { $type } $value
+/// @return { var }
+///
+/// @example
+///
+///   @debug let(); //
+///
+@function let($type: --required(), $value: --required(), $other...) {
+  @return --private(let, $value, $type);
+}
+
+/// @ignore
+@function --let($type, $other...) {
+  @return var let ("type": type --required(), "value": custom--((is-type-of--, $type), "$type") --required());
+}

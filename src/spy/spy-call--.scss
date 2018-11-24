@@ -1,0 +1,20 @@
+@import "../core/try--";
+@import "../func/func-apply--";
+@import "$spies--";
+
+/// @group spy
+/// @access private
+/// @see spy-call
+@function spy-call--($spy, $args...) {
+  $spy-object:  spy-get--($spy);
+  $func: map-get($spy-object, func);
+  $call: (args: $args, error: null, return: null);
+
+  @if ($func != null) {
+    $call: map-merge($call, try--(join(($func), $args)));
+  }
+
+  $spy: spy-set--($spy, map-merge($spy-object, (calls: append(map-get($spy-object, calls), $call))));
+
+  @return map-get($call, return);
+}

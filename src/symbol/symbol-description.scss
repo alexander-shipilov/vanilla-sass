@@ -1,0 +1,16 @@
+@import "../func/func-call-private--";
+@import "symbol-description--";
+
+/// Returns the passed symbol description
+/// @group symbol
+///
+/// @param { symbol } $symbol
+/// @return { ?string }
+///
+/// @example
+///
+///   @debug symbol-description(); //
+///
+@function symbol-description($symbol: null, $other...) {
+  @return func-call-private--(symbol-description, (symbol: symbol $symbol));
+}

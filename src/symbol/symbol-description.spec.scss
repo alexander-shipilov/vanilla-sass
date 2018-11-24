@@ -1,0 +1,12 @@
+@import "../assert";
+@import "symbol";
+@import "symbol-description";
+
+@include assert("symbol-description($symbol: symbol): Returns the passed symbol description", (
+  symbol-description(symbol()) equal "",
+  symbol-description(symbol(foo)) equal foo,
+));
+
+@include assert("symbol-description($symbol: symbol): should validate passed params", (
+    (symbol-description, null) throws "ArgumentError: Invalid argument `$symbol` of `symbol-description($symbol: symbol)`. Expected value of symbol, instead given null",
+));

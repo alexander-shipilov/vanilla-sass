@@ -1,0 +1,25 @@
+@import "../--";
+@import "new--";
+
+/// Creates new instance of the provided prototype.
+/// @group proto
+///
+/// @param { prototype } $prototype [--required()]
+/// @param { arglist } $args... []
+/// @return { object }
+///
+/// @example
+///
+///   $my-proto: prototype();
+///   $my-instance = new($my-proto);
+///
+///   @debug instance-of($my-instance, $my-proto); // true
+///
+@function new($prototype: --required(), $args...) {
+  @return --private(new, $prototype, $args...);
+}
+
+/// @ignore
+@function --new($other...) {
+  @return "object" new ("proto": prototype --required(), "args...": arglist);
+}

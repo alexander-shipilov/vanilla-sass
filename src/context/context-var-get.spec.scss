@@ -1,0 +1,10 @@
+@import "../assert";
+@import "index";
+
+@include assert("context-var-get($var: string): Returns context variable value", (
+  context-var-get(foo) is-null,
+));
+
+@include assert("context-var-get($var: string): should validate passed params", (
+    (context-var-get, null) throws "ArgumentError: Invalid argument `$var` of `context-var-get($var: string)`. Expected value of string, instead given null",
+));

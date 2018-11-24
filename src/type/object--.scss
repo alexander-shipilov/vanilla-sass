@@ -1,0 +1,63 @@
+@import "../array/array-map--";
+@import "../proto/new--";
+@import "../proto/super";
+@import "../core/to-string";
+@import "../object/is-object--";
+@import "../symbol/symbol-for--";
+@import "type-define--";
+@import "../proto/prototype-to-string--";
+@import "is-type-of--";
+
+/// @group type
+/// @access private
+@function object-validate--($value, $map, $other...) {
+  $is-object: is-object--($value);
+  $types: map-get($map, types);
+
+  @if ($is-object and length($types) != 0) {
+    @each $key, $type in $types {
+      $is-object: is-type-of--($type, map-get($value, $key));
+
+      @if (not $is-object) {
+        @return false;
+      }
+    }
+  }
+
+  @return $is-object;
+}
+
+/// @group type
+/// @access private
+@function object-item-to-string--($map-item, $other...) {
+  @return "#{ to-string(nth($map-item, 0)) }: #{ to-string(nth($map-item, 1)) }";
+}
+
+/// @group type
+/// @access private
+@function object-to-string--($map, $other...) {
+  $types: append(array-map--(map-get($map, types), object-item-to-string--), "...");
+
+  @return prototype-to-string--($map, $types...);
+}
+
+/// @group type
+/// @access private
+@function object-constructor--($types, $other...) {
+  @if (not constructor-call-check()) {
+    @return null;
+  }
+
+  @return map-merge(super(object-validate--), (
+    types: $types,
+    #{ symbol-for--(to-string) }: object-to-string--
+  ));
+}
+
+$type-map--: type-define--(object, object-constructor--) !default;
+
+/// @group type
+/// @see map
+@function map--($types, $other...) {
+  @return new--($type-map--, $types);
+}

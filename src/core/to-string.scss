@@ -1,0 +1,41 @@
+@import "../array/array-map--";
+@import "../array/to-list--";
+@import "../array/is-array--";
+@import "../proto/$prototypes--";
+@import "../proto/is-prototype--";
+@import "../func/func-call--";
+@import "../map/map-map-values--";
+@import "../spy/$spies--";
+@import "../spy/is-spy--";
+@import "../symbol/is-symbol--";
+@import "../symbol/symbol-for--";
+@import "../symbol/symbol-to-string--";
+@import "../func/is-callable";
+
+@import "throw";
+
+@function to-string($value, $other...) {
+  @if (is-symbol--($value)) {
+    $value: symbol-to-string--($value);
+  } @else if (is-prototype--($value)) {
+    $value: prototypes-get--($value);
+  } @else if (is-spy--($value)) {
+    $value: spy-get--($value);
+  }
+
+  $type: type-of($value);
+
+  @if ($type == "map") {
+    $to-string: map-get($value, symbol-for--(to-string));
+
+    @if ($to-string != null and not is-callable($to-string)) {
+      @return throw("Can't convert #{ inspect($value) } to string", TypeError)
+    }
+
+    $value: if($to-string == null, map-map-values--($value, to-string), func-call--($to-string, $value));
+  } @else if (is-array--($value)) {
+    $value: array-map--(to-list--($value, comma, true), to-string);
+  }
+
+  @return inspect($value);
+}

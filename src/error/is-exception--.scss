@@ -1,0 +1,8 @@
+@import "$error-exception--";
+
+/// @group error
+/// @access private
+/// @see is-exception
+@function is-exception--($value, $other...) {
+  @return $value == $error-exception--;
+}

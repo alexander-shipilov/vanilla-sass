@@ -1,0 +1,23 @@
+@import "../--";
+@import "integer--";
+
+///
+/// @group type
+///
+/// @param { ?string } $unit [null]
+/// @return { type }
+///
+/// @example
+///
+///   @debug is-type-of(integer(), 1); // true
+///   @debug is-type-of(integer(), 1.1); // false
+///   @debug is-type-of(integer(px), 1); // false
+///
+@function integer($unit: null, $other...) {
+  @return --private(integer, $unit);
+}
+
+/// @ignore
+@function --integer($other...) {
+  @return type integer ("unit": "?string" null);
+}

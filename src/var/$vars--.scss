@@ -1,0 +1,30 @@
+/// Map of registered constructors' definitions
+/// @group constructor
+/// @access private
+$vars--: () !default;
+
+/// @group constructor
+/// @access private
+@function vars-get--($var) {
+  @return if(type-of($var) == "string", map-get($vars--, $var), null);
+}
+
+/// @group constructor
+/// @access private
+@function vars-set--($var, $var-props) {
+  $vars--: map-merge($vars--, ($var: $var-props)) !global;
+
+  @return $var;
+}
+
+/// @group constructor
+/// @access private
+@function vars-remove--($var) {
+  $var-props: vars-get--($var);
+
+  @if ($var-props) {
+    $vars--: map-remove($vars--, $var) !global;
+  }
+
+  @return $var-props;
+}

@@ -1,0 +1,18 @@
+@import "../func/func-call-private--";
+@import "../type/array-of--";
+@import "object-assign--";
+
+/// Copies the values of all enumerable properties from one or more source maps to a target object
+/// @group object
+///
+/// @param { object } $object
+/// @param { array-of(opt(object)) } $sources...
+/// @return { map }
+///
+/// @example
+///
+///   @debug object-assign() // 
+///
+@function object-assign($object: null, $sources...) {
+  @return func-call-private--(object-assign, (object: object $object, "sources...": array-of--("?object") $sources));
+}

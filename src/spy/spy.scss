@@ -1,0 +1,17 @@
+@import "../func/func-call-private--";
+@import "../type/optional--";
+@import "spy--";
+
+/// Creates a spy object that records arguments, exceptions and return values for all calls.
+/// @group spy
+///
+/// @param { ?callable } $func Spies on the provided callable
+/// @return { string } Spy identifier
+///
+/// @example
+///
+///   @debug spy() // spy-id12345
+///
+@function spy($func: null, $other...) {
+  @return func-call-private--(spy, (func: optional--(callable) $func));
+}

@@ -1,0 +1,11 @@
+@import "../assert";
+@import "array-separator";
+
+@include assert("array-separator($array: array): Returns an array separator", (
+  array-separator((1, 2, 3)) equal comma,
+  array-separator(1 2 3) equal space,
+));
+
+@include assert("array-separator($array: array): should validate passed params", (
+    (array-separator, null) throws "ArgumentError: Invalid argument `$array` of `array-separator($array: array)`. Expected value of array, instead given null",
+));

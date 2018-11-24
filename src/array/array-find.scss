@@ -1,0 +1,18 @@
+@import "../func/func-call-private--";
+@import "array-find--";
+
+/// Returns the value of the first element in the array that satisfies the provided testing callable.
+/// Otherwise undefined is returned.
+/// @group array
+///
+/// @param { array } $array
+/// @param { callable } $callback
+/// @return { ?any }
+///
+/// @example
+///
+///   @debug array-find(); // 
+///
+@function array-find($array: null, $callback: null, $other...) {
+  @return func-call-private--(array-find, (array: array $array, callback: callable $callback));
+}

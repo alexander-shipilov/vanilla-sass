@@ -1,0 +1,33 @@
+@import "../core";
+@import "../assert";
+@import "index";
+
+@include assert("is-prototype should be a function", (
+  is-function(is-prototype) is-true,
+));
+
+@include void() {
+  $test1: prototype(void, test1);
+  $test2: extends(prototype(super, test2), $test1);
+
+  @include assert("is-prototype() checks if the passed value is a prototype", (
+    is-prototype($test1) is-true,
+    is-prototype($test2) is-true,
+    is-prototype(1) is-false,
+    is-prototype(null) is-false,
+  ));
+}
+
+@include void() {
+  $is-prototype: --usage(--is-prototype());
+
+  @include assert("is-prototype() should throw if invalid params passed", (
+      (is-prototype) throws "ArgumentError: Missed argument `$value` of `#{ $is-prototype }`.",
+      (is-prototype, null) throws "ArgumentError: Invalid argument `$value` of `#{ $is-prototype }`. Expected value of ?any, instead given null",
+  ));
+}
+
+
+@include assert("is-constructor: checks whether passed value is a constructor", (
+
+));

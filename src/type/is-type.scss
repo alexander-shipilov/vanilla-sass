@@ -1,0 +1,18 @@
+@import "../func/func-call-private--";
+@import "is-type--";
+
+/// Checks if the passed value is a type
+/// @group types
+///
+/// @param { ?any } $value
+/// @return { bool }
+///
+/// @example
+///
+///    @debug is-type(number); // true
+///    @debug is-type(number(px)); // true
+///    @debug is-type(map(number, string)); // true
+///
+@function is-type($value: null, $other...) {
+  @return func-call-private--(is-type, (value: "?any" $value));
+}

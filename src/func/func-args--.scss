@@ -1,0 +1,8 @@
+@import "../array/array-slice--";
+@import "func-bind--";
+
+/// @group func
+/// @see func-args
+@function func-args--($callable, $other...) {
+  @return array-slice--($callable, 2);
+}

@@ -1,0 +1,22 @@
+@import "../--";
+@import "var-get--";
+
+/// @ignore
+@function --var-get($other...) {
+  @return "?any" var-get ("var": var --required());
+}
+
+/// Returns a value assigned to the passed variable
+/// @group var
+///
+/// @param { var } $var [--required()]
+/// @return { ?any }
+///
+/// @example
+///
+///   @debug var-get(const(string "foo")); // foo
+///   @debug var-get(let(one-of(value(1), value(2)) 1)); // 1
+///
+@function var-get($var: --required(), $other...) {
+  @return --private(var-get, $var);
+}

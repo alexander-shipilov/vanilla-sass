@@ -1,0 +1,17 @@
+@import "../func/func-call-private--";
+@import "error--";
+
+/// Creates new error
+/// @group error
+///
+/// @param { string } $message
+/// @param { string } $type
+/// @return { error }
+///
+/// @example
+///
+///   @debug error(); // 
+///
+@function error($message: "", $type: Error, $other...) {
+  @return func-call-private--(error, (message: string $message, type: string $type));
+}

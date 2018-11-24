@@ -1,8 +1,0 @@
-@import "--var";
-
-/// Unsafe let()
-/// @group var
-/// @see let
-@function let--($value: null, $type: null, $other...) {
-  @return --var($value, $type, false);
-}

@@ -1,0 +1,5 @@
+/// @group number
+/// @access private
+@function is-number--($value, $other...) {
+  @return type-of($value) == number;
+}

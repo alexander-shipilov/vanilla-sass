@@ -1,0 +1,58 @@
+@import "../array/is-array--";
+@import "../proto/is-prototype--";
+@import "../proto/instance-of--";
+@import "../error/is-error--";
+@import "../func/func-call--";
+@import "../number/is-integer--";
+@import "../object/is-object--";
+@import "../spy/is-spy--";
+@import "../symbol/is-symbol--";
+@import "../func/is-callable";
+@import "../func/is-function";
+@import "../string/is-string--";
+@import "$type--";
+@import "is-type--";
+
+
+/// @group types
+/// @see list
+@function is-type-of--($type, $value, $other...) {
+  $is-type: (
+    array: is-array--,
+    callable: is-callable,
+    prototype: is-prototype--,
+    error: is-error--,
+    function: is-function,
+    integer: is-integer--,
+    object: is-object--,
+    spy: is-spy--,
+    symbol: is-symbol--,
+    type: is-type--
+  );
+
+  @if (is-string--($type) and str-slice($type, 1, 1) == "?") {
+    @if ($value == null) {
+      @return true;
+    }
+
+    $type: str-slice($type, 2);
+  }
+
+  @if ($type == "any") {
+    @return true;
+  }
+
+  @if (map-has-key($is-type, $type)) {
+    @return func-call--(map-get($is-type, $type), $value);
+  }
+
+  @if (is-prototype--($type)) {
+    @return instance-of--($value, $type);
+  }
+
+  @if (instance-of--($type, $type--)) {
+    @return func-call--(map-get($type, validator), $type, $value);
+  }
+
+  @return type-of($value) == inspect($type);
+}

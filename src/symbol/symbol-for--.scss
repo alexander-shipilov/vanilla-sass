@@ -1,0 +1,16 @@
+@import "../core/nvl";
+@import "$symbol-global--";
+@import "symbol--";
+
+/// @group symbol
+/// @access private
+/// @see symbol-for
+@function symbol-for--($key, $other...) {
+  $symbol: symbol-global-get--($key);
+
+  @if ($symbol == null) {
+    $symbol: symbol-global-set--($key, symbol--($key));
+  }
+
+  @return $symbol;
+}

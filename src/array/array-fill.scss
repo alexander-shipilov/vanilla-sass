@@ -1,0 +1,19 @@
+@import "../func/func-call-private--";
+@import "array-fill--";
+
+/// Fills all the elements of an array from a start index to an end index with a static value. The end index is not included.
+/// @group array
+///
+/// @param { array } $array
+/// @param { ?any } $value
+/// @param { integer } $start
+/// @param { ?integer } $end
+/// @return { list }
+///
+/// @example
+///
+///   @debug array-fill(); // 
+///
+@function array-fill($array: null, $value: null, $start: 1, $end: null, $other...) {
+  @return func-call-private--(array-fill, (array: array $array, value: "?any" $value, start: integer $start, end: "?integer" $end));
+}

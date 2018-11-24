@@ -1,0 +1,36 @@
+@import "../array/array-nth--";
+@import "../array/array-shift--";
+@import "../core/throw";
+@import "../core/to-string";
+@import "../debug/debug-type";
+@import "../debug/debug-value";
+@import "../string/str-ends-with";
+@import "../type/optional--";
+@import "../type/is-type-of--";
+@import "--usage";
+@import "--required";
+
+/// @ignore
+@function --check($func-def, $args...) {
+  $func-args: nth($func-def, 3);
+  $args-rest: $args;
+
+  @each $arg, $arg-def in $func-args {
+    $is-rest: str-ends-with($arg, "...");
+
+    $arg-type: nth($arg-def, 1);
+    $arg-value: if($is-rest, $args-rest, array-nth--($args-rest, 1));
+    $args-rest: if($is-rest, (), array-shift--($args-rest));
+
+    @if ($arg-value == --required()) {
+      @return throw("Missed argument `$#{ $arg }` of `#{ --usage($func-def) }`.", ArgumentError);
+    }
+
+    @if (not is-type-of--($arg-type, $arg-value)) {
+      @return throw("Invalid argument `$#{ $arg }` of `#{ --usage($func-def) }`."
+        + " Expected value of #{ to-string($arg-type) }, instead given #{ debug-value($arg-value) }", ArgumentError);
+    }
+  }
+
+  @return true;
+}

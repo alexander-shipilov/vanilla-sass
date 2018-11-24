@@ -1,0 +1,17 @@
+@import "../func/func-call-private--";
+@import "context-var-exists--";
+
+/// Checks if variable with the given name exists in current context
+/// @group context
+///
+/// @param { string } $var
+/// @return { bool }
+///
+/// @example
+///
+///   @debug context-var-exists(); //
+///
+@function context-var-exists($var: null, $other...) {
+  @return func-call-private--(context-var-exists, (var: string $var));
+}
+

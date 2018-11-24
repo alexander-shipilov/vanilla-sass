@@ -1,0 +1,6 @@
+@import "../func/func-call-private--";
+@import "try-catch--";
+
+@function try-catch($callable, $other...) {
+    @return func-call-private--(try-catch, (callable: callable $callable));
+}

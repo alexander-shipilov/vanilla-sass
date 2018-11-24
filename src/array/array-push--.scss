@@ -1,0 +1,6 @@
+/// @group array
+/// @access private
+/// @see array-push
+@function array-push--($array, $values...) {
+  @return join($array, $values);
+}

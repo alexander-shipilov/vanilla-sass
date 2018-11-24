@@ -1,0 +1,20 @@
+@import "../assert";
+@import "index";
+
+@include assert("var-writable should be a function", (
+  is-function(var-writable) is-true,
+));
+
+@include assert("var-writable() Checks if the passed variable is writable", (
+  var-writable(const(string foo)) is-false,
+  var-writable(let(string foo)) is-true,
+));
+
+@include void() {
+  $var-writable: --usage(--var-writable());
+
+  @include assert("var-writable() should throw if invalid params passed", (
+      (var-writable) throws "ArgumentError: Missed argument `$var` of `#{ $var-writable }`.",
+      (var-writable, null) throws "ArgumentError: Invalid argument `$var` of `#{ $var-writable }`. Expected value of var, instead given null",
+  ));
+}

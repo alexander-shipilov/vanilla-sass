@@ -1,0 +1,24 @@
+@import "../func/func-call-private--";
+@import "../type/array-of--";
+
+@function map-get-deep--($map, $keys, $other...) {
+  $length: length($keys);
+  $value: null;
+
+  @if ($length != 0) {
+    $value: $map;
+    $index: 1;
+
+    @while ($index <= $length and type-of($value) == "map") {
+      $key: nth($keys, $index);
+      $value: map-get($value, $key);
+      $index: $index + 1;
+    }
+  }
+
+  @return $value;
+}
+
+@function map-get-deep($map, $keys, $other...) {
+  @return func-call-private--(map-get-deep, (map: map $map, keys: array-of--(string) $keys));
+}

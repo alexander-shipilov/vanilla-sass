@@ -1,0 +1,39 @@
+@import "../array/to-list--";
+@import "../array/array-map--";
+@import "../array/is-array--";
+@import "../func/func-call--";
+@import "../map/map-map-values--";
+@import "../symbol/symbol-for--";
+@import "../func/is-callable";
+@import "$value-of";
+
+/// value-ofs value
+/// @group core
+///
+/// @param { any } $value
+/// @return { any }
+///
+/// @examples
+///
+///   @debug value-of(foo bar); // [foo, bar]
+///   @debug value-of(foo); // "foo"
+///
+@function value-of($value, $other...) {
+  $type: type-of($value);
+
+  @if ($type == "string") {
+    $value: #{ quote($value) };
+  } @else if ($type == "map") {
+    $value-of: map-get($value, symbol-for--(value-of));
+
+    @if ($value-of != null and not is-callable($value-of)) {
+      @return throw("Can't retrieve value of #{ inspect($value) }", TypeError)
+    }
+
+    $value: if($value-of, func-call--($value-of, $value), map-map-values--($value, value-of));
+  } @else if (is-array--($value)) {
+    $value: array-map--(to-list--($value, comma, true), value-of);
+  }
+
+  @return $value;
+}

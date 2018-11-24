@@ -1,0 +1,22 @@
+@import "../assert";
+@import "../func";
+@import "index";
+
+@include assert("array-is-bracketed-set($array: array, $is-bracketed: bool): Adds or remove square brackets to the passed array", (
+  array-is-bracketed(array-is-bracketed-set(1 2, true)) is-true,
+  array-is-bracketed(array-is-bracketed-set(to-list(1 2, $is-bracketed: true), false)) is-false,
+));
+
+@include assert("array-length-set($array: array, $length: integer): should return a list", (
+  type-of(array-is-bracketed-set((1, 2), true)) equal list,
+  type-of(array-is-bracketed-set((1, 2), false)) equal list,
+  type-of(array-is-bracketed-set((foo: 1, bar: 2), true)) equal list,
+  type-of(array-is-bracketed-set((foo: 1, bar: 2), false)) equal list,
+  type-of(array-is-bracketed-set(func-arglist(1, 2), true)) equal list,
+  type-of(array-is-bracketed-set(func-arglist(1, 2), false)) equal list,
+));
+
+@include assert("array-is-bracketed-set($array: array, $is-bracketed: bool): should validate passed params", (
+    (array-is-bracketed-set, null) throws "ArgumentError: Invalid argument `$array` of `array-is-bracketed-set($array: array, $is-bracketed: bool)`. Expected value of array, instead given null",
+    (array-is-bracketed-set, (), null) throws "ArgumentError: Invalid argument `$is-bracketed` of `array-is-bracketed-set($array: array, $is-bracketed: bool)`. Expected value of bool, instead given null",
+));

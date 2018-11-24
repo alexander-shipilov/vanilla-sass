@@ -1,0 +1,16 @@
+@import "../func/func-call-private--";
+@import "to-bool--";
+
+/// Converts value to a boolean
+/// @group bool
+///
+/// @param { ?any } $value
+/// @return { bool }
+///
+/// @example
+///
+///   @debug to-bool(); //
+///
+@function to-bool($value: null, $other...) {
+  @return func-call-private--(to-bool, (value: "?any" $value));
+}

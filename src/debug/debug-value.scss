@@ -1,0 +1,25 @@
+@import "../core/to-string";
+@import "debug-type";
+
+/// Returns value with type
+/// @group debug
+///
+/// @param { any } $value
+/// @return { string }
+///
+/// @example
+///
+///   @debug debug-value(foo); // (string) foo
+///   @debug debug-value(null); // null
+///
+@function debug-value($value, $other...) {
+  $value-type: type-of($value);
+
+  $debug-value: to-string($value);
+
+  @if ($value-type != "null") {
+    $debug-value: "{ #{ debug-type($value-type) } } #{ if($debug-value == "", '""', $debug-value) }";
+  }
+
+  @return $debug-value;
+}

@@ -1,0 +1,23 @@
+@import "../--";
+@import "optional--";
+
+/// Creates an optional type
+/// @group type
+///
+/// @param { type } $type [--required()]
+/// @return { type }
+///
+/// @example
+///
+///   @debug is-type-of(optional(string), "foo"); // true
+///   @debug is-type-of(optional(string), null); // true
+///   @debug is-type-of(optional(string), 1); // false
+///
+@function optional($type: --required(), $other...) {
+  @return --private(optional, $type);
+}
+
+/// @ignore
+@function --optional($other...) {
+  @return type optional ("type": type --required());
+}

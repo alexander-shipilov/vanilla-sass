@@ -1,0 +1,44 @@
+@import "../assert/index";
+@import "../core/index";
+@import "index";
+
+@include assert("integer should be a function", (
+  is-function(integer) is-true,
+));
+
+@include assert("integer(): creates a new integer type", (
+  is-type(integer()) is-true,
+  map-get(integer(), unit) equal null,
+  map-get(integer("px"), unit) equal "px",
+));
+
+@include assert("to-string(integer())", (
+  to-string(integer()) equal "integer",
+  to-string(integer(px)) equal "integer(px)",
+  to-string(integer("")) equal "integer(unitless)",
+));
+
+@include assert("is-type-of(integer(), ...)", (
+  is-type-of(integer(), 1) is-true,
+  is-type-of(integer(), 1px) is-true,
+  is-type-of(integer(), 1em) is-true,
+  is-type-of(integer(""), 1) is-true,
+  is-type-of(integer("px"), 1px) is-true,
+  is-type-of(integer(), 3px / 1em) is-true,
+  is-type-of(integer("px/em"), 3px / 1em) is-true,
+  is-type-of(integer(), 3px / 2em) is-false,
+  is-type-of(integer("px/em"), 3px / 2em) is-false,
+  is-type-of(integer(""), 1px) is-false,
+  is-type-of(integer("em"), 1px) is-false,
+  is-type-of(integer(), null) is-false,
+  is-type-of(integer(), "1") is-false,
+));
+
+
+@include void() {
+  $integer: --usage(--integer());
+
+  @include assert("integer() should throw if invalid params passed", (
+      (integer, 1) throws "ArgumentError: Invalid argument `$unit` of `#{ $integer }`. Expected value of ?string, instead given { number } 1",
+  ));
+}

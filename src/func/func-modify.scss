@@ -1,0 +1,18 @@
+@import "func-call-private--";
+@import "func-modify--";
+
+/// Modifies arguments
+/// @group func
+///
+/// @param { function } $func
+/// @param { callable } $callback
+/// @param { arglist } $args...
+/// @return { callable }
+///
+/// @example
+///
+///   @debug func-modify() //
+///
+@function func-modify($func, $callback, $args...) {
+  @return func-call-private--(func-modify, (function: function $func, callback: callable $callback, "args...": arglist $args));
+}

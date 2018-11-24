@@ -1,0 +1,36 @@
+@import "../core/@void";
+@import "../proto/prototype--";
+@import "../proto/constructor-call-check";
+@import "../proto/new--";
+@import "../func/func-to-string--";
+@import "../global/global";
+@import "../global/global-const--";
+@import "../global/is-undefined";
+@import "../symbol/symbol-for--";
+@import "$spies--";
+
+@function spy-to-string--($spy) {
+  $func: map-get($spy, func);
+
+  @return "<spy#{ if($func == null, "", " #{ func-to-string--($func) }") }>";
+}
+
+/// @group spy
+/// @access private
+@function spy-constructor--($func) {
+  @if (not constructor-call-check()) {
+    @return null;
+  }
+
+  @return (
+    func: $func,
+    calls: (),
+    #{ symbol-for--(to-string) }: spy-to-string--
+  );
+}
+
+@function spy--($func) {
+  @return spy-set--("spy-#{ unique-id() }", new--(global(spy), $func));
+}
+
+@include void(if(is-undefined(spy), global-const--(spy, prototype--(spy-constructor--, spy)), null));

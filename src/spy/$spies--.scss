@@ -1,0 +1,17 @@
+@import "../core/nvl";
+
+$spies--: () !default;
+
+/// @group spy
+/// @access private
+@function spy-get--($spy) {
+  @return if(type-of($spy) == "string", map-get($spies--, $spy), null);
+}
+
+/// @group spy
+/// @access private
+@function spy-set--($spy, $spy-object) {
+  $spies--: map-merge($spies--, ($spy: map-merge(nvl(spy-get--($spy), ()), $spy-object))) !global;
+
+  @return $spy;
+}

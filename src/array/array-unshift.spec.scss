@@ -1,0 +1,29 @@
+@import "../assert";
+@import "../func";
+@import "index";
+
+@include assert("array-unshift($array: array, $values...: arglist): adds one or more elements to the end of an array", (
+  array-unshift((1, 2), 3) equal (3, 1, 2),
+  array-unshift((1, 2), 3, 4) equal (3, 4, 1, 2),
+  array-unshift((foo: 1, bar: 2), 3) equal (3, (foo, 1), (bar 2)),
+));
+
+@include assert("array-unshift($array: array, $values...: arglist): should return a list", (
+  type-of(array-unshift((1, 2))) equal list,
+  type-of(array-unshift((1, 2), 1)) equal list,
+  type-of(array-unshift((foo: 1, bar: 2))) equal list,
+  type-of(array-unshift((foo: 1, bar: 2), 1)) equal list,
+  type-of(array-unshift(func-arglist(1, 2))) equal list,
+  type-of(array-unshift(func-arglist(1, 2), 1)) equal list,
+));
+
+@include assert("array-unshift($array: array, $values...: arglist): should preserve separator and brackets", (
+  array-is-bracketed(array-unshift(1 2)) equal false,
+  array-is-bracketed(array-unshift(to-list(1 2, $is-bracketed: true))) equal true,
+  array-separator(array-unshift((1, 2))) equal comma,
+  array-separator(array-unshift(1 2)) equal space,
+));
+
+@include assert("array-unshift($array: array, $values...: arglist): should validate passed params", (
+    (array-unshift, null) throws "ArgumentError: Invalid argument `$array` of `array-unshift($array: array, $values...: arglist)`. Expected value of array, instead given null",
+));

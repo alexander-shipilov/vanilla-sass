@@ -1,0 +1,17 @@
+@import "../func/func-call-private--";
+@import "object-get--";
+
+/// Returns a value of the passed object property
+/// @group object
+///
+/// @param { object } $object
+/// @param { string } $prop
+/// @return { any }
+///
+/// @example
+///
+///   @debug object-get() //
+///
+@function object-get($object: null, $prop: null, $other...) {
+  @return func-call-private--(object-get, (object: object $object, prop: string $prop));
+}

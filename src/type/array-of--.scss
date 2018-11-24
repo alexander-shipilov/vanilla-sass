@@ -1,0 +1,32 @@
+@import "../array/is-array--";
+@import "../array/array-every--";
+@import "../proto/new--";
+@import "../proto/prototype-to-string--";
+@import "../proto/super";
+@import "../symbol/symbol-for--";
+@import "type--";
+
+/// @ignore
+@function array-of-validate--($array-of, $value, $other...) {
+  @return is-array--($value) and array-every--($value, (is-type-of--, map-get($array-of, type)));
+}
+
+/// @ignore
+@function array-of-to-string--($array-of, $other...) {
+  @return prototype-to-string--($array-of, map-get($array-of, type));
+}
+
+/// @ignore
+@function array-of-constructor--($type) {
+  @return map-merge(super(array-of-validate--), (
+    type: $type,
+    #{ symbol-for--(to-string) }: array-of-to-string--
+  ));
+}
+
+$type-array-of--: type--(array-of-constructor--, array-of) !default;
+
+/// @ignore
+@function array-of--($type, $other...) {
+  @return new--($type-array-of--, $type);
+}

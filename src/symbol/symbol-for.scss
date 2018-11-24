@@ -1,0 +1,19 @@
+@import "../func/func-call-private--";
+@import "symbol-for--";
+
+/// Searches for existing symbols in a runtime-wide symbol registry with the given key and returns it if found.
+/// Otherwise a new symbol gets created in the global symbol registry with this key.
+/// @group symbol
+///
+/// @param { string } $key The key for the symbol (and also used for the description of the symbol).
+/// @return { symbol }
+///
+/// @example
+///
+///    @debug is-symbol(symbol-for("foo")); // true
+///    @debug symbol-for("foo") == symbol-for("foo"); // true
+///
+@function symbol-for($key: null, $other...) {
+  @return func-call-private--(symbol-for, (key: string $key));
+}
+

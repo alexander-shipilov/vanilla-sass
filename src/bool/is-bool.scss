@@ -1,0 +1,18 @@
+@import "../func/func-call-private--";
+@import "is-bool--";
+
+/// Checks if the passed value is a boolean
+/// @group bool
+///
+/// @param { ?any } $value
+/// @return { bool }
+///
+/// @example
+///
+///   @debug is-bool(); //
+///
+@function is-bool($value: null, $other...) {
+  @return func-call-private--(is-bool, (value: "?any" $value));
+}
+
+

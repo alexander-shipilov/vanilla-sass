@@ -1,0 +1,6 @@
+@import "var--";
+
+/// @ignore
+@function const--($type, $value, $other...) {
+  @return var--($type, $value, false);
+}

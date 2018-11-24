@@ -1,0 +1,18 @@
+/// Map of registered constructors' definitions
+/// @group constructor
+/// @access private
+$prototypes--: () !default;
+
+/// @group constructor
+/// @access private
+@function prototypes-get--($proto) {
+  @return if(type-of($proto) == "string", map-get($prototypes--, $proto), null);
+}
+
+/// @group constructor
+/// @access private
+@function prototypes-set--($proto, $proto-props) {
+  $prototypes--: map-merge($prototypes--, ($proto: $proto-props)) !global;
+
+  @return $proto;
+}

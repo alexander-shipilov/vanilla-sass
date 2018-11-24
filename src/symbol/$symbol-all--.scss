@@ -1,0 +1,20 @@
+/// Map of registered symbols
+/// @group symbol
+/// @access private
+$symbol-all--: () !default;
+
+/// Returns registered symbol
+/// @group symbol
+/// @access private
+@function symbol-get--($symbol) {
+  @return map-get($symbol-all--, $symbol);
+}
+
+/// Registers new symbol
+/// @group symbol
+/// @access private
+@function symbol-set--($symbol, $description) {
+  $symbol-all--: map-merge($symbol-all--, ($symbol: $description)) !global;
+
+  @return $symbol;
+}

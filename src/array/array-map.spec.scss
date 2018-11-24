@@ -1,0 +1,46 @@
+@import "../assert";
+@import "../func";
+@import "../spy";
+@import "index";
+
+@function mul($multiplier, $value, $other...) {
+  @return $multiplier * $value;
+}
+
+@include assert("array-map($array: array, $callback: callable): Creates a new array with the results of calling a provided function on every element in the calling array", (
+  array-map((1, 2, 3), (mul, 2)) equal (2, 4, 6),
+  array-map((), (mul, 2)) equal (),
+));
+
+@include void() {
+  $spy: spy((mul, 2));
+  $result: array-map((1, 2, 3), (spy-call, $spy));
+
+  @include assert("array-map($array: array, $callback: callable): should call passed callable with (current: ?any, index: number, array: array)", (
+    spy-length($spy) equal 3,
+    spy-nth($spy, 1) equal (args: (1, 1, (1, 2, 3)), return: 2, error: null),
+    spy-nth($spy, 2) equal (args: (2, 2, (1, 2, 3)), return: 4, error: null),
+    spy-nth($spy, 3) equal (args: (3, 3, (1, 2, 3)), return: 6, error: null),
+  ));
+}
+
+@include assert("array-map($array: array, $callback: callable): should return a list", (
+  type-of(array-map((1, 2), func-const)) equal list,
+  type-of(array-map((), func-const)) equal list,
+  type-of(array-map((foo: 1, bar: 2), func-const)) equal list,
+  type-of(array-map(map-remove((foo: 1, bar: 2), foo, bar), func-const)) equal list,
+  type-of(array-map(func-arglist(1, 2), func-const)) equal list,
+  type-of(array-map(func-arglist(), func-const)) equal list,
+));
+
+@include assert("array-map($array: array, $callback: callable): should preserve separator and brackets", (
+  array-is-bracketed(array-map((1 2), (mul, 2))) equal false,
+  array-is-bracketed(array-map(to-list((1 2), $is-bracketed: true), (mul, 2))) equal true,
+  array-separator(array-map((1, 2), (mul, 2))) equal comma,
+  array-separator(array-map(1 2, (mul, 2))) equal space,
+));
+
+@include assert("array-map($array: array, $callback: callable): should validate passed params", (
+    (array-map, null) throws "ArgumentError: Invalid argument `$array` of `array-map($array: array, $callback: callable)`. Expected value of array, instead given null",
+    (array-map, (), null) throws "ArgumentError: Invalid argument `$callback` of `array-map($array: array, $callback: callable)`. Expected value of callable, instead given null",
+));

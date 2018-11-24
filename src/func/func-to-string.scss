@@ -1,0 +1,6 @@
+@import "func-call-private--";
+@import "func-to-string--";
+
+@function func-to-string($callable, $other...) {
+  @return func-call-private--(func-to-string, (callable: callable $callable));
+}

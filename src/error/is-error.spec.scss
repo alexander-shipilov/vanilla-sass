@@ -1,0 +1,10 @@
+@import "../assert";
+@import "is-error";
+
+@include assert("is-error($value: ?any): Checks if the passed value is an error", (
+  true is-true,
+));
+
+@include assert("is-error($value: ?any): should validate passed params", (
+    (is-error, null) does-not-throw,
+));

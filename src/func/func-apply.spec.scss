@@ -1,0 +1,15 @@
+@import "../assert";
+@import "index";
+
+@include assert("func-apply($callable: callable, $args: ?array): calls a function with arguments provided as an array", (
+  func-apply(func-arglist) equal (),
+  func-apply(func-arglist, ()) equal (),
+  func-apply(func-arglist, (1, 2)) equal (1, 2),
+  func-apply((func-arglist, 1, 2), (3, 4)) equal (1, 2, 3, 4),
+  func-apply(((func-arglist, 1, 2), 3, 4), (5, 6)) equal (1, 2, 3, 4, 5, 6),
+));
+
+@include assert("func-apply($callable: callable, $args: ?array): should validate passed params", (
+    (func-apply, null) throws "ArgumentError: Invalid argument `$callable` of `func-apply($callable: callable, $args: ?array)`. Expected value of callable, instead given null",
+    (func-apply, func-arglist, 1) throws "ArgumentError: Invalid argument `$args` of `func-apply($callable: callable, $args: ?array)`. Expected value of ?array, instead given { number } 1",
+));

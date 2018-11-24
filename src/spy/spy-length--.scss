@@ -1,0 +1,8 @@
+@import "$spies--";
+
+/// @group spy
+/// @access private
+/// @see spy-length
+@function spy-length--($spy, $other...) {
+  @return length(map-get(spy-get--($spy), calls));
+}

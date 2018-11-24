@@ -1,0 +1,8 @@
+@import "array-splice--";
+
+/// @group array
+/// @access private
+/// @see array-unshift
+@function array-unshift--($array, $values...) {
+  @return array-splice--($array, 1, 0, $values...);
+}

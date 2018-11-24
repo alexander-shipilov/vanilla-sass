@@ -1,0 +1,19 @@
+@import "../prototype";
+@import "../extends";
+@import "../super";
+
+@function --test-base() {
+  @return ();
+}
+
+@function --test-constructor() {
+  @return super();
+}
+
+@function --test-constructor2() {
+  @return super();
+}
+
+$--test-base: prototype(--test-base, base) !default;
+$--test-constructor: extends(prototype(--test-constructor, test), $--test-base) !default;
+$--test-constructor2: extends(prototype(--test-constructor2, test2), $--test-constructor) !default;

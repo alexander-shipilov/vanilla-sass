@@ -1,0 +1,27 @@
+@import "../core/to-string";
+@import "--required";
+
+@function --usage-arg($arg, $arg-def) {
+  $arg-type: nth($arg-def, 1);
+  $arg-default: nth($arg-def, 2);
+
+  @return "#{ if($arg-type == null, "", "$#{ $arg }: #{ to-string($arg-type) }") }"
+    + "#{ if($arg-default == --required(), "", " = #{ to-string($arg-default) }") }";
+}
+
+// @ignore
+@function --usage($func-def) {
+  $func-type: nth($func-def, 1);
+  $func-name: nth($func-def, 2);
+  $func-args: nth($func-def, 3);
+
+  $args-usage: "";
+
+  @each $arg, $arg-def in $func-args {
+    $arg-usage: --usage-arg($arg, $arg-def);
+
+    $args-usage: "#{ $args-usage }#{ if($args-usage == "", "", ", ") }#{ $arg-usage }";
+  }
+
+  @return "#{ $func-name }(#{ $args-usage }): #{ to-string($func-type) }";
+}

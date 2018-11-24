@@ -1,0 +1,17 @@
+@import "../func/func-call-private--";
+@import "array-push--";
+
+/// Adds one or more elements to the end of an array and returns the new array
+/// @group array
+///
+/// @param { array } $array
+/// @param { arglist } $values...
+/// @return { list }
+///
+/// @example
+///
+///   @debug array-push(); // 
+///
+@function array-push($array: null, $values...) {
+  @return func-call-private--(array-push, (array: array $array, "values...": arglist $values));
+}

@@ -1,0 +1,18 @@
+@import "../--/--required";
+@import "../symbol/symbol-for--";
+@import "$prototypes--";
+@import "is-prototype--";
+
+/// @ignore
+@function --prototype-of($other...) {
+  @return "?prototype" prototype-of ("value": ("?any") --required());
+}
+
+/// @ignore
+@function prototype-of--($value, $other...) {
+  @if (is-prototype--($value)) {
+    @return prototype-of--(prototypes-get--($value));
+  }
+
+  @return if(type-of($value) == map, map-get($value, symbol-for--(prototype)), null);
+}

@@ -1,0 +1,17 @@
+@import "../func/func-call-private--";
+@import "is-number--";
+
+/// Checks if the passed value is a number
+/// @group number
+///
+/// @param { ?any } $value
+/// @return { bool }
+///
+/// @example
+///
+///   @debug is-number(1px); // true
+///   @debug is-number(1%, px); // false
+///
+@function is-number($value: null, $other...) {
+  @return func-call-private--(is-number, (value: "?any" $value));
+}

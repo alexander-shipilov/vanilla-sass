@@ -1,0 +1,8 @@
+@import "array-separator--";
+
+/// @group array
+/// @access private
+/// @see array-separator-set
+@function array-separator-set--($array, $separator, $other...) {
+  @return if(array-separator--($array) == $separator, $array, join((), $array, $separator));
+}

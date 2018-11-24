@@ -1,0 +1,6 @@
+@import "../func/func-call-private--";
+@import "map-map-values--";
+
+@function map-map-values($map, $func, $args...) {
+  @return func-call-private--(map-map-keys, (map: map $map, func: callable $func, "args...": arglist $args));
+}

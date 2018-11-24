@@ -1,0 +1,32 @@
+@import "../proto/new--";
+@import "../proto/super";
+@import "../proto/prototype-to-string--";
+@import "../core/is-equal";
+@import "../debug/debug-value";
+@import "../symbol/symbol-for--";
+@import "type--";
+
+/// @ignore
+@function value-validate--($value-type, $value, $other...) {
+  @return is-equal($value, map-get($value-type, value))
+}
+
+/// @ignore
+@function value-to-string--($value, $other...) {
+  @return debug-value(map-get($value, value));
+}
+
+/// @ignore
+@function value-constructor--($value: null) {
+  @return map-merge(super(value-validate--), (
+    value: $value,
+    #{ symbol-for--(to-string) }: value-to-string--
+  ));
+}
+
+$value-type--: type--(value-constructor--, value);
+
+/// @ignore
+@function value--($value: null, $other...) {
+  @return new--($value-type--, $value);
+}

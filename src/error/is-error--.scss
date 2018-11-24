@@ -1,0 +1,9 @@
+@import "../proto/instance-of--";
+@import "error--";
+
+/// @group error
+/// @access private
+/// @see is-error
+@function is-error--($value, $other...) {
+  @return instance-of--($value, $error--);
+}

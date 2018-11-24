@@ -1,0 +1,6 @@
+@import "../func/func-call-private--";
+@import "str-split--";
+
+@function str-split($string, $separator, $other...) {
+    @return func-call-private--(str-split, (string: string $string, separator: string $separator));
+}

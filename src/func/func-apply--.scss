@@ -1,0 +1,11 @@
+@import "func-call--";
+
+/// @group func
+/// @access private
+@function func-apply--($callable, $args: null, $other...) {
+  @if ($args == null) {
+    $args: ();
+  }
+
+  @return func-call--($callable, $args...);
+}

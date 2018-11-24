@@ -1,0 +1,20 @@
+@import "../assert";
+@import "index";
+
+@include assert("error($message: string, $type: string): Creates new error", (
+  is-error(error("fooo")) is-true,
+  is-error(1) is-false,
+  is-error(null) is-false,
+));
+
+@include assert("to-string(error($message: string, $type: string))", (
+  to-string(error()) equal "Error",
+  to-string(error("foo")) equal "Error: foo",
+  to-string(error("", MyError)) equal "MyError",
+  to-string(error("foo", MyError)) equal "MyError: foo",
+));
+
+@include assert("error($message: string, $type: string): should validate passed params", (
+    (error, null) throws "ArgumentError: Invalid argument `$message` of `error($message: string, $type: string)`. Expected value of string, instead given null",
+    (error, "", null) throws "ArgumentError: Invalid argument `$type` of `error($message: string, $type: string)`. Expected value of string, instead given null",
+));

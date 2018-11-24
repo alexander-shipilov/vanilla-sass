@@ -1,0 +1,17 @@
+@import "func-call-private--";
+@import "func-apply--";
+
+/// Calls a function with arguments provided as an array.
+/// @group func
+///
+/// @param { callable } $callable
+/// @param { ?array } $args
+/// @return { ?any }
+///
+/// @example
+///
+///   @debug func-apply(nth, ((11, 12, 13), 3)); // 13
+///
+@function func-apply($callable: null, $args: null, $other...) {
+  @return func-call-private--(func-apply, (callable: callable $callable, args: "?array" $args));
+}

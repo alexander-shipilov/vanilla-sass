@@ -1,0 +1,14 @@
+@import "../assert";
+@import "is-symbol";
+@import "symbol";
+
+@include assert("symbol($description: string): creates a new symbol", (
+  is-symbol(symbol()) is-true,
+  is-symbol(symbol(foo)) is-true,
+  symbol(foo) == symbol(foo) is-false,
+));
+
+@include assert("symbol($description: string): should validate passed params", (
+    (symbol, null) throws "ArgumentError: Invalid argument `$description` of `symbol($description: string)`. Expected value of string, instead given null",
+    (symbol, 1) throws "ArgumentError: Invalid argument `$description` of `symbol($description: string)`. Expected value of string, instead given { number } 1",
+));

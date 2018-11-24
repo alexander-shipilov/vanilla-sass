@@ -1,0 +1,26 @@
+@import "../proto/new--";
+@import "../proto/super";
+@import "../proto/prototype-to-string--";
+@import "../symbol/symbol-for--";
+@import "number--";
+@import "type--";
+
+// @ignore
+@function integer-validate--($integer, $value, $other...) {
+  @return number-validate--($integer, $value) and floor($value) == $value;
+}
+
+// @ignore
+@function integer-constructor--($unit: null) {
+  @return map-merge(super(integer-validate--), (
+    unit: $unit,
+    #{ symbol-for--(to-string) }: number-to-string--
+  ));
+}
+
+$type-integer--: type--(integer-constructor--, integer) !default;
+
+// @ignore
+@function integer--($unit: null, $other...) {
+  @return new--($type-integer--, $unit);
+}

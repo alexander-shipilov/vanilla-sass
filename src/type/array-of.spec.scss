@@ -1,0 +1,31 @@
+@import "../assert/index";
+@import "../core/index";
+@import "index";
+
+@include assert("array-of should be a function", (
+  is-function(array-of) is-true,
+));
+
+@include void() {
+  $array-of-strings: array-of(string);
+
+  @include assert("array-of: creates new array-of type", (
+    is-type($array-of-strings) is-true,
+  ));
+
+  @include assert("array-of: should check", (
+    is-type-of($array-of-strings, ()) is-true,
+    is-type-of($array-of-strings, foo bar) is-true,
+    is-type-of($array-of-strings, 1 2) is-false,
+    is-type-of($array-of-strings, null) is-false,
+  ));
+}
+
+@include void() {
+  $array-of: --usage(--array-of());
+
+  @include assert("array-of() should throw if invalid params passed", (
+      (array-of) throws "ArgumentError: Missed argument `$type` of `#{ $array-of }`.",
+      (array-of, 1) throws "ArgumentError: Invalid argument `$type` of `#{ $array-of }`. Expected value of type, instead given { number } 1",
+  ));
+}

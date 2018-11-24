@@ -1,0 +1,22 @@
+@import "../--";
+@import "array-of--";
+@import "one-of--";
+
+/// Creates one-of type
+/// @group type
+///
+/// @param { array-of(type) } $types [--required()]
+/// @return { type }
+///
+/// @example
+///
+///   @debug is-type-of(one-of((string, number)), "foo"); // true
+///
+@function one-of($types: --required(), $other...) {
+  @return --private(one-of, $types);
+}
+
+/// @ignore
+@function --one-of($other...) {
+  @return type one-of ("types": array-of--(type) --required());
+}

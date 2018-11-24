@@ -1,0 +1,18 @@
+@import "../assert";
+@import "../func";
+@import "index";
+
+@include assert("is-object($value: ?any): checks if the passed value is an object", (
+  is-object((foo: 1)) is-true,
+  is-object(()) is-true,
+  is-object(func-arglist()) is-true,
+  is-object(null) is-false,
+  is-object(1) is-false,
+  is-object(true) is-false,
+  is-object("string") is-false,
+  is-object(string) is-false,
+  is-object((1,)) is-false,
+));
+
+@include assert("is-object($value: ?any): should validate passed params", (
+));

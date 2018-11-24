@@ -1,0 +1,22 @@
+@import "../--";
+@import "custom--";
+
+/// Creates custom type
+/// @group type
+///
+/// @param { callable } $func [--required()]
+/// @param { ?string } $name [null]
+/// @return { type }
+///
+/// @example
+///
+///   @debug custom(is-string, "string"); //
+///
+@function custom($func: --required(), $name: null, $other...) {
+  @return --private(custom, $func, $name);
+}
+
+/// @ignore
+@function --custom($other...) {
+  @return type custom ("func": callable --required(), "name": "?string" null);
+}

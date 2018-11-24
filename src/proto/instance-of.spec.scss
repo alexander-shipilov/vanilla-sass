@@ -1,0 +1,34 @@
+@import "../assert";
+@import "../core";
+@import "index";
+
+@include assert("instance-of should be a function", (
+  is-function(instance-of) is-true,
+));
+
+@include void() {
+  $test1: prototype(void, test1);
+  $test2: extends(prototype(super, test2), $test1);
+
+  @include assert("instance-of() checks if the passed value is an instance of the provided prototype", (
+    instance-of(new($test1), $test1) is-true,
+    instance-of(new($test2), $test2) is-true,
+    instance-of(new($test2), $test1) is-true,
+    instance-of(1, $test1) is-false,
+    instance-of(null, $test1) is-false,
+  ));
+
+  @include assert("instance-of()) should return true if the passed value is derived prototype of the `$proto`", (
+    instance-of($test1, $test2) is-true,
+  ));
+}
+
+@include void() {
+  $instance-of: --usage(--instance-of());
+
+  @include assert("instance-of() should throw if invalid params passed", (
+      (instance-of) throws "ArgumentError: Missed argument `$value` of `#{ $instance-of }`.",
+      (instance-of) throws "ArgumentError: Missed argument `$proto` of `#{ $instance-of }`.",
+      (instance-of, null) throws "ArgumentError: Invalid argument `$proto` of `#{ $instance-of }`. Expected value of prototype, instead given null",
+  ));
+}

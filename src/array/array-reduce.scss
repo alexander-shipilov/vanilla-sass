@@ -1,0 +1,22 @@
+@import "../core/throw";
+@import "../func/func-validate--";
+@import "array-reduce--";
+@import "../func/func-call-private--";
+@import "array-reduce--";
+
+/// Applies a callback against an accumulator and each element in the array (from left to right) to reduce
+/// it to a single value
+/// @group array
+///
+/// @param { array } $array
+/// @param { callable } $callback
+/// @param { ?any } $initial
+/// @return { list }
+///
+/// @example
+///
+///   @debug array-reduce(); //
+///
+@function array-reduce($array: null, $callback: null, $initial: null, $other...) {
+  @return func-call-private--(array-reduce, (array: array $array, callback: callable $callback, initial: "?any" $initial));
+}

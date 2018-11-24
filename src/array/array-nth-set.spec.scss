@@ -1,0 +1,20 @@
+@import "../assert";
+@import "array-nth-set";
+
+@include assert("array-nth-set($array: array, $index: integer, $value: ?any): Sets n-th value of the passed list", (
+  array-nth-set((1, 2), 1, foo) equal (foo, 2),
+  array-nth-set((1, 2), 2, foo) equal (1, foo),
+  array-nth-set((1, 2), 3, foo) equal (1, 2, foo),
+  array-nth-set((1, 2), 4, foo) equal (1, 2, null, foo),
+  array-nth-set((1, 2), 5, foo) equal (1, 2, null, null, foo),
+));
+
+@include assert("array-nth-set($array: array, $index: integer, $value: ?any): should throw RangeError if passed $index less than 1", (
+    (array-nth-set, (1, 2), 0) throws "RangeError: Invalid array index",
+    (array-nth-set, (1, 2), -1) throws "RangeError: Invalid array index",
+));
+
+@include assert("array-nth-set($array: array, $index: integer, $value: ?any): should validate passed params", (
+    (array-nth-set, null) throws "ArgumentError: Invalid argument `$array` of `array-nth-set($array: array, $index: integer, $value: ?any)`. Expected value of array, instead given null",
+    (array-nth-set, (), null) throws "ArgumentError: Invalid argument `$index` of `array-nth-set($array: array, $index: integer, $value: ?any)`. Expected value of integer, instead given null",
+));

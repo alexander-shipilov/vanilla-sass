@@ -1,0 +1,34 @@
+@import "../assert";
+@import "../func";
+@import "index";
+
+@include assert("array-fill($array: array, $value: ?any, $start: integer, $end: ?integer): Fills all the elements of an array from a start index to an end index with a static value. The end index is not included.", (
+  array-fill((1, 2, 3), 4) equal (4, 4, 4),
+  array-fill((1, 2, 3), 4, 2) equal (1, 4, 4),
+  array-fill((1, 2, 3), 4, 2, 3) equal (1, 4, 3),
+  array-fill((1, 2, 3), 4, 1, 1) equal (1, 2, 3),
+  array-fill((1, 2, 3), 4, 4, 4) equal (1, 2, 3),
+  array-fill((1, 2, 3), 4, -3, -2) equal (4, 2, 3),
+  array-fill((1, 2, 3), 4, 4, 6) equal (1, 2, 3),
+));
+
+@include assert("array-fill($array: array, $value: ?any, $start: integer, $end: ?integer): should return a list", (
+  type-of(array-fill((1, 2), 4, 2)) equal list,
+  type-of(array-fill((1, 2), 4, 1, 1)) equal list,
+  type-of(array-fill((foo: 1, bar: 2), 4, 2)) equal list,
+  type-of(array-fill((foo: 1, bar: 2), 4, 1, 1)) equal list,
+  type-of(array-fill(func-arglist(1, 2), 4, 2)) equal list,
+  type-of(array-fill(func-arglist(1, 2), 4, 1, 1)) equal list,
+));
+
+@include assert("array-fill($array: array, $value: ?any, $start: integer, $end: ?integer): should preserve separator and brackets", (
+  array-is-bracketed(array-fill(1 2, 1)) equal false,
+  array-is-bracketed(array-fill(to-list(1 2, $is-bracketed: true), 1)) equal true,
+  array-separator(array-fill((1, 2), 1)) equal comma,
+  array-separator(array-fill(1 2, 1)) equal space,
+));
+
+@include assert("array-fill($array: array, $value: ?any, $start: integer, $end: ?integer): should validate passed params", (
+    (array-fill, null) throws "ArgumentError: Invalid argument `$array` of `array-fill($array: array, $value: ?any, $start: integer, $end: ?integer)`. Expected value of array, instead given null",
+    (array-fill, (), 1, null) throws "ArgumentError: Invalid argument `$start` of `array-fill($array: array, $value: ?any, $start: integer, $end: ?integer)`. Expected value of integer, instead given null",
+));

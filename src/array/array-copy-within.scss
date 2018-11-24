@@ -1,0 +1,20 @@
+@import "../func/func-call-private--";
+@import "array-copy-within--";
+
+/// Copies part of an array to another location, without modifying an array size
+/// @group array
+///
+/// @param { array } $array
+/// @param { integer } $target
+/// @param { integer } $start
+/// @param { ?integer } $end
+/// @return { array }
+///
+/// @example
+///
+///   @debug array-copy-within(); // 
+///
+@function array-copy-within($array: null, $target: null, $start: 1, $end: null, $other...) {
+  @return func-call-private--(array-copy-within, (array: array $array, target: integer $target, start: integer $start, end: "?integer" $end));
+}
+

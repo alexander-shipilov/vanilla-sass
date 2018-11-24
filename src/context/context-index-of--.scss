@@ -1,0 +1,10 @@
+@import "../array/array-find-index--";
+@import "../core/is-key-of--";
+@import "$context--";
+
+/// Returns index of context which contains the provided variable
+/// @group context
+/// @access private
+@function context-index-of--($var) {
+  @return array-find-index--($context--, $var, (is-key-of--, $var)) != null;
+}

@@ -1,0 +1,5 @@
+@import "$error-exception--";
+
+@function exception() {
+  @return $error-exception--;
+}

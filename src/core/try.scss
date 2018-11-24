@@ -1,0 +1,27 @@
+@import "../func/func-call-private--";
+@import "try--";
+
+/// Tries to invoke the given callable and returns result of execution or null if exception was thrown.
+/// @group core
+///
+/// @param { callable } $callable
+/// @return {any | null}
+///
+/// @example
+///
+///   @function foo($invalid: false) {
+///     @if ($invalid) {
+///       $error: throw(Invalid);
+///
+///       @return null;
+///     }
+///
+///     @return "passed";
+///   }
+///
+///   try(foo); // "passed"
+///   try((foo, true)); // null
+///
+@function try($callable, $other...) {
+    @return func-call-private--(try, (callable: callable $callable));
+}

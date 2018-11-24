@@ -1,0 +1,12 @@
+@import "../--/--required";
+@import "prototype-of--";
+
+/// @ignore
+@function --is-instance($other...) {
+  @return bool is-instance ("value": ("?any") --required());
+}
+
+/// @ignore
+@function is-instance--($value: --required(), $other...) {
+  @return prototype-of--($value) != null;
+}

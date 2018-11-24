@@ -1,0 +1,10 @@
+@import "../var/is-var--";
+@import "../var/var-get--";
+
+/// @group object
+/// @see object-get
+@function object-get--($object, $prop, $other...) {
+  $value: map-get($object, $prop);
+
+  @return if(is-var--($value), var-get--($value), $value);
+}

@@ -1,0 +1,17 @@
+@import "../assert";
+@import "../type/index";
+
+@include assert("typeof should be a function", (
+  is-function(typeof) is-true,
+));
+
+@include assert("typeof() returns type of the passed value", (
+));
+
+@include void() {
+  $typeof: --usage(--typeof());
+
+  @include assert("typeof() should throw if invalid params passed", (
+      (typeof) throws "ArgumentError: Missed argument `$value` of `#{ $typeof }`.",
+  ));
+}

@@ -1,0 +1,17 @@
+@import "../func/func-call-private--";
+@import "is-array--";
+
+/// Checks if the passed value is a list, an arglist or a map
+/// @group array
+///
+/// @param { ?any } $value
+/// @return { bool }
+///
+/// @example
+///
+///   @debug is-array((1, 2)); // true
+///   @debug is-array((foo: 1)); // true
+///
+@function is-array($value: null, $other...) {
+  @return func-call-private--(is-array, (value: "?any" $value));
+}

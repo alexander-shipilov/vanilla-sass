@@ -1,0 +1,31 @@
+@import "../assert/index";
+@import "../core/index";
+@import "index";
+
+@include assert("const should be a function", (
+  is-function(const) is-true,
+));
+
+@include assert("const() creates a constant variable", (
+  is-var(const(string, foo)) is-true,
+  var-get(const(string, foo)) equal foo,
+  var-type(const(string, foo)) equal string,
+  var-writable(const(string, foo)) is-true,
+));
+
+@include assert("to-string(const())", (
+  to-string(const(string, foo)) equal "const string foo",
+  to-string(const(number, 1)) equal "const number 1",
+  to-string(const(type, string)) equal "const type string",
+));
+
+@include void() {
+  $const: --usage(--const());
+
+  @include assert("const() should throw if invalid params passed", (
+      (const) throws "ArgumentError: Missed argument `$type` of `#{ $const }`.",
+      (const, null) throws "ArgumentError: Invalid argument `$type` of `#{ $const }`. Expected value of type, instead given null",
+      (const) throws "ArgumentError: Missed argument `$value` of `#{ $const }`.",
+      (const, string, null) throws "ArgumentError: Invalid argument `$value` of `#{ $const }`. Expected value of $type, instead given null",
+  ));
+}

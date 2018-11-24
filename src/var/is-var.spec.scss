@@ -1,0 +1,20 @@
+@import "../assert";
+@import "index";
+
+@include assert("is-var should be a function", (
+  is-function(is-var) is-true,
+));
+
+@include assert("is-var() Checks if the passed value is a variable", (
+  is-var(let(string foo)) is-true,
+  is-var(const(string foo)) is-true,
+  is-var(n1) is-false,
+));
+
+@include void() {
+  $is-var: --usage(--is-var());
+
+  @include assert("is-var() should throw if invalid params passed", (
+      (is-var) throws "ArgumentError: Missed argument `$value` of `#{ $is-var }`.",
+  ));
+}

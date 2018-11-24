@@ -1,0 +1,7 @@
+/// @group array
+/// @access private
+@function is-array--($value: null, $other...) {
+  $type: type-of($value);
+
+  @return $type == list or $type == arglist or $type == map;
+}

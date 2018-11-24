@@ -1,0 +1,18 @@
+@import "../func/func-call-private--";
+@import "is-symbol--";
+
+/// Checks if the passed value is a symbol
+/// @group symbol
+///
+/// @param { ?any } $any
+/// @return { bool }
+///
+/// @example
+///
+///   @debug is-symbol(symbol(my-symbol)); // true
+///   @debug is-symbol(symbol-for(my-symbol)); // true
+///   @debug is-symbol(1); // false
+///
+@function is-symbol($any: null, $other...) {
+  @return func-call-private--(is-symbol, (any: "?any" $any));
+}

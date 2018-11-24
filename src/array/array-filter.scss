@@ -1,0 +1,17 @@
+@import "../func/func-call-private--";
+@import "array-filter--";
+
+/// Creates a new array with all elements that pass the test implemented by the provided callable
+/// @group array
+///
+/// @param { array } $array
+/// @param { callable } $callback
+/// @return { list }
+///
+/// @example
+///
+///   @debug array-filter(); // 
+///
+@function array-filter($array: null, $callback: null, $other...) {
+  @return func-call-private--(array-filter, (array: array $array, callback: callable $callback));
+}

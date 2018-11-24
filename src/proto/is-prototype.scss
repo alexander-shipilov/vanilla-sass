@@ -1,0 +1,19 @@
+@import "../--";
+@import "is-prototype--";
+
+/// Checks if the passed value is a prototype.
+/// @group proto
+///
+/// @param { ?any } $value
+/// @return { bool }
+///
+/// @example
+///
+///   @function my-type() {
+///   }
+///
+///   @debug assert-is-true(is-prototype(prototype(my-type)))); // true
+///
+@function is-prototype($value: --required(), $other...) {
+  @return --private(is-prototype, $value);
+}

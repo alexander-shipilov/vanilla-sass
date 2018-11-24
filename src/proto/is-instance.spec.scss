@@ -1,0 +1,18 @@
+@import "../assert";
+@import "index";
+
+@include assert("is-instance should be a function", (
+  is-function(is-instance) is-true,
+));
+
+@include assert("is-instance() checks if value is an instance of any prototype", (
+));
+
+@include void() {
+  $is-instance: --usage(--is-instance());
+
+  @include assert("is-instance() should throw if invalid params passed", (
+      (is-instance) throws "ArgumentError: Missed argument `$value` of `#{ $is-instance }`.",
+      (is-instance, null) throws "ArgumentError: Invalid argument `$value` of `#{ $is-instance }`. Expected value of ?any, instead given null",
+  ));
+}

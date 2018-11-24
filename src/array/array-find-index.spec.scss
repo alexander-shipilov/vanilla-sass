@@ -1,0 +1,32 @@
+@import "../assert";
+@import "../spy";
+@import "index";
+
+@function eq($number, $value, $other...) {
+  @return $number == $value;
+}
+
+@include assert("array-find-index($array: array, $callback: callable): Returns the index of the first element in the array that satisfies the provided testing callable.", (
+  array-find-index((1, 2, 3), (eq, 1)) equal 1,
+  array-find-index((1, 2, 3), (eq, 2)) equal 2,
+  array-find-index((1, 2, 3), (eq, 4)) equal null,
+));
+
+@include void() {
+  $array: (11, 12, 13);
+  $spy: spy((eq, 12));
+  $result: array-find-index($array, (spy-call, $spy));
+
+  @include assert("array-find-index($array: array, $callback: callable): should call passed callable with ($value: ?any, $index: number, $array: array)", (
+    spy-length($spy) equal 2,
+    spy-nth($spy, 1) equal (args: (11, 1, $array), return: false, error: null),
+    spy-nth($spy, 2) equal (args: (12, 2, $array), return: true, error: null),
+  ));
+}
+
+@include assert("array-find-index($array: array, $callback: callable): should validate passed params", (
+    (array-find-index, null) throws "ArgumentError: Invalid argument `$array` of `array-find-index($array: array, $callback: callable)`. Expected value of array, instead given null",
+    (array-find-index, (), null) throws "ArgumentError: Invalid argument `$callback` of `array-find-index($array: array, $callback: callable)`. Expected value of callable, instead given null",
+));
+
+

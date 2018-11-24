@@ -1,0 +1,12 @@
+@import "../array/is-array--";
+@import "to-function--";
+
+@function func-call--($callable, $args...) {
+  @if (is-array--($callable)) {
+    $args: join($callable, $args);
+
+    @return func-call--($args...);
+  }
+
+  @return call(to-function--($callable), $args...);
+}

@@ -1,0 +1,13 @@
+@import "../array/is-array--";
+@import "../array/array-nth--";
+@import "is-function";
+
+/// Checks whether the given value can be called as function with func-call
+/// @group core
+///
+/// @param { any } $value
+/// @return { bool }
+///
+@function is-callable($value, $other...) {
+  @return is-function($value) or (is-array--($value) and is-callable(array-nth--($value, 1)));
+}

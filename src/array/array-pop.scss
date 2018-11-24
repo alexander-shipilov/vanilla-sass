@@ -1,0 +1,18 @@
+@import "../func/func-call-private--";
+@import "to-list--";
+@import "array-pop--";
+
+/// Removes the last n elements from an array and returns new array
+/// @group array
+///
+/// @param { array } $array
+/// @param { ?integer } $count
+/// @return { list }
+///
+/// @example
+///
+///   @debug array-pop(); // 
+///
+@function array-pop($array: null, $count: 1, $other...) {
+  @return func-call-private--(array-pop, (array: array $array, count: "integer" $count));
+}

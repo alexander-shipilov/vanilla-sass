@@ -1,0 +1,11 @@
+@import "../--/--required";
+
+/// @ignore
+@function --is-string($other...) {
+  @return bool is-string ("value": ("?any") --required());
+}
+
+/// @ignore
+@function is-string--($value: --required(), $other...) {
+  @return type-of($value) == "string";
+}

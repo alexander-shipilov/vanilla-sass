@@ -1,0 +1,58 @@
+@import "../--";
+@import "../core/throw";
+@import "../core/to-string";
+@import "../type/custom--";
+@import "extends--";
+@import "is-prototype--";
+@import "prototype-of--";
+
+/// @ignore
+@function extends-proto--($proto, $other...) {
+  @if (not is-prototype--($proto)) {
+    @return false;
+  }
+
+  $super: prototype-of--($proto) != null;
+
+  @if ($super != null) {
+    @return throw("#{ to-string($proto) } already extends #{ to-string($super) }", "TypeError");
+  }
+
+  @return true;
+}
+
+/// @ignore
+@function extends-super--($proto, $super, $other...) {
+  @if (not is-prototype--($super)) {
+    @return false;
+  }
+
+  @if ($proto == $super or instance-of--($super, $proto)) {
+    @return throw("#{ to-string($proto) } cannot extend itself", "TypeError");
+  }
+
+  @return true;
+}
+
+/// Extends the given prototype by another one.
+/// @group proto
+///
+/// @param { prototype } $proto [--required()]
+/// @param { prototype } $super [--required()]
+/// @return { prototype }
+///
+/// @example
+///
+///
+///
+@function extends($proto: --required(), $super: --required(), $other...) {
+  @return --private(extend, $proto, $super);
+}
+
+/// @ignore
+@function --extend($proto, $super, $other...) {
+  @return prototype extend (
+    "proto": custom--(extends-proto--, "not derived prototype") --required(),
+    "super": custom--((extends-super--, $proto) "prototype, but not $prototype") --required()
+  );
+}

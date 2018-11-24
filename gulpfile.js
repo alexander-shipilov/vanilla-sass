@@ -9,7 +9,8 @@ function getSource(sources) {
 }
 
 gulp.task("sass-test", function() {
-  return gulp.src(getSource(argv.src ? argv.src.split(",") : ["src/lib"]))
+  return gulp
+      .src(getSource(argv.src ? argv.src.split(",") : ["src/lib"]))
       .pipe(sass().on("error", sass.logError));
 });
 

@@ -1,0 +1,19 @@
+@import "../func/func-call-private--";
+@import "spy-is-called--";
+
+/// Checks if the spy was called n times
+/// @group spy
+///
+/// @param { spy } $spy
+/// @param { integer } $times
+/// @return { bool }
+///
+/// @example
+///
+///   @debug spy-is-called(spy()) // false
+///   @debug spy-is-called(spy-call(spy())) // true
+///
+@function spy-is-called($spy: null, $times: 1, $other...) {
+  @return func-call-private--(spy-is-called, (spy: spy $spy, times: integer $times));
+}
+

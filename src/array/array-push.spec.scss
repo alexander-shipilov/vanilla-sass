@@ -1,0 +1,29 @@
+@import "../assert";
+@import "../func";
+@import "index";
+
+@include assert("array-push($array: array, $values...: arglist): adds one or more elements to the end of an array", (
+  array-push((1, 2), 3) equal (1, 2, 3),
+  array-push((1, 2), 3, 4) equal (1, 2, 3, 4),
+  array-push((foo: 1, bar: 2), 3) equal ((foo, 1), (bar 2), 3),
+));
+
+@include assert("array-push($array: array, $values...: arglist): should return a list", (
+  type-of(array-push((1, 2))) equal list,
+  type-of(array-push((1, 2), 1)) equal list,
+  type-of(array-push((foo: 1, bar: 2))) equal list,
+  type-of(array-push((foo: 1, bar: 2), 1)) equal list,
+  type-of(array-push(func-arglist(1, 2))) equal list,
+  type-of(array-push(func-arglist(1, 2), 1)) equal list,
+));
+
+@include assert("array-push($array: array, $values...: arglist): should preserve separator and brackets", (
+  array-is-bracketed(array-push(1 2)) equal false,
+  array-is-bracketed(array-push(to-list(1 2, $is-bracketed: true))) equal true,
+  array-separator(array-push((1, 2))) equal comma,
+  array-separator(array-push(1 2)) equal space,
+));
+
+@include assert("array-push($array: array, $values...: arglist): should validate passed params", (
+    (array-push, null) throws "ArgumentError: Invalid argument `$array` of `array-push($array: array, $values...: arglist)`. Expected value of array, instead given null",
+));

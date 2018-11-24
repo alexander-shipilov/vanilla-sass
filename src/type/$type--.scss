@@ -1,0 +1,15 @@
+@import "../proto/prototype--";
+@import "../symbol/symbol-for--";
+@import "../proto/prototype-to-string--";
+
+/// Type constructor
+/// @group types
+/// @access private
+@function --type-constructor($validator) {
+  @return (
+    validator: $validator,
+    #{ symbol-for--(to-string) }: type-to-string--
+  );
+}
+
+$type--: prototype--(--type-constructor, type) !default;

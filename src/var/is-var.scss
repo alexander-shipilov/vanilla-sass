@@ -1,0 +1,22 @@
+@import "../--";
+@import "is-var--";
+
+/// Checks if the passed value is a variable
+/// @group var
+///
+/// @param { ?any } $value [--required()]
+/// @return { bool }
+///
+/// @example
+///
+///   @debug is-var(let(string, "foo")); // true
+///   @debug is-var(const("foo")); // true
+///
+@function is-var($value: --required(), $other...) {
+  @return --private(is-var, $value);
+}
+
+/// @ignore
+@function --is-var($other...) {
+  @return bool is-var ("value": "?any" --required());
+}

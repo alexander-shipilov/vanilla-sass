@@ -1,0 +1,11 @@
+/// Consumes all arguments and returns null
+/// @params { ?any } $any...
+/// @return { null }
+///
+/// @example
+///
+///   @debug void(unique-id()); // null
+///   @debug void(1, 2, 3); // null
+///
+@function void($any...) {
+}

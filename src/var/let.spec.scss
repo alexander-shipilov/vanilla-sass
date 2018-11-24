@@ -1,0 +1,32 @@
+@import "../assert";
+@import "../core";
+@import "index";
+
+@include assert("let should be a function", (
+  is-function(let) is-true,
+));
+
+@include assert("let() creates a variable", (
+  is-var(let(string foo)) is-true,
+  var-get(let(string foo)) equal foo,
+  var-type(let(string foo)) equal string,
+  var-writable(let(string foo)) is-true,
+));
+
+@include assert("to-string(let())", (
+  to-string(let(string foo)) equal "string foo",
+  to-string(let(number 1)) equal "number 1",
+  to-string(let(type string)) equal "type string",
+));
+
+@include void() {
+  $let: --usage(--let());
+
+  @include assert("let() should throw if invalid params passed", (
+      (let) throws "ArgumentError: Missed argument `$type` of `#{ $let }`.",
+      (let, null) throws "ArgumentError: Invalid argument `$type` of `#{ $let }`. Expected value of type, instead given null",
+
+      (let) throws "ArgumentError: Missed argument `$value` of `#{ $let }`.",
+      (let, string, null) throws "ArgumentError: Invalid argument `$value` of `#{ $let }`. Expected value of string, instead given null",
+  ));
+}

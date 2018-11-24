@@ -1,0 +1,32 @@
+@import "../assert";
+@import "../core";
+@import "index";
+
+@include assert("prototype-of should be a function", (
+  is-function(prototype-of) is-true,
+));
+
+@include void() {
+  $test1: prototype(void, test1);
+  $test2: extends(prototype(super, test2), $test1);
+
+  @include assert("prototype-of() returns a prototype of the passed value (or null)", (
+    prototype-of(new($test1)) equal $test1,
+    prototype-of(new($test2)) equal $test2,
+    prototype-of('') is-null,
+    prototype-of(null) is-null,
+  ));
+
+  @include assert("prototype-of() should return super constructor if the passed value is constructor", (
+    prototype-of($test1) is-null,
+    prototype-of($test2) equal $test1,
+  ));
+}
+
+@include void() {
+  $prototype-of: --usage(--prototype-of());
+
+  @include assert("prototype-of() should throw if invalid params passed", (
+      (prototype-of) throws "ArgumentError: Missed argument `$value` of `#{ $prototype-of }`.",
+  ));
+}

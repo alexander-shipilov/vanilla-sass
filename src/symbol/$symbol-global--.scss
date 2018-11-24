@@ -1,0 +1,20 @@
+/// Map of global symbols
+/// @group symbol
+/// @access private
+$symbol-global--: () !default;
+
+/// Registers global symbol
+/// @group symbol
+/// @access private
+@function symbol-global-set--($key, $symbol) {
+  $symbol-global--: map-merge($symbol-global--, ($key: $symbol)) !global;
+
+  @return $symbol;
+}
+
+/// Returns global symbol
+/// @group symbol
+/// @access private
+@function symbol-global-get--($key) {
+  @return map-get($symbol-global--, $key);
+}

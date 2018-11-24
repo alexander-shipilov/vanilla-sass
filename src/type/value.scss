@@ -1,0 +1,23 @@
+@import "../--";
+@import "value--";
+
+/// Creates a value type.
+/// @group type
+///
+/// @param { ?any } $value [--required()]
+/// @return { type }
+///
+/// @example
+///
+///   @debug to-string(one-of(value("foo"), value("bar")), "foo"); // one-of(string foo, string bar)
+///   @debug is-type-of(value("foo"), "foo"); // true
+///   @debug is-type-of(value("foo"), "bar"); // false
+///
+@function value($value: --required(), $other...) {
+  @return --private(value, $value);
+}
+
+/// @ignore
+@function --value($other...) {
+  @return type value ("value": "?any" --required());
+}

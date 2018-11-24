@@ -1,0 +1,52 @@
+@import "../--";
+@import "../type/object-of--";
+@import "with-context--";
+
+/// @ignore
+@function --with-context($other...) {
+  @return "?any" with-context ("vars": ("object-of" var) --required(), "callable": ("callable") --required(), "args...": ("arglist"));
+}
+
+/// Calls the passed callable with passed context variables
+/// @group context
+///
+/// @param { object-of var } $vars [--required()]
+/// @param { callable } $callable [--required()]
+/// @param { arglist } $args... []
+/// @return { ?any }
+///
+/// @example
+///
+///   @debug with-context(); //
+///
+@function with-context($vars: --required(), $callable: --required(), $args...) {
+  @return --private(with-context, $vars, $callable, $args...);
+}
+
+/// @ignore
+@function with-context--($vars, $callable, $args...) {
+  @return null;
+}
+
+@import "../assert";
+@import "index";
+
+@include assert("with-context should be a function", (
+  is-function(with-context) is-true,
+));
+
+@include assert("with-context() Calls the passed callable with passed context variables", (
+));
+
+@include void() {
+  $with-context: --usage(--with-context());
+
+  @include assert("with-context() should throw if invalid params passed", (
+      (with-context) throws "ArgumentError: Missed argument `$vars` of `#{ $with-context }`.",
+      (with-context, null) throws "ArgumentError: Invalid argument `$vars` of `#{ $with-context }`. Expected value of object-of, instead given null",
+      (with-context) throws "ArgumentError: Missed argument `$callable` of `#{ $with-context }`.",
+      (with-context, null) throws "ArgumentError: Invalid argument `$callable` of `#{ $with-context }`. Expected value of callable, instead given null",
+      (with-context) throws "ArgumentError: Missed argument `$args...` of `#{ $with-context }`.",
+      (with-context, null) throws "ArgumentError: Invalid argument `$args...` of `#{ $with-context }`. Expected value of arglist, instead given null",
+  ));
+}

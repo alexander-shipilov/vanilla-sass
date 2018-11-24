@@ -1,0 +1,21 @@
+@import "../core/throw";
+@import "array-length--";
+@import "array-length-set--";
+@import "array-splice--";
+
+/// @group array
+/// @access private
+/// @see array-nth-set
+@function array-nth-set--($array, $index, $value, $other...) {
+  @if ($index < 1) {
+    @return throw("Invalid array index", RangeError);
+  }
+
+  $next-array: to-list--($array);
+
+  @if (array-length--($next-array) < $index) {
+    $next-array: array-length-set--($next-array, $index);
+  }
+
+  @return array-splice--($next-array, $index, 1, $value);
+}

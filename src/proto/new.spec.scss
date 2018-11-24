@@ -1,0 +1,44 @@
+@import "../assert/index";
+@import "../core/index";
+@import "index";
+
+@include assert("new should be a function", (
+  is-function(new) is-true,
+));
+
+@include void() {
+  $test1: prototype(void, test1);
+  $test2: extends(prototype(super, test2), $test1);
+
+  @include assert("new() creates a new instance of the provided prototype", (
+    is-instance(new($test1)) is-true,
+    instance-of(new($test1), $test1) is-true,
+  ));
+
+  @include assert("extends() should throw if $super == $proto", (
+      (extend, $test1, $test1) throws "Error: <prototype test1> cannot extend itself",
+  ));
+
+  @include assert("extends() should throw if the passed prototype already extends another one", (
+      (extend, $test2, $test1) throws "Error: <prototype test2> already extends <prototype test1>",
+  ));
+}
+
+@include void() {
+  $test1: prototype(void, test1);
+  $test2: prototype((func-const, ()), test2);
+
+  @include assert("new: should throw if super was not called", (
+      (new, extends(prototype((func-const, ()), super-test), $test1)) throws "Error: <prototype test2> is derived prototype. Call `super()` in <prototype test2>",
+  ));
+}
+
+@include void() {
+  $new: --usage(--new());
+
+  @include assert("new() should throw if invalid params passed", (
+      (new) throws "ArgumentError: Missed argument `$prototype` of `#{ $new }`.",
+      (new, null) throws "ArgumentError: Invalid argument `$prototype` of `#{ $new }`. Expected value of prototype, instead given null",
+  ));
+}
+

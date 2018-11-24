@@ -1,9 +1,0 @@
-@import "../core/to-string";
-@import "../list/list-join-with--";
-@import "../list/list-map--";
-@import "func-name--";
-@import "func-args--";
-
-@function func-to-string--($callable) {
-  @return "#{ func-name--($callable) }(#{ list-join-with--(list-map--(func-args--($callable), to-string), ", ") })";
-}

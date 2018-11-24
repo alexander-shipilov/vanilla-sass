@@ -1,0 +1,7 @@
+@import "../symbol/symbol-for--";
+@import "$prototypes--";
+
+/// @ignore
+@function extends--($proto, $super, $other...) {
+  @return prototypes-set--($proto, map-merge(prototypes-get--($proto), (#{ symbol-for--(prototype) }: $super)));
+}

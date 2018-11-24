@@ -1,0 +1,17 @@
+@import "../assert";
+@import "../core/@void";
+@import "$type-tags--";
+@import "is-type-tag";
+
+@include void() {
+  @each $type-tag in $type-tags-- {
+    @include assert("is-type-tag($value: ?any): returns true if $value is { string } #{ $type-tag } or { string } ?#{ $type-tag }", (
+      is-type-tag($type-tag) is-true,
+      is-type-tag("?#{ $type-tag }") is-true,
+    ));
+  }
+}
+
+@include assert("is-type-tag($value: ?any): should validate passed params", (
+    (is-type-tag, null) does-not-throw,
+));

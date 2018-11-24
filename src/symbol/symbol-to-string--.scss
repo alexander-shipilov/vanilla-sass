@@ -1,0 +1,11 @@
+@import "../core/nvl";
+@import "symbol-description--";
+
+/// @group symbol
+/// @access private
+/// @see symbol-to-string
+@function symbol-to-string--($symbol, $other...) {
+  $description: symbol-description--($symbol);
+
+  @return "<symbol#{ if($description == "", "", " #{ $description }") }>";
+}

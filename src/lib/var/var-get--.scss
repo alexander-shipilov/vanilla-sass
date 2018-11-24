@@ -1,6 +1,0 @@
-/// Unsafe var-get()
-/// @group var
-/// @see var-get
-@function var-get--($var, $other...) {
-  @return map-get($var, value);
-}

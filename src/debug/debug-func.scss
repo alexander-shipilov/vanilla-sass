@@ -1,0 +1,14 @@
+@import "../array/array-join--";
+@import "debug-func-arg";
+
+@function debug-func($func-def) {
+  $name: nth($func-def, 1);
+  $args: nth($func-def, 2);
+  $params: ();
+
+  @each $arg, $type-value in $args {
+    $params: append($params, debug-func-arg($arg, nth($type-value, 1)));
+  }
+
+  @return "#{ $name }(#{ array-join--($params, ", ") })";
+}

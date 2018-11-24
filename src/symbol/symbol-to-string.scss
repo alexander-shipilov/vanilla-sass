@@ -1,0 +1,16 @@
+@import "../func/func-call-private--";
+@import "symbol-to-string--";
+
+/// Return string representation of the passed symbol
+/// @group symbol
+///
+/// @param { symbol } $symbol
+/// @return { string }
+///
+/// @example
+///
+///   @debug symbol-to-string(); //
+///
+@function symbol-to-string($symbol: null, $other...) {
+  @return func-call-private--(symbol-to-string, (symbol: symbol $symbol));
+}

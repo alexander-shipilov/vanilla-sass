@@ -1,0 +1,7 @@
+@import "$vars--";
+@import "$var-value--";
+
+/// @ignore
+@function var-get--($var, $other...) {
+  @return map-get(vars-get--($var), $var-value--);
+}

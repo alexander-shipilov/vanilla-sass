@@ -1,0 +1,22 @@
+@import "../func/func-call-private--";
+@import "array-join--";
+
+@import "../func/func-call-private--";
+@import "array-join--";
+
+/// Returns a new string by concatenating all of the elements in an array, separated by commas or a specified separator string
+/// @group array
+///
+/// @param { array } $array
+/// @param { ?any } $separator
+/// @return { string }
+///
+/// @example
+///
+///   @debug array-join((1, 2, 3)); // 1,2,3
+///   @debug array-join((1, 2, 3), ", "); // 1, 2, 3
+///   @debug array-join((1, 2, 3), ""); // 123
+///
+@function array-join($array: null, $separator: ",", $other...) {
+  @return func-call-private--(array-join, (array: array $array, separator: "?any" $separator));
+}

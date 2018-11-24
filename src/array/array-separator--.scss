@@ -1,0 +1,6 @@
+/// @group array
+/// @access private
+/// @see array-separator
+@function array-separator--($array, $other...) {
+  @return list-separator($array);
+}

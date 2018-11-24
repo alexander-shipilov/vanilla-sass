@@ -1,8 +1,0 @@
-@import "try--";
-
-/// Unsafe try-catch()
-/// @group core
-/// @see try-catch
-@function try-catch--($callable, $other...) {
-    @return map-get(try--($callable), error);
-}

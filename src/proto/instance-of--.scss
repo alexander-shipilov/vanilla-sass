@@ -1,0 +1,9 @@
+@import "is-prototype--";
+@import "prototype-of--";
+
+/// @ignore
+@function instance-of--($value, $proto, $other...) {
+  $value-proto: prototype-of--($value);
+
+  @return $value-proto == $proto or ($value-proto != null and instance-of--($value-proto, $proto));
+}

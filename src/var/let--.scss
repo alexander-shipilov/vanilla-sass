@@ -1,0 +1,6 @@
+@import "var--";
+
+/// @ignore
+@function let--($type, $value, $other...) {
+  @return var--($type, $value, true);
+}

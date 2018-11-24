@@ -1,0 +1,48 @@
+@import "../--";
+@import "$func$--";
+
+/// $desc$
+/// @group $group$
+///
+/// @param { $type1$ } $$$param1$ [$default1$]
+/// @return { $type$ }
+///
+/// @example
+///
+///   @debug $func$(); //
+///
+@function $func$($$$param1$: $default1$, $$other...) {
+  @return --private($func$, $$$param1$);
+}
+
+/// @ignore
+@function --$func$($$other...) {
+  @return $type$ $func$ ("$param1$": $type1$ $default1$);
+}
+
+
+/// @ignore
+@function $func$--($$$param1$: $default1$, $$other...) {
+  @return null;
+}
+
+
+@import "../assert";
+@import "index";
+
+@include assert("$func$ should be a function", (
+  is-function($func$) is-true,
+));
+
+@include assert("$func$() $desc$", (
+  $END$
+));
+
+@include void() {
+  $$$func$: --usage(--$func$());
+
+  @include assert("$func$() should throw if invalid params passed", (
+      ($func$) throws "ArgumentError: Missed argument `$$$param1$` of `#{ $$$func$ }`.",
+      ($func$, null) throws "ArgumentError: Invalid argument `$$$param1$` of `#{ $$$func$ }`. Expected value of $type1$, instead given null",
+  ));
+}

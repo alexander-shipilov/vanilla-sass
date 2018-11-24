@@ -1,6 +1,0 @@
-@import "../func/func-call-unsafe--";
-@import "map-map-keys--";
-
-@function map-map-keys($map, $func, $args...) {
-  @return func-call-unsafe--(map-map-keys, (map: map $map, func: callable $func, "args...": arglist $args));
-}

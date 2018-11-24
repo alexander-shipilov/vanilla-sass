@@ -1,0 +1,12 @@
+@import "../assert";
+@import "symbol";
+@import "symbol-to-string";
+
+@include assert("symbol-to-string($symbol: symbol): Return string representation of the passed symbol", (
+  symbol-to-string(symbol()) equal "<symbol>",
+  symbol-to-string(symbol(foo)) equal "<symbol foo>",
+));
+
+@include assert("symbol-to-string($symbol: symbol): should validate passed params", (
+    (symbol-to-string, null) throws "ArgumentError: Invalid argument `$symbol` of `symbol-to-string($symbol: symbol)`. Expected value of symbol, instead given null",
+));

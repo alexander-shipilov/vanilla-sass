@@ -1,0 +1,10 @@
+@import "../core/nvl";
+@import "array-find-index--";
+@import "array-nth--";
+
+/// @group array
+/// @access private
+/// @see array-find
+@function array-find--($array, $callback, $other...) {
+  @return array-nth--($array, nvl(array-find-index--($array, $callback), 0));
+}

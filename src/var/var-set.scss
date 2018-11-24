@@ -1,0 +1,53 @@
+@import "../--";
+@import "../type/custom--";
+@import "is-var--";
+@import "var-set--";
+@import "var-type--";
+@import "var-writable--";
+
+@function var-set-var--($var) {
+  @if (not is-var--($var)) {
+    @return false;
+  }
+
+  @if (not var-writable--($var)) {
+    @return throw("Assignment to constant variable", TypeError);
+  }
+
+  @return true;
+}
+
+@function var-set-value--($var, $value) {
+  $var-type: var-type--($var);
+
+  @if (not is-type-of--($var-type, $value)) {
+    @return throw("Invalid variable value. Expected value of #{ debug-type($var-type) }, instead given #{ debug-value($value) }", "TypeError");
+  }
+
+  @return true;
+}
+
+$var-set-var--: custom--(var-set-var--, "writable var") !default;
+
+/// Assigns value to the passed variable
+/// @group var
+///
+/// @param { writable var } $var [--required()]
+/// @param { var-type($var) } $value [--required()]
+/// @return { var }
+///
+/// @example
+///
+///   @debug var-set(); //
+///
+@function var-set($var: --required(), $value: --required(), $other...) {
+  @return --private(var-set, $var, $value);
+}
+
+/// @ignore
+@function --var-set($var, $other...) {
+  @return var var-set (
+    "var": custom--($var-set-var--, "writable var") --required(),
+    "value": custom--((var-set-value--, $var), "var-type($var)") --required()
+  );
+}

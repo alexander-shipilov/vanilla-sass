@@ -1,9 +1,0 @@
-/// Tests whether the passed value is a string
-/// @group core
-///
-/// @param { any } $value
-/// @return { bool }
-///
-@function is-string($value, $other...) {
-  @return type-of($value) == "string";
-}

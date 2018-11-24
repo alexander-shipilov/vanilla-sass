@@ -1,0 +1,42 @@
+@import "../--/--required";
+@import "../core/throw";
+@import "../core/to-string";
+@import "../error/is-exception--";
+@import "../func/func-call--";
+@import "../object/is-object--";
+@import "../symbol/symbol-for--";
+@import "$prototype-context--";
+@import "$prototypes--";
+@import "prototype-of--";
+@import "prototype-name";
+@import "instance-of--";
+
+
+/// @ignore
+@function new--($proto: --required(), $args...) {
+  $proto-def: prototypes-get--($proto);
+
+  $prototype-context--: $proto !global;
+  $instance: func-call--(map-get($proto-def, symbol-for--(constructor)), $args...);
+  $prototype-context--: null !global;
+
+  @if (is-exception--($instance)) {
+    @return $instance;
+  }
+
+  @if (not is-object--($instance)) {
+    @return throw("Expected #{ to-string($proto) } to return a map, instead returned #{ to-string($instance) }");
+  }
+
+  $super: prototype-of--($proto);
+
+  @if ($super != null and not instance-of--($instance, $super)) {
+    @return throw("#{ to-string($proto) } is derived prototype. Call `super()`")
+  }
+
+  // @debug new-- to-string($proto-def) value-of($instance);
+
+  @return map-merge($instance, (
+    #{symbol-for--(prototype)}: $proto
+  ));
+}

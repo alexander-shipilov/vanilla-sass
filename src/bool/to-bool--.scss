@@ -1,0 +1,5 @@
+/// @group bool
+/// @access private
+@function to-bool--($value) {
+  @return not (not $value or $value == "" or $value == 0);
+}

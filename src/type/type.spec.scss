@@ -1,0 +1,18 @@
+@import "../assert";
+@import "index";
+
+@include assert("type should be a function", (
+  is-function(type) is-true,
+));
+
+@include assert("type() creates a new type from the passed constructor", (
+));
+
+@include void() {
+  $type: --usage(--type());
+
+  @include assert("type() should throw if invalid params passed", (
+      (type) throws "ArgumentError: Missed argument `$constructor` of `#{ $type }`.",
+      (type, null) throws "ArgumentError: Invalid argument `$constructor` of `#{ $type }`. Expected value of callable, instead given null",
+  ));
+}

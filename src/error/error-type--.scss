@@ -1,0 +1,8 @@
+@import "$error-type-symbol--";
+
+/// @group error
+/// @access private
+/// @see error-type
+@function error-type--($error, $other...) {
+  @return map-get($error, $error-type-symbol--);
+}

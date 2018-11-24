@@ -1,0 +1,21 @@
+@import "../--";
+@import "object-of--";
+
+/// Creates object-of type
+/// @group type
+///
+/// @param { type } $type [--required()]
+/// @return { type }
+///
+/// @example
+///
+///   @debug object-of(); //
+///
+@function object-of($type: --required(), $other...) {
+  @return --private(object-of, $type);
+}
+
+/// @ignore
+@function --object-of($other...) {
+  @return type object-of ("type": type --required());
+}

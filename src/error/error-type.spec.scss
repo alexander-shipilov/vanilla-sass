@@ -1,0 +1,11 @@
+@import "../assert";
+@import "index";
+
+@include assert("error-type($error: error): Returns error type", (
+  error-type(error()) equal Error,
+  error-type(error(foo, MyType)) equal MyType,
+));
+
+@include assert("error-type($error: error): should validate passed params", (
+    (error-type, null) throws "ArgumentError: Invalid argument `$error` of `error-type($error: error)`. Expected value of error, instead given null",
+));

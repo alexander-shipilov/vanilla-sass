@@ -1,0 +1,11 @@
+@import "../--/--required";
+
+/// @ignore
+@function --typeof($other...) {
+  @return string typeof ("value": ("?any") --required());
+}
+
+/// @ignore
+@function typeof--($value: --required(), $other...) {
+  @return null;
+}

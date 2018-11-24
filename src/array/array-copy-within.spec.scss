@@ -1,0 +1,22 @@
+@import "../assert";
+@import "index";
+
+@include assert("array-copy-within($array: array, $target: integer, $start: integer, $end: ?integer): Copies part of an array to another location, without modifying an array size", (
+  array-copy-within((1, 2, 3, 4, 5), 1) equal (1, 2, 3, 4, 5),
+  array-copy-within((1, 2, 3, 4, 5), -2) equal (1, 2, 3, 1, 2),
+  array-copy-within((1, 2, 3, 4, 5), 1, 4) equal (4, 5, 3, 4, 5),
+  array-copy-within((1, 2, 3, 4, 5), -2, -3, -1) equal (1, 2, 3, 3, 4),
+));
+
+@include assert("array-copy-within($array: array, $target: integer, $start: integer, $end: ?integer): should preserve separator and brackets", (
+  array-is-bracketed(array-copy-within(1 2, 1)) equal false,
+  array-is-bracketed(array-copy-within(to-list(1 2, $is-bracketed: true), 1)) equal true,
+  array-separator(array-copy-within((1, 2), 1)) equal comma,
+  array-separator(array-copy-within(1 2, 1)) equal space,
+));
+
+@include assert("array-copy-within($array: array, $target: integer, $start: integer, $end: ?integer): should validate passed params", (
+    (array-copy-within, null) throws "ArgumentError: Invalid argument `$array` of `array-copy-within($array: array, $target: integer, $start: integer, $end: ?integer)`. Expected value of array, instead given null",
+    (array-copy-within, (), null) throws "ArgumentError: Invalid argument `$target` of `array-copy-within($array: array, $target: integer, $start: integer, $end: ?integer)`. Expected value of integer, instead given null",
+    (array-copy-within, (), 1, null) throws "ArgumentError: Invalid argument `$start` of `array-copy-within($array: array, $target: integer, $start: integer, $end: ?integer)`. Expected value of integer, instead given null",
+));

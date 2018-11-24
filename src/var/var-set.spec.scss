@@ -1,0 +1,30 @@
+@import "../assert";
+@import "index";
+
+@include assert("var-set should be a function", (
+  is-function(var-set) is-true,
+));
+
+@include assert("var-set() assigns value to the passed variable", (
+  is-var(var-set(let(string foo), bar)) is-true,
+  var-get(var-set(let(string foo), bar)) equal bar,
+));
+
+@include assert("var-set(const(), ...) should throw an error", (
+    (var-set, const(string foo), bar) throws "TypeError: Assignment to constant variable",
+));
+
+@include assert("var-set() should throw a TypeError if passed value is mismatched $var type", (
+    (var-set, let(string foo), 1) throws "TypeError: Invalid variable value. Expected value of string, instead given { number } 1",
+));
+
+@include void() {
+  $var-set: --usage(--var-set());
+
+  @include assert("var-set() should throw if invalid params passed", (
+      (var-set) throws "ArgumentError: Missed argument `$var` of `#{ $var-set }`.",
+      (var-set, null) throws "ArgumentError: Invalid argument `$var` of `#{ $var-set }`. Expected value of var, instead given null",
+      (var-set) throws "ArgumentError: Missed argument `$value` of `#{ $var-set }`.",
+      (var-set, null) throws "ArgumentError: Invalid argument `$value` of `#{ $var-set }`. Expected value of ?any, instead given null",
+  ));
+}

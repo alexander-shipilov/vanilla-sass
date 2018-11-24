@@ -1,0 +1,17 @@
+@import "../func/func-call-private--";
+@import "array-length-set--";
+
+/// Sets an array length
+/// @group array
+///
+/// @param { array } $array
+/// @param { integer } $length
+/// @return { list }
+///
+/// @example
+///
+///   @debug array-length-set(); //
+///
+@function array-length-set($array: null, $length: null, $other...) {
+  @return func-call-private--(array-length-set, (array: array $array, length: integer $length));
+}

@@ -1,0 +1,5 @@
+/// @group func
+/// @see func-bind
+@function func-bind--($callable, $args...) {
+  @return join(($callable,), $args);
+}

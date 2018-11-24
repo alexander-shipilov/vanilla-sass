@@ -1,0 +1,17 @@
+@import "../--";
+@import "type--";
+
+/// Creates a new type proto from the passed constructor
+/// @group type
+///
+/// @param { callable } $constructor [--required()]
+/// @param { ?string } $name [null]
+/// @return { constructor }
+///
+/// @example
+///
+///   @debug type(); //
+///
+@function type($constructor: --required(), $name: null, $other...) {
+  @return --private(type, $constructor, $name);
+}

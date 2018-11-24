@@ -1,0 +1,14 @@
+@import "../var/is-var--";
+@import "../var/var-set--";
+
+/// @group object
+/// @see object-set
+@function object-set--($object, $prop, $value, $other...) {
+  $prop-value: map-get($object, $prop);
+
+  @if (is-var--($prop-value)) {
+    $value: var-set--($prop-value, $value);
+  }
+
+  @return map-merge($object, ($prop: $value));
+}

@@ -1,0 +1,8 @@
+@import "context-index-of--";
+
+/// @group context
+/// @access private
+/// @see context-var-exists
+@function context-var-exists--($var, $other...) {
+  @return context-index-of--($var) != null;
+}

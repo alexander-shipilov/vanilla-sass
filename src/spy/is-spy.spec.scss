@@ -1,0 +1,12 @@
+@import "../assert";
+@import "is-spy";
+@import "spy";
+
+@include assert("is-spy($value: ?any): checks if the passed value is a spy", (
+  is-spy(spy()) is-true,
+  is-spy(1) is-false,
+));
+
+@include assert("is-spy($value: ?any): should validate passed params", (
+    (is-spy) does-not-throw,
+));

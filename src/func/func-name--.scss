@@ -1,0 +1,7 @@
+@import "../array/is-array--";
+
+/// @group func
+/// @access private
+@function func-name--($func, $other...) {
+  @return if(is-array--($func), func-name--(nth($func, 1)), $func);
+}

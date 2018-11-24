@@ -1,0 +1,20 @@
+@import "../func/func-call-private--";
+@import "is-type-tag--";
+
+/// Checks if the passed value is type tag
+/// @group types
+///
+/// @param { ?any } $value
+/// @return { bool }
+///
+/// @example
+///
+///    @debug is-type-tag(number); // true
+///    @debug is-type-tag(any); // true
+///    @debug is-type-tag("?string"); // true
+///    @debug is-type-tag(null); // false
+///    @debug is-type-tag(1); // false
+///
+@function is-type-tag($value: null, $other...) {
+  @return func-call-private--(is-type-tag, (value: "?any" $value));
+}

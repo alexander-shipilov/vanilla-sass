@@ -1,0 +1,6 @@
+/// @group func
+/// @access private
+/// @see to-function
+@function to-function--($value, $other...) {
+  @return if(type-of($value) == function, $value, get-function($value));
+}

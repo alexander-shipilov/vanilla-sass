@@ -1,0 +1,7 @@
+@import "is-number--";
+
+/// group number
+/// access private
+@function is-integer--($value, $other...) {
+  @return is-number--($value) and floor($value) == $value;
+}

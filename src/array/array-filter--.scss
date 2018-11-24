@@ -1,0 +1,31 @@
+@import "../bool/to-bool";
+@import "../error/is-exception";
+@import "../func/func-call--";
+@import "array-length--";
+@import "array-length-set--";
+
+/// @group array
+/// @access private
+/// @see array-filter
+@function array-filter--($array, $callback, $other...) {
+  $next-array: array-length-set--($array, 0);
+  $length: array-length--($array);
+  $index: 1;
+
+  @while ($index <= $length) {
+    $nth-value: nth($array, $index);
+    $result: func-call--($callback, $nth-value, $index, $array);
+
+    @if (is-exception--($result)) {
+      @return $result;
+    }
+
+    @if (to-bool($result)) {
+      $next-array: append($next-array, $nth-value)
+    }
+
+    $index: $index + 1;
+  }
+
+  @return $next-array;
+}

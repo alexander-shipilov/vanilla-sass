@@ -1,0 +1,16 @@
+@import "../func/func-call-private--";
+@import "spy-length--";
+
+/// Returns count of the given spy calls
+/// @group spy
+///
+/// @param { spy } $spy
+/// @return { number }
+///
+/// @example
+///
+///   @debug spy-length() //
+///
+@function spy-length($spy: null, $other...) {
+  @return func-call-private--(spy-length, (spy: spy $spy));
+}

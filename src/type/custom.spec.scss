@@ -1,0 +1,34 @@
+@import "../assert";
+@import "index";
+
+@function lt($number, $value) {
+  @return $number > $value;
+}
+
+@include assert("custom should be a function", (
+  is-function(custom) is-true,
+));
+
+@include void() {
+  $less10: custom((lt, 10), "< 10");
+
+  @include assert("custom(): creates custom type", (
+    is-type($less10) is-true,
+  ));
+
+  @include assert("to-string(custom())", (
+    to-string($less10) equal "< 10",
+  ));
+}
+
+@include void() {
+  $custom: --usage(--custom());
+
+  @include assert("custom() should throw if invalid params passed", (
+      (custom) throws "ArgumentError: Missed argument `$func` of `#{ $custom }`.",
+      (custom, null) throws "ArgumentError: Invalid argument `$func` of `#{ $custom }`. Expected value of callable, instead given null",
+
+      (custom, lt, 1) throws "ArgumentError: Invalid argument `$name` of `#{ $custom }`. Expected value of ?string, instead given { number } 1",
+  ));
+}
+

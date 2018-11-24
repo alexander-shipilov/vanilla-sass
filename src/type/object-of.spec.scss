@@ -1,0 +1,32 @@
+@import "../assert/index";
+@import "index";
+
+@include assert("object-of should be a function", (
+  is-function(object-of) is-true,
+));
+
+@include void() {
+  $object-of-strings: object-of(string);
+
+  @include assert("object-of() creates object-of type", (
+    is-type($object-of-strings) is-true,
+  ));
+
+  @include assert("is-type-of(object-of(), ...)", (
+    is-type-of($object-of-strings, ()) is-true,
+    is-type-of($object-of-strings, (foo: foo, bar: bar)) is-true,
+    is-type-of(object-of($object-of-strings), (foo: (foo: foo), bar: (bar: bar))) is-true,
+    is-type-of($object-of-strings, (foo: 1, bar: 2)) is-false,
+    is-type-of(object-of($object-of-strings), (foo: (foo: 1))) is-false,
+    is-type-of($object-of-strings, null) is-false,
+  ));
+}
+
+@include void() {
+  $object-of: --usage(--object-of());
+
+  @include assert("object-of() should throw if invalid params passed", (
+      (object-of) throws "ArgumentError: Missed argument `$type` of `#{ $object-of }`.",
+      (object-of, 1) throws "ArgumentError: Invalid argument `$type` of `#{ $object-of }`. Expected value of type, instead given { number } 1",
+  ));
+}

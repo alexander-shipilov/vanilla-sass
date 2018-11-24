@@ -1,0 +1,25 @@
+@import "../type/object-of--";
+@import "../type/array--";
+@import "func-call-private--";
+@import "func-validate--";
+
+/// Validates passed arguments across the given types and returns list of params.
+/// @group func
+///
+/// @param { function } $func
+/// @param { object-of(list(type, ?any)) } $types
+/// @return { ?list }
+///
+/// @example
+///
+///   @function foo-bar($foo: null, $bar: null, $rest...) {
+///     @return func-validate(foo-bar, (foo: string $foo, bar: "?number" $bar))
+///   }
+///
+///   @debug foo-bar("foo", 1); // true
+///   @debug foo-bar("foo"); // true
+///   @debug foo-bar(1); // throws an error
+///
+@function func-validate($func, $args, $other...) {
+  @return func-call-private--(func-validate, (func: function $func, args: object-of--(array--(type, any)) $args));
+}

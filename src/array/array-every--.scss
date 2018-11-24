@@ -1,0 +1,8 @@
+@import "../func/func-not";
+@import "array-some--";
+
+/// @group array
+/// @see array-every
+@function array-every--($array, $callback) {
+  @return not array-some--($array, func-not($callback));
+}

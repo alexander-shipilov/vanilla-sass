@@ -1,0 +1,16 @@
+@import "../func/func-call-private--";
+@import "is-object--";
+
+///
+/// @group object
+///
+/// @param { ?any } $value
+/// @return { bool }
+///
+/// @example
+///
+///   @debug is-object(); //
+///
+@function is-object($value: null, $other...) {
+  @return func-call-private--(is-object, (value: "?any" $value));
+}

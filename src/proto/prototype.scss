@@ -1,0 +1,25 @@
+@import "../--";
+@import "prototype--";
+
+/// @ignore
+@function --prototype($other...) {
+  @return prototype prototype ("constructor": ("callable") void, "name": ("?string") null);
+}
+
+/// Creates a new prototype from the passed constructor
+/// @group proto
+///
+/// @param { callable } $constructor [void] Prototype constructor
+/// @param { ?string } $name [null] A string value used for the default description of an object.
+///   If omitted `$constructor` name will be used.
+/// @return { prototype }
+///
+/// @example
+///
+///   $my-object: prototype($name: my-object);
+///
+///   @debug debug-value($my-object); // <prototype my-object>
+///
+@function prototype($constructor: void, $name: null, $other...) {
+  @return --private(prototype, $constructor, $name);
+}

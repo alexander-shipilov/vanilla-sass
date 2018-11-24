@@ -1,0 +1,16 @@
+@import "../func/func-call-private--";
+@import "is-error--";
+
+/// Checks if the passed value is an error
+/// @group error
+///
+/// @param { ?any } $value
+/// @return { bool }
+///
+/// @example
+///
+///   @debug is-error(); //
+///
+@function is-error($value: null, $other...) {
+  @return func-call-private--(is-error, (value: "?any" $value));
+}

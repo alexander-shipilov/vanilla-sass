@@ -1,0 +1,38 @@
+@import "../proto/instance-of--";
+@import "../proto/new--";
+@import "../proto/super";
+@import "../proto/prototype-to-string--";
+@import "../core/to-string";
+@import "../symbol/symbol-for--";
+@import "is-type-of--";
+@import "type--";
+
+// @ignore
+@function optional-validate--($optional, $value, $other...) {
+  @return $value == null or is-type-of--(map-get($optional, type), $value);
+}
+
+// @ignore
+@function optional-to-string--($optional, $other...) {
+  @return "?#{ to-string(map-get($optional, type)) }";
+}
+
+// @ignore
+@function optional-constructor--($type) {
+  @return map-merge(super(optional-validate--), (
+    type: $type,
+    #{ symbol-for--(to-string) }: optional-to-string--
+  ));
+}
+
+$type-optional--: type--(optional-constructor--, optional);
+
+// @ignore
+@function optional--($type, $other...) {
+  @return if(instance-of--($type, $type-optional--), $type, new--($type-optional--, $type));
+}
+
+@function opt--($args...) {
+  @return optional--($args...);
+}
+

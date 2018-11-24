@@ -1,0 +1,18 @@
+@import "../core/nvl";
+@import "array-separator--";
+@import "array-is-bracketed--";
+
+/// @group array
+/// @access private
+/// @see to-list
+@function to-list--($array, $separator: null, $is-bracketed: null, $other...) {
+  $array-separator: array-separator--($array);
+  $array-is-bracketed: array-is-bracketed--($array);
+
+  $should-create: type-of($array) != "list"
+    or $array-separator != nvl($separator, $array-separator)
+    or $array-separator != nvl($is-bracketed, $array-is-bracketed);
+
+  @return if($should-create, join($array, (), nvl($separator, auto), nvl($is-bracketed, auto)), $array);
+}
+

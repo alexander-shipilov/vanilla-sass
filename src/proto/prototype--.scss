@@ -1,0 +1,15 @@
+@import "../core/nvl";
+@import "../core/void";
+@import "../func/func-name--";
+@import "../symbol/symbol-for--";
+@import "$prototypes--";
+@import "prototype-to-string--";
+
+/// @ignore
+@function prototype--($constructor: void, $name: null, $other...) {
+  @return prototypes-set--("prototype-#{ unique-id() }", (
+    #{ symbol-for--(constructor) }: $constructor,
+    #{ symbol-for--(to-string) }: prototype-to-string--,
+    #{ symbol-for--(to-string-tag) }: nvl($name, func-name--($constructor)),
+  ));
+}

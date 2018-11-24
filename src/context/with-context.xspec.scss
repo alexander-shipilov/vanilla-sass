@@ -1,0 +1,10 @@
+@import "../assert";
+@import "index";
+
+@include assert("with-context($vars: object-of(var), $callback: callable): Creates new context with provided variables", (
+));
+
+@include assert("with-context($vars: object-of(var), $callback: callable): should validate passed params", (
+    (with-context, null) throws "ArgumentError: Invalid argument `$vars` of `with-context($vars: object-of(var), $callback: callable)`. Expected value of object-of(var), instead given null",
+    (with-context, STUB, null) throws "ArgumentError: Invalid argument `$callback` of `with-context($vars: object-of(var), $callback: callable)`. Expected value of callable, instead given null",
+));

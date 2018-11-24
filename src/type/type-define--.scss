@@ -1,0 +1,16 @@
+@import "../proto/prototype--";
+@import "../proto/extends--";
+@import "../global/global";
+@import "../global/global-const--";
+@import "../global/is-defined";
+@import "type--";
+
+/// @group types
+/// @access private
+@function type-define--($name, $constructor) {
+  @return if(
+      is-defined($name),
+      global($name),
+      global-const--($name, extends--(prototype--($constructor, $name), global(type)))
+  );
+}

@@ -1,0 +1,17 @@
+@import "to-list--";
+@import "array-length--";
+@import "array-slice--";
+
+/// @group array
+/// @access private
+/// @see array-pop
+@function array-pop--($array, $count: 1, $other...) {
+  $next-array: to-list--($array);
+  $length: array-length--($array);
+
+  @if ($length != 0 and $count > 0) {
+    $next-array: array-slice--($next-array, 1, -$count);
+  }
+
+  @return $next-array;
+}

@@ -1,0 +1,17 @@
+@import "../object/object-get--";
+@import "$context--";
+@import "context-index-of--";
+
+/// @group context
+/// @access private
+/// @see context-var-get
+@function context-var-get--($var, $other...) {
+  $value: null;
+  $index: context-index-of--($var);
+
+  @if ($index != null) {
+    $value: object-get--(array-nth--($context--, $index));
+  }
+
+  @return $value;
+}

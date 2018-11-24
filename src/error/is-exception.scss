@@ -1,0 +1,17 @@
+@import "../func/func-call-private--";
+@import "is-exception--";
+
+/// Checks if the passed value is a thrown exception.
+/// @group error
+///
+/// @param { ?any } $value
+/// @return { bool }
+///
+/// @example
+///
+///   @debug is-exception(); //
+///
+@function is-exception($value: null, $other...) {
+  @return func-call-private--(is-exception, (value: "?any" $value));
+}
+

@@ -1,0 +1,8 @@
+@import "$symbol-all--";
+
+/// @group symbol
+/// @access private
+/// @see symbol-description
+@function symbol-description--($symbol, $other...) {
+  @return symbol-get--($symbol);
+}

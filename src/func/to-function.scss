@@ -1,0 +1,18 @@
+@import "func-call-private--";
+@import "to-function--";
+
+/// Converts value to function
+/// @group func
+///
+/// @param { function } $value
+/// @return { function }
+///
+/// @example
+///
+///   @debug to-function(); //
+///
+@function to-function($value: null, $other...) {
+  @return func-call-private--(to-function, (value: function $value));
+}
+
+

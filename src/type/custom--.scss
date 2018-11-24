@@ -1,0 +1,35 @@
+@import "../proto/new--";
+@import "../proto/super";
+@import "../symbol/symbol-for--";
+@import "type--";
+
+/// @group type
+/// @access private
+@function custom-validate--($custom, $value, $other...) {
+  @return func-call--(map-get($custom, func), $value);
+}
+
+/// @group type
+/// @access private
+@function custom-to-string--($custom, $other...) {
+  @return map-get($custom, name);
+}
+
+/// @group type
+/// @access private
+@function custom-constructor--($func, $name: null) {
+  $this: super(custom-validate--);
+
+  @return map-merge($this, (
+    func: $func,
+    name: nvl($name, func-name--($func)),
+    #{ symbol-for--(to-string) }: custom-to-string--
+  ));
+}
+
+$type-custom--: type--(custom-constructor--, custom) !default;
+
+/// @ignore
+@function custom--($func, $name: null, $other...) {
+  @return new--($type-custom--, $func, $name);
+}

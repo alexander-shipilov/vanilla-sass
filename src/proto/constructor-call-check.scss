@@ -1,0 +1,10 @@
+@import "../core/throw";
+@import "$prototype-context--";
+
+@function constructor-call-check() {
+  @if ($prototype-context-- == null) {
+    @return throw("Constructor cannot be invoked without `new()`");
+  }
+
+  @return true;
+}

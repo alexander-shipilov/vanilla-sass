@@ -1,3 +1,0 @@
-@function is-error($value, $other...) {
-  @return $value == null;
-}

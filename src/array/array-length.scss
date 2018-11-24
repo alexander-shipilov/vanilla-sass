@@ -1,0 +1,18 @@
+@import "../func/func-call-private--";
+@import "array-length--";
+
+/// Returns the length of the passed array
+/// @group array
+///
+/// @param { array } $array
+/// @return { number }
+///
+/// @example
+///
+///   @debug array-length(()) // 0
+///   @debug array-length((1,)) // 1
+///   @debug array-length((foo: 1)) // 1
+///
+@function array-length($array: null, $other...) {
+  @return func-call-private--(array-length, (array: array $array));
+}

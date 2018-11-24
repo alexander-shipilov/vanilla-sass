@@ -1,0 +1,16 @@
+@import "../func/func-call-private--";
+@import "error-type--";
+
+/// Returns error type
+/// @group error
+///
+/// @param { error } $error
+/// @return { string }
+///
+/// @example
+///
+///   @debug error-type(); //
+///
+@function error-type($error: null, $other...) {
+  @return func-call-private--(error-type, (error: error $error));
+}

@@ -1,6 +1,0 @@
-@import "../func/func-call-unsafe--";
-@import "map-every--";
-
-@function map-every($map, $callable, $args...) {
-  @return func-call-unsafe--(map-every, (map: map $map, func: callable $callable, "args...": arglist $args));
-}

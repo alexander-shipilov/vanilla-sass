@@ -1,0 +1,60 @@
+@import "../array/is-array--";
+@import "../array/array-nth--";
+@import "../proto/new--";
+@import "../proto/super";
+@import "../symbol/symbol-for--";
+@import "type-define--";
+@import "../proto/prototype-to-string--";
+@import "is-type-of--";
+
+/// @group type
+/// @access private
+@function array-validate--($value, $array, $other...) {
+  $is-array: is-array--($value);
+  $types: map-get($array, types);
+
+  @if ($is-array and $types != null) {
+    $index: 1;
+
+    @each $type in $types {
+      $is-array: is-type-of--($type, array-nth--($value, $index));
+
+      @if (not $is-array) {
+        @return false;
+      }
+
+      $index: $index + 1;
+    }
+  }
+
+  @return $is-array;
+}
+
+/// @group type
+/// @access private
+@function array-to-string--($array, $other...) {
+  $types: append(map-get($array, types), "...");
+
+  @return prototype-to-string--($array, $types...);
+}
+
+/// @group type
+/// @access private
+@function array-constructor--($types) {
+  @if (not constructor-call-check()) {
+    @return null;
+  }
+
+  @return map-merge(super(array-validate--), (
+    types: $types,
+    #{ symbol-for--(to-string) }: array-to-string--
+  ));
+}
+
+$type-array--: type-define--(array, array-constructor--);
+
+/// @group types
+/// @access private
+@function array--($types, $other...) {
+  @return new--($type-array--, $types);
+}

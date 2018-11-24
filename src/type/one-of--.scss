@@ -1,0 +1,34 @@
+@import "../array/array-some--";
+@import "../proto/new--";
+@import "../proto/super";
+@import "../proto/prototype-to-string--";
+@import "../symbol/symbol-for--";
+@import "type--";
+@import "is-value-of--";
+
+/// @ignore
+@function one-of-validate--($one-of, $value, $other...) {
+  @return array-some--(map-get($one-of, types), (is-value-of--, $value));
+}
+
+/// @ignore
+@function one-of-to-string--($one-of, $other...) {
+  $types: map-get($one-of, types);
+
+  @return prototype-to-string--($one-of, $types...);
+}
+
+/// @ignore
+@function one-of-constructor--($types) {
+  @return map-merge(super(one-of-validate--), (
+    types: $types,
+    #{ symbol-for--(to-string) }: one-of-to-string--
+  ));
+}
+
+$type-one-of--: type--(one-of-constructor--, one-of) !default;
+
+/// @ignore
+@function one-of--($types, $other...) {
+  @return new--($type-one-of--, $types);
+}

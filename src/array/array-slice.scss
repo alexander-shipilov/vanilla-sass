@@ -1,0 +1,26 @@
+@import "../func/func-call-private--";
+@import "array-slice--";
+
+/// Returns a copy of a portion of a list into a new list object selected from `$start` to `$end` (`$end` not included).
+/// @group array
+///
+/// @param { array } $list
+/// @param { number } $start [1] Index at which to begin extraction.
+///   A negative index can be used, indicating an offset from the end of the sequence. slice(-2)
+///   extracts the last two elements in the sequence.
+///   If `$start` is null (or omitted), `array-slice()` begins from index 1.
+///   If `$start` is greater than the length of the sequence, an empty list is returned.
+/// @param { ?number } $end Index before which to end extraction.
+///   `array-slice()` extracts up to but **not including** end.
+///   A negative index can be used, indicating an offset from the end of the sequence.
+///   If `$end` is omitted, slice extracts through the end of the sequence (`length($list)`).
+///   If `$end` is greater than the length of the sequence, slice extracts through to the end of the sequence.
+/// @return { list }
+///
+/// @example
+///
+///   @debug array-slice((1, 2, 3, 4), 2, -1) // (2, 3) extracts the second element through the second-to-last element in the sequence.
+///
+@function array-slice($list, $start: 1, $end: null, $other...) {
+  @return func-call-private--(array-slice, (list: array $list, from: number $start, to: "?number" $end));
+}

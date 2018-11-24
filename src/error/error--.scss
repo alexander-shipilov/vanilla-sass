@@ -1,0 +1,36 @@
+@import "../core/@void";
+@import "../proto/prototype--";
+@import "../proto/new--";
+@import "../global/global";
+@import "../global/global-const--";
+@import "../global/is-undefined";
+@import "../symbol/symbol-for--";
+@import "$error-type-symbol--";
+
+/// @group errors
+/// @access private
+@function error-to-string--($error) {
+  $type: map-get($error, $error-type-symbol--);
+  $message: map-get($error, message);
+
+  @return "#{ $type }#{ if($message == "", "", ": #{ $message }") }";
+}
+
+/// @group errors
+/// @access private
+@function error-constructor--($message, $type) {
+  @return (
+    message: $message,
+    $error-type-symbol--: $type,
+    #{ symbol-for--(to-string) }: error-to-string--
+  );
+}
+
+$error--: prototype--(error-constructor--, error) !default;
+
+/// @group error
+/// @access private
+/// @see error
+@function error--($message, $type, $other...) {
+  @return new--($error--, $message, $type);
+}

@@ -1,0 +1,16 @@
+@import "../assert";
+@import "is-symbol";
+@import "symbol-for";
+
+@include assert("symbol-for($key: string): returns symbol", (
+  is-symbol(symbol-for(foo)) is-true,
+));
+
+@include assert("symbol-for($key: string): returns a registered symbol", (
+  symbol-for(foo) == symbol-for(foo) is-true,
+));
+
+@include assert("symbol-for($key: string): should validate passed params", (
+    (symbol-for, null) throws "ArgumentError: Invalid argument `$key` of `symbol-for($key: string)`. Expected value of string, instead given null",
+    (symbol-for, 1) throws "ArgumentError: Invalid argument `$key` of `symbol-for($key: string)`. Expected value of string, instead given { number } 1",
+))

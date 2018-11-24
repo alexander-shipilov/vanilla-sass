@@ -1,0 +1,43 @@
+@import "../assert";
+@import "../spy";
+@import "array-reduce";
+
+@function sum($a, $b, $other...) {
+  @return $a + $b;
+}
+
+@include assert("array-reduce($array: array, $callback: callable, $initial: ?any): applies a callback against an accumulator and each element in the array (from left to right) to reduce it to a single value", (
+  array-reduce((1, 2, 3), sum) equal 6,
+  array-reduce((1, 2, 3), sum, 4) equal 10,
+  array-reduce((), sum, 1) equal 1,
+));
+
+@include assert("array-reduce($array: array, $callback: callable, $initial: ?any): should throw if $array is empty and $initial is null", (
+    (array-reduce, (), sum) throws "TypeError: Reduce of empty array with no initial value",
+));
+
+@include void() {
+  $spy: spy(sum);
+  $result: array-reduce((1, 2, 3), (spy-call, $spy));
+
+  @include assert("array-reduce($array: array, $callback: callable): should call $callback with (?any, ?any, number, array)", (
+    spy-length($spy) equal 2,
+    spy-nth($spy, 1) equal (args: (1, 2, 2, (1, 2, 3)), return: 3, error: null),
+    spy-nth($spy, 2) equal (args: (3, 3, 3, (1, 2, 3)), return: 6, error: null),
+  ));
+
+  $spy: spy-reset($spy);
+  $result: array-reduce((1, 2, 3), (spy-call, $spy), 4);
+
+  @include assert("array-reduce($array: array, $callback: callable, $initial: ?any): should call $callback with (?any, ?any, number, array)", (
+    spy-length($spy) equal 3,
+    spy-nth($spy, 1) equal (args: (4, 1, 1, (1, 2, 3)), return: 5, error: null),
+    spy-nth($spy, 2) equal (args: (5, 2, 2, (1, 2, 3)), return: 7, error: null),
+    spy-nth($spy, 3) equal (args: (7, 3, 3, (1, 2, 3)), return: 10, error: null),
+  ));
+}
+
+@include assert("array-reduce($array: array, $callback: callable, $initial: ?any): should validate passed params", (
+    (array-reduce, null) throws "ArgumentError: Invalid argument `$array` of `array-reduce($array: array, $callback: callable, $initial: ?any)`. Expected value of array, instead given null",
+    (array-reduce, (), null) throws "ArgumentError: Invalid argument `$callback` of `array-reduce($array: array, $callback: callable, $initial: ?any)`. Expected value of callable, instead given null",
+));

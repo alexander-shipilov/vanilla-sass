@@ -1,0 +1,16 @@
+@import "../--";
+@import "is-instance--";
+
+/// Checks if value is an instance of any prototype
+/// @group constructor
+///
+/// @param { ?any } $value [--required()]
+/// @return { bool }
+///
+/// @example
+///
+///   @debug is-instance(); //
+///
+@function is-instance($value: --required(), $other...) {
+  @return --private(is-instance, $value);
+}

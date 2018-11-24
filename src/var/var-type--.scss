@@ -1,0 +1,8 @@
+@import "$vars--";
+@import "$var-type--";
+
+/// @group var
+/// @see var-type
+@function var-type--($var: null, $other...) {
+  @return map-get(vars-get--($var), $var-type--);
+}

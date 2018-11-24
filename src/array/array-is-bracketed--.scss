@@ -1,0 +1,6 @@
+/// @group array
+/// @access private
+/// @see array-is-bracketed
+@function array-is-bracketed--($array, $other...) {
+  @return is-bracketed($array);
+}

@@ -1,0 +1,13 @@
+@import "../array/array-reduce--";
+
+/// @group map
+/// @access private
+@function --map-merge($map, $source: null, $other...) {
+  @return if($source == null, $map, map-merge($map, $source));
+}
+
+/// @group map
+/// @see map-assign--
+@function map-assign--($map, $sources...) {
+  @return array-reduce--($sources, --map-merge, $map);
+}

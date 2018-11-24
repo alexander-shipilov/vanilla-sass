@@ -1,0 +1,25 @@
+@import "../core/nvl";
+@import "to-list--";
+@import "array-is-bracketed--";
+@import "array-length--";
+@import "array-n--";
+@import "array-separator--";
+
+/// @group array
+/// @access private
+/// @see array-slice
+@function array-slice--($array, $start: 1, $end: null) {
+  $next-array: to-list--((), array-separator--($array), array-is-bracketed--($array));
+  $length: array-length--($array);
+
+  @if ($length != 0) {
+    $start: max(array-n--($array, $start), 1);
+    $end: max(array-n--($array, nvl($end, $length + 1)), 1);
+
+    @for $i from $start to $end {
+      $next-array: append($next-array, nth($array, $i));
+    }
+  }
+
+  @return $next-array;
+}

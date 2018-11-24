@@ -1,0 +1,12 @@
+@import "../assert";
+@import "index";
+
+@include assert("to-function($value: function): Converts value to function", (
+  type-of(to-function(call)) equal function,
+  type-of(to-function(to-function)) equal function,
+));
+
+@include assert("to-function($value: function): should validate passed params", (
+    (to-function, null) throws "ArgumentError: Invalid argument `$value` of `to-function($value: function)`. Expected value of function, instead given null",
+));
+

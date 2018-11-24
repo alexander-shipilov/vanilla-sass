@@ -1,0 +1,7 @@
+
+/// @group core
+/// @access private
+/// @see is-key-of
+@function is-key-of--($key, $map, $other...) {
+  @return map-has-key($map, $key);
+}

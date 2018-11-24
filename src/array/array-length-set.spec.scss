@@ -1,0 +1,31 @@
+@import "../assert";
+@import "../func";
+@import "index";
+
+@include assert("array-length-set($array: array, $length: integer): sets an array length", (
+  array-length-set((1, 2), 0) equal (),
+  array-length-set((1, 2), 1) equal (1,),
+  array-length-set((1, 2), 2) equal (1, 2),
+  array-length-set((1, 2), 3) equal (1, 2, null),
+  array-length-set((1, 2), 4) equal (1, 2, null, null),
+
+  array-length-set((foo: 1, bar: 2), 1) equal ((foo 1),),
+));
+
+@include assert("array-length-set($array: array, $length: integer): should return a list", (
+  type-of(array-length-set((1, 2), 1)) equal list,
+  type-of(array-length-set((1, 2), 2)) equal list,
+  type-of(array-length-set((foo: 1, bar: 2), 1)) equal list,
+  type-of(array-length-set((foo: 1, bar: 2), 2)) equal list,
+  type-of(array-length-set(func-arglist(1, 2), 1)) equal list,
+  type-of(array-length-set(func-arglist(1, 2), 2)) equal list,
+));
+
+@include assert("array-length-set($array: array, $length: integer): should throw RangeError if passed $length less than 0", (
+    (array-length-set, (1, 2), -1) throws "RangeError: Invalid array length",
+));
+
+@include assert("array-length-set($array: array, $length: integer): should validate passed params", (
+    (array-length-set, null) throws "ArgumentError: Invalid argument `$array` of `array-length-set($array: array, $length: integer)`. Expected value of array, instead given null",
+    (array-length-set, (), null) throws "ArgumentError: Invalid argument `$length` of `array-length-set($array: array, $length: integer)`. Expected value of integer, instead given null",
+));

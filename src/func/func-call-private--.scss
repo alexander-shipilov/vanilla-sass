@@ -1,0 +1,23 @@
+@import "../string/str-ends-with";
+@import "func-call--";
+@import "func-validate--";
+
+/// @group func
+/// @access private
+/// @see func-call-with
+@function func-call-private--($func, $args, $other...) {
+  $is-valid: func-validate--($func, $args);
+
+  @if ($is-valid == null) {
+    @return $is-valid;
+  }
+
+  $params: ();
+
+  @each $arg, $type-value in $args {
+    $value: nth($type-value, 2);
+    $params: join($params, if(str-ends-with($arg, "..."), $value, ($value,)));
+  }
+
+  @return func-call--("#{ $func }--", $params...);
+}

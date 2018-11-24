@@ -1,0 +1,15 @@
+@import "../assert";
+@import "../func";
+@import "index";
+
+@include assert("is-array($value: ?any): Checks if the passed value is a list, an arglist or a map", (
+  is-array(()) is-true,
+  is-array(list of values) is-true,
+  is-array(func-arglist()) is-true,
+  is-array((foo: bar)) is-true,
+  is-array(null) is-false,
+  is-array(1) is-false,
+  is-array(true) is-false,
+  is-array("string") is-false,
+  is-array(string) is-false,
+));

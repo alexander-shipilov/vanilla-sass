@@ -1,0 +1,10 @@
+@import "../assert";
+@import "is-type";
+
+@include assert("is-type($value: ?any): Checks if the passed value is a type", (
+));
+
+@include assert("is-type($value: ?any): should validate passed params", (
+    (is-type) does-not-throw,
+    (is-type, null, null, null) does-not-throw,
+));

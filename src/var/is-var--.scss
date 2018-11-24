@@ -1,0 +1,7 @@
+@import "../string/is-string--";
+@import "$vars--";
+
+/// @ignore
+@function is-var--($value, $other...) {
+  @return is-string--($value) and map-has-key($vars--, $value);
+}

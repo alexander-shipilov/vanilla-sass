@@ -1,0 +1,36 @@
+@import "../--";
+@import "../type/is-type-of--";
+@import "../type/custom--";
+@import "const--";
+
+@function const-value--($type, $value, $other...) {
+  @debug $type, $value;
+
+  @if (not is-type-of--($type, $value)) {
+    @return throw("Invalid variable value. Expected value of #{ debug-type($type) }, instead given #{ debug-value($value) }", "TypeError");
+  }
+
+  @return true;
+}
+
+/// Creates a constant variable
+/// @group var
+///
+/// @param { type } $type
+/// @param { $type } $value
+/// @return { var }
+///
+/// @example
+///
+///   @debug const(); //
+///
+@function const($type: --required(), $value: --required(), $other...) {
+  @return --private(const, $type, $value);
+}
+
+/// @ignore
+@function --const($type, $other...) {
+  @debug is-function(match--);
+
+  @return var const ("type": type --required(), "value": custom--((const-value1--, $type), "$type") --required());
+}

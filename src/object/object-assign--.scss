@@ -1,0 +1,5 @@
+/// @group object
+/// @see object-assign
+@function object-assign--($object, $sources...) {
+  @return array-reduce--(func-pipe--(object-map-values--, func-pipe--(object-set--)), $object);
+}

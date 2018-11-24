@@ -1,0 +1,10 @@
+@import "../assert";
+@import "index";
+
+@include assert("context-var-exists($var: string): Checks if variable with the given name exists in current context", (
+  context-var-exists(foo) is-false,
+));
+
+@include assert("context-var-exists($var: string): should validate passed params", (
+    (context-var-exists, null) throws "ArgumentError: Invalid argument `$var` of `context-var-exists($var: string)`. Expected value of string, instead given null",
+));

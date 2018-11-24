@@ -1,0 +1,14 @@
+@import "../func/func-call--";
+@import "--check";
+
+/// @ignore
+@function --private($func, $args...) {
+  $func-def: func-call--("--#{ $func }", $args...);
+  $is-valid: --check($func-def, $args...);
+
+  @if ($is-valid == null) {
+    @return $is-valid;
+  }
+
+  @return func-call--("#{ $func }--", $args...);
+}

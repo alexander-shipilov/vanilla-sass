@@ -1,0 +1,20 @@
+@import "is-array--";
+@import "to-list--";
+@import "array-push--";
+
+/// @group array
+/// @access private
+/// @see array-concat
+@function array-concat--($array, $values...) {
+  $next-array: to-list--($array);
+
+  @each $value in $values {
+    @if (is-array--($value)) {
+      $next-array: join($next-array, $value);
+    } @else {
+      $next-array: array-push--($next-array, $value);
+    }
+  }
+
+  @return $next-array;
+}

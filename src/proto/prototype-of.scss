@@ -1,0 +1,17 @@
+@import "../--";
+@import "prototype-of--";
+
+/// Returns a prototype of the passed value (or null)
+/// @group proto
+///
+/// @param { ?any } $value [--required()]
+/// @return { ?prototype }
+///
+/// @example
+///
+///   @debug prototype-of(); //
+///
+@function prototype-of($value: --required(), $other...) {
+  @return --private(prototype-of, $value);
+}
+

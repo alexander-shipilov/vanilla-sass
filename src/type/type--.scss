@@ -1,0 +1,14 @@
+@import "../--/--required";
+@import "../proto/prototype--";
+@import "../proto/extends--";
+@import "$type--";
+
+/// @ignore
+@function --type($other...) {
+  @return constructor type ("constructor": callable --required(), "name": "?string" null);
+}
+
+/// @ignore
+@function type--($constructor: --required(), $name: null, $other...) {
+  @return extends--(prototype--($constructor, $name), $type--);
+}

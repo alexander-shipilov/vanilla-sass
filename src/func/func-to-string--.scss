@@ -1,0 +1,9 @@
+@import "../core/to-string";
+@import "../array/array-join--";
+@import "../array/array-map--";
+@import "func-name--";
+@import "func-args--";
+
+@function func-to-string--($callable) {
+  @return "#{ func-name--($callable) }(#{ array-join--(array-map--(func-args--($callable), to-string), ", ") })";
+}

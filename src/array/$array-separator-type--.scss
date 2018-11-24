@@ -1,0 +1,7 @@
+@import "../type/one-of--";
+@import "../type/value--";
+
+/// Array separator type
+/// @group array
+/// @access private
+$array-separator-type--: one-of--((value--(comma), value--(space)));

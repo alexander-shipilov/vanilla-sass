@@ -1,0 +1,21 @@
+@import "../assert";
+@import "index";
+
+@include assert("var-get should be a function", (
+  is-function(var-get) is-true,
+));
+
+@include assert("var-get() returns a value assigned to the passed variable", (
+  var-get(const("foo")) equal "foo",
+  var-get(let(string "foo")) equal "foo",
+  var-get(var-set(let(string "foo"), "bar")) equal "bar",
+));
+
+@include void() {
+  $var-get: --usage(--var-get());
+
+  @include assert("var-get() should throw if invalid params passed", (
+      (var-get) throws "ArgumentError: Missed argument `$var` of `#{ $var-get }`.",
+      (var-get, null) throws "ArgumentError: Invalid argument `$var` of `#{ $var-get }`. Expected value of var, instead given null",
+  ));
+}

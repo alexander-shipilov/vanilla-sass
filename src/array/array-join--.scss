@@ -1,0 +1,18 @@
+@import "../core/to-string";
+@import "array-length--";
+
+/// @group array
+/// @access private
+/// @see array-join
+@function array-join--($array, $separator: ",", $other...) {
+  $length: array-length--($array);
+  $string: "";
+
+  @if ($length != 0) {
+    @for $index from 1 through $length {
+      $string: "#{ $string }#{ if($index == 1, "", to-string($separator)) }#{ to-string(nth($array, $index)) }";
+    }
+  }
+
+  @return $string;
+}

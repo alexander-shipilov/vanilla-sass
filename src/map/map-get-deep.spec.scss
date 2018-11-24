@@ -1,0 +1,26 @@
+@import "../assert";
+@import "map-get-deep";
+
+$map-get-deep--map: (
+  foo: (bar: (ted: 1)),
+  baz: null
+);
+
+@include assert("map-get-deep: deeply finds the value in a map associated with given keys", (
+  map-get-deep($map-get-deep--map, (foo,)) equal (bar: (ted: 1)),
+  map-get-deep($map-get-deep--map, foo bar) equal (ted: 1),
+  map-get-deep($map-get-deep--map, foo bar ted) equal 1,
+  map-get-deep($map-get-deep--map, (baz,)) is-null,
+));
+
+@include assert("map-get-deep: should return a null if value is not found", (
+  map-get-deep($map-get-deep--map, (zak,)) is-null,
+  map-get-deep($map-get-deep--map, foo baz) is-null,
+  map-get-deep($map-get-deep--map, baz quuz) is-null,
+));
+
+@include assert("map-get-deep: should throw ArgumentError if invalid params passed", (
+    (map-get-deep, 1, (zak,)) throws "ArgumentError: Invalid argument `$map` of `map-get-deep($map: map, $keys: array-of(string))`. Expected value of map, instead given { number } 1",
+    (map-get-deep, (1,), (zak,)) throws "ArgumentError: Invalid argument `$map` of `map-get-deep($map: map, $keys: array-of(string))`. Expected value of map, instead given { list } [1,]",
+    (map-get-deep, $map-get-deep--map, 1) throws "ArgumentError: Invalid argument `$keys` of `map-get-deep($map: map, $keys: array-of(string))`. Expected value of array-of(string), instead given { number } 1",
+));

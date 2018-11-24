@@ -1,0 +1,17 @@
+@import "../func/func-call-private--";
+@import "array-is-bracketed--";
+
+/// Chacks if the passed array has square brackets
+/// @group array
+///
+/// @param { array } $array
+/// @return { bool }
+///
+/// @example
+///
+///   @debug array-is-bracketed(); // 
+///
+@function array-is-bracketed($array: null, $other...) {
+  @return func-call-private--(array-is-bracketed, (array: array $array));
+}
+

@@ -1,0 +1,13 @@
+@import "../assert";
+@import "index";
+
+@include assert("array-is-bracketed($array: array): Chacks if the passed array has square brackets", (
+  array-is-bracketed(1 2 3) is-false,
+  array-is-bracketed(to-list((1, 2, 3), $is-bracketed: true)) is-true,
+));
+
+@include assert("array-is-bracketed($array: array): should validate passed params", (
+    (array-is-bracketed, null) throws "ArgumentError: Invalid argument `$array` of `array-is-bracketed($array: array)`. Expected value of array, instead given null",
+));
+
+

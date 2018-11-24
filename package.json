@@ -3,7 +3,13 @@
   "version": "0.1.0",
   "description": "Sass helpers",
   "devDependencies": {
+    "babel-eslint": "^10.0.1",
     "cross-env": "^5.2.0",
+    "eslint": "^5.9.0",
+    "eslint-config-google": "^0.11.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-flowtype": "^3.2.0",
+    "eslint-plugin-react": "^7.11.1",
     "gulp": "^3.9.1",
     "gulp-sass": "^4.0.1",
     "node-sass": "^4.9.3",
@@ -11,19 +17,25 @@
     "yargs": "^12.0.2"
   },
   "scripts": {
-    "test": "gulp sass-test",
-    "test:assert": "gulp sass-test --src src/lib/assert",
-    "test:constructor": "gulp sass-test --src src/lib/constructor",
-    "test:core": "gulp sass-test --src src/lib/core",
-    "test:debug": "gulp sass-test --src src/lib/debug",
-    "test:func": "gulp sass-test --src src/lib/func",
-    "test:list": "gulp sass-test --src src/lib/list",
-    "test:map": "gulp sass-test --src src/lib/map",
-    "test:object": "gulp sass-test --src src/lib/object",
-    "test:string": "gulp sass-test --src src/lib/string",
-    "test:symbol": "gulp sass-test --src src/lib/symbol",
-    "test:types": "gulp sass-test --src src/lib/types",
-    "test:var": "gulp sass-test --src src/lib/var"
+    "test": "gulp sass-test --src src",
+    "test:lib": "cross-env gulp sass-test --src src",
+    "test:array": "gulp sass-test --src src/array",
+    "test:assert": "gulp sass-test --src src/assert",
+    "test:bool": "gulp sass-test --src src/bool",
+    "test:constructor": "gulp sass-test --src src/constructor",
+    "test:context": "gulp sass-test --src src/context",
+    "test:core": "gulp sass-test --src src/core",
+    "test:debug": "gulp sass-test --src src/debug",
+    "test:error": "gulp sass-test --src src/error",
+    "test:func": "gulp sass-test --src src/func",
+    "test:math": "gulp sass-test --src src/math",
+    "test:number": "gulp sass-test --src src/number",
+    "test:object": "gulp sass-test --src src/object",
+    "test:spy": "gulp sass-test --src src/spy",
+    "test:string": "gulp sass-test --src src/string",
+    "test:symbol": "gulp sass-test --src src/symbol",
+    "test:type": "gulp sass-test --src src/type",
+    "test:var": "gulp sass-test --src src/var"
   },
   "repository": {
     "type": "git",
@@ -39,5 +51,5 @@
     "url": "https://github.com/alexander-shipilov/vanilla-sass/issues"
   },
   "homepage": "https://github.com/alexander-shipilov/vanilla-sass#readme",
-  "false": { }
+  "false": {}
 }

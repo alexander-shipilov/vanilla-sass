@@ -1,6 +1,0 @@
-@import "../func/func-call-unsafe--";
-@import "list-map--";
-
-@function list-map($list, $func, $args...) {
-    @return func-call-unsafe--(list-map, (list: list $list, func: callable $func));
-}

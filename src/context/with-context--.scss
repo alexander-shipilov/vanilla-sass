@@ -1,0 +1,16 @@
+@import "../func/func-call--";
+@import "context-create--";
+@import "context-destroy--";
+
+/// @group context
+/// @access private
+/// @see with
+@function with-context--($vars, $callback, $args...) {
+  $context-id: context-create--($vars);
+
+  $result: func-call--($callback, $args...);
+
+  $context-id: context-destroy--();
+
+  @return $result;
+}

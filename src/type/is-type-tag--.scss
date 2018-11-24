@@ -1,0 +1,21 @@
+@import "../array/array-nth--";
+@import "../string/is-string--";
+@import "../string/str-starts-with";
+@import "$type-tags--";
+
+/// @group types
+/// @access private
+/// @see is-type-tag
+@function is-type-tag--($value: null, $other...) {
+  $is-type-tag: false;
+
+  @if (is-string--($value)) {
+    @if (str-starts-with($value, "?")) {
+      $value: str-slice($value, 2);
+    }
+
+    $is-type-tag: index($type-tags--, $value) != null;
+  }
+
+  @return $is-type-tag;
+}

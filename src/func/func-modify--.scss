@@ -1,0 +1,17 @@
+@import "func-apply--";
+@import "func-args--";
+@import "func-call--";
+
+/// @group func
+/// @access private
+@function --func-modify($func, $callback, $callback-args, $args...) {
+  $args: join(func-args--($func), $args...);
+
+  @return func-apply--($func, func-call--($callback, $args, $callback-args...));
+}
+
+/// @group func
+/// @see func-modify
+@function func-modify--($func, $callback, $args...) {
+  @return (--func-modify, $func, $callback, $args);
+}

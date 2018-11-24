@@ -1,0 +1,12 @@
+@import "../assert";
+@import "array-separator-set";
+
+@include assert("array-separator-set($array: array, $separator: one-of({ string } comma, { string } space)): Sets array separator", (
+  list-separator(array-separator-set(1 2 3, comma)) equal comma,
+  list-separator(array-separator-set((1, 2, 3), space)) equal space,
+));
+
+@include assert("array-separator-set($array: array, $separator: one-of({ string } comma, { string } space)): should validate passed params", (
+    (array-separator-set, null) throws "ArgumentError: Invalid argument `$array` of `array-separator-set($array: array, $separator: one-of({ string } comma, { string } space))`. Expected value of array, instead given null",
+    (array-separator-set, (), null) throws "ArgumentError: Invalid argument `$separator` of `array-separator-set($array: array, $separator: one-of({ string } comma, { string } space))`. Expected value of one-of({ string } comma, { string } space), instead given null",
+));

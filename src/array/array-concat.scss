@@ -1,0 +1,20 @@
+@import "../func/func-call-private--";
+@import "array-concat--";
+
+/// Merges two or more arrays.
+/// @group array
+///
+/// @param { array } $array
+/// @param { arglist } $values...
+/// @return { list }
+///
+/// @example
+///
+///   @debug array-concat(); // 
+///
+@function array-concat($array: null, $values...) {
+  @return func-call-private--(array-concat, (array: array $array, "values...": arglist $values));
+}
+
+
+

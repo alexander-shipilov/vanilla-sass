@@ -1,0 +1,23 @@
+@import "../assert";
+@import "is-symbol";
+@import "symbol";
+@import "symbol-for";
+
+@include assert("is-symbol($value: ?any): returns true if the passed value is a symbol", (
+  is-symbol(symbol(test)) is-true,
+  is-symbol(symbol-for(test)) is-true,
+));
+
+@include assert("is-symbol($value: ?any): returns false if the passed value is not a symbol", (
+  is-symbol(null) is-false,
+  is-symbol(1) is-false,
+  is-symbol(true) is-false,
+  is-symbol("string") is-false,
+  is-symbol(string) is-false,
+  is-symbol((foo: 1)) is-false
+));
+
+@include assert("is-symbol($any: ?any): should validate passed params", (
+    (is-symbol) does-not-throw,
+    (is-symbol, null) does-not-throw,
+));

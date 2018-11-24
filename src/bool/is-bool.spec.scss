@@ -1,0 +1,14 @@
+@import "../assert";
+@import "index";
+
+@include assert("is-bool($value: ?any): Checks if the passed value is bool", (
+  is-bool(true) is-true,
+  is-bool(false) is-true,
+  is-bool(1) is-false,
+  is-bool(0) is-false,
+  is-bool(null) is-false,
+));
+
+@include assert("is-bool($value: ?any): should validate passed params", (
+));
+

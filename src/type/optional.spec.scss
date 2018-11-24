@@ -1,0 +1,37 @@
+@import "../assert/index";
+@import "index";
+
+@include assert("optional should be a function", (
+  is-function(optional) is-true,
+));
+
+@include void() {
+  $optional-string: optional(string);
+
+  @include assert("optional() creates an optional type", (
+    is-type($optional-string) is-true,
+    map-get($optional-string, type) equal "string",
+  ));
+
+  @include assert("to-string(optional())", (
+    to-string(optional(string)) equal "?string",
+    to-string(optional(optional(string))) equal "?string",
+    to-string(optional(object-of(optional(string)))) equal '?object-of(?string)',
+  ));
+
+  @include assert("is-type-of(optional())", (
+    is-type-of($optional-string, null) is-true,
+    is-type-of($optional-string, "foo") is-true,
+    is-type-of($optional-string, "") is-true,
+    is-type-of($optional-string, 1) is-false,
+  ));
+}
+
+@include void() {
+  $optional: --usage(--optional());
+
+  @include assert("optional() should throw if invalid params passed", (
+      (optional) throws "ArgumentError: Missed argument `$type` of `#{ $optional }`.",
+      (optional, 1) throws "ArgumentError: Invalid argument `$type` of `#{ $optional }`. Expected value of type, instead given { number } 1",
+  ));
+}

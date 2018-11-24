@@ -1,0 +1,22 @@
+@import "../func/func-call--";
+@import "to-list--";
+@import "array-is-bracketed--";
+@import "array-length--";
+@import "array-length-set--";
+@import "array-separator--";
+
+/// @group array
+/// @access private
+/// @see array-map
+@function array-map--($array, $callback, $other...) {
+  $next-array: array-length-set--($array, 0);
+  $length: array-length--($array);
+
+  @if ($length != 0) {
+    @for $index from 1 through $length {
+      $next-array: append($next-array, func-call--($callback, nth($array, $index), $index, $array));
+    }
+  }
+
+  @return $next-array;
+}

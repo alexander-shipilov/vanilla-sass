@@ -1,0 +1,16 @@
+@import "../--";
+@import "is-string--";
+
+/// Checks if the passed value is string
+/// @group string
+///
+/// @param { ?any } $value [--required()]
+/// @return { bool }
+///
+/// @example
+///
+///   @debug is-string(); //
+///
+@function is-string($value: --required(), $other...) {
+  @return --private(is-string, $value);
+}

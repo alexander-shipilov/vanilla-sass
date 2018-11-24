@@ -1,0 +1,27 @@
+@import "../assert";
+@import "../func";
+@import "index";
+
+@include assert("array-shift($array: array, $count: integer): Returns a new list without first n elements", (
+  array-shift((1, 2, 3)) equal (2, 3),
+  array-shift((1, 2, 3), 1) equal (2, 3),
+  array-shift((1, 2, 3), 2) equal (3,),
+  array-shift((1, 2, 3), 3) equal (),
+  array-shift((1, 2, 3), 4) equal (),
+  array-shift((1, 2, 3), 0) equal (1, 2, 3),
+  array-shift((1, 2, 3), -1) equal (1, 2, 3),
+));
+
+@include assert("array-pop($array: array, $count: integer): should preserve separator and brackets", (
+  array-is-bracketed(array-shift(1 2)) equal false,
+  array-is-bracketed(array-shift(to-list(1 2, $is-bracketed: true))) equal true,
+  array-is-bracketed(array-shift(to-list(1 2, $is-bracketed: true), 3)) equal true,
+  array-separator(array-shift((1, 2))) equal comma,
+  array-separator(array-shift((1, 2), 3)) equal comma,
+  array-separator(array-shift(1 2)) equal space,
+));
+
+@include assert("array-shift($array: array, $count: integer): should validate passed params", (
+    (array-shift, null) throws "ArgumentError: Invalid argument `$array` of `array-shift($array: array, $count: integer)`. Expected value of array, instead given null",
+    (array-shift, (), null) throws "ArgumentError: Invalid argument `$count` of `array-shift($array: array, $count: integer)`. Expected value of integer, instead given null",
+));

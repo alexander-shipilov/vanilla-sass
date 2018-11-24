@@ -1,0 +1,7 @@
+@import "$vars--";
+@import "$var-value--";
+
+/// @ignore
+@function var-set--($var, $value, $other...) {
+  @return vars-set--($var, map-merge(vars-get--($var), ($var-value--: $value)));
+}

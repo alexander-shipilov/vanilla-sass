@@ -1,0 +1,37 @@
+@import "../assert";
+@import "../func/func-arglist";
+@import "index";
+
+@include assert("to-list($array: array, $separator: ?one-of({ string } comma, { string } space), $is-bracketed: ?bool): Converts the passed array to a list", (
+  type-of(to-list((1, 2))) equal list,
+  to-list((1, 2)) equal (1, 2),
+
+  type-of(to-list(func-arglist(1, 2))) equal list,
+  to-list(func-arglist(1, 2)) equal (1 2),
+
+  type-of(to-list((foo: 1, bar: 2))) equal list,
+  to-list((foo: 1, bar: 2)) equal ((foo 1), (bar 2)),
+));
+
+@include assert("to-list($array: array): should not modify separator and brackets if such params omitted", (
+  array-separator(to-list(1 2)) equal space,
+  array-separator(to-list((1, 2))) equal comma,
+  array-is-bracketed(to-list(to-list(1 2, $is-bracketed: true))) is-true,
+  array-is-bracketed(to-list(to-list(1 2))) is-false,
+));
+
+@include assert("to-list($array: array, $separator: one-of({ string } comma, { string } space)): should modify separator if $separator passed", (
+  array-separator(to-list(1 2, comma)) equal comma,
+  array-separator(to-list((1, 2), space)) equal space,
+));
+
+@include assert("to-list($array: array, $is-bracketed: bool): should modify brackets if $is-brackets passed", (
+  array-is-bracketed(to-list(1 2, $is-bracketed: true)) is-true,
+  array-is-bracketed(to-list(to-list(1 2, $is-bracketed: true), $is-bracketed: false)) is-false,
+));
+
+@include assert("to-list($array: array, $separator: ?one-of({ string } comma, { string } space), $is-bracketed: ?bool): should validate passed params", (
+    (to-list, null) throws "ArgumentError: Invalid argument `$array` of `to-list($array: array, $separator: ?one-of({ string } comma, { string } space), $is-bracketed: ?bool)`. Expected value of array, instead given null",
+    (to-list, (), 1) throws "ArgumentError: Invalid argument `$separator` of `to-list($array: array, $separator: ?one-of({ string } comma, { string } space), $is-bracketed: ?bool)`. Expected value of ?one-of({ string } comma, { string } space), instead given { number } 1",
+    (to-list, (), comma, 1) throws "ArgumentError: Invalid argument `$is-bracketed` of `to-list($array: array, $separator: ?one-of({ string } comma, { string } space), $is-bracketed: ?bool)`. Expected value of ?bool, instead given { number } 1"
+));

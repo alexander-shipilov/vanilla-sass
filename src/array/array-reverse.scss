@@ -1,0 +1,18 @@
+@import "../func/func-call-private--";
+@import "array-reverse--";
+
+/// Reverses an array. The first array element becomes the last, and the last array element becomes the first.
+/// @group array
+///
+/// @param { array } $array
+/// @return { list }
+///
+/// @example
+///
+///   @debug array-reverse(); // 
+///
+@function array-reverse($array: null, $other...) {
+  @return func-call-private--(array-reverse, (array: array $array));
+}
+
+
